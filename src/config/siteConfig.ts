@@ -35,7 +35,7 @@ export const siteConfig: SiteConfig = {
 		// 显示模式："text-icon" 显示图标+文本，"logo" 仅显示Logo
 		mode: "text-icon",
 		// 顶栏标题文本
-		text: "MizukiUI",
+		text: "叶公笔记",
 		// 顶栏标题图标路径，默认使用 public/assets/home/home.webp
 		icon: "assets/home/home.webp",
 		// 网站Logo图片路径
@@ -162,15 +162,14 @@ export const siteConfig: SiteConfig = {
 
 		homeText: {
 			enable: true,
-			title: "わたしの部屋",
+			title: "叶工的自动化学习笔记",
 			switchable: true,
 
 			subtitle: [
-				"特別なことはないけど、君がいると十分です",
-				"今でもあなたは私の光",
-				"君ってさ、知らないうちに私の毎日になってたよ",
-				"君と話すと、なんか毎日がちょっと楽しくなるんだ",
-				"今日はなんでもない日。でも、ちょっとだけいい日",
+				"记录每一次PLC学习与调试",
+	            "从仿真练习走向工程实践",
+	            "问题并不可怕，重要的是找到原因",
+	            "持续学习，持续积累，持续进步",
 			],
 			typewriter: {
 				enable: true, // 启用副标题打字机效果
