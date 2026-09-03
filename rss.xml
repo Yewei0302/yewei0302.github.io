@@ -12,7 +12,7 @@
 &lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;三程序总体结构&quot;&gt;三、程序总体结构&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/b2-pid-temperature-control/#%E4%B8%89%E7%A8%8B%E5%BA%8F%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;本项目由两个核心部分组成：&lt;/p&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;PID控制器&lt;/strong&gt;：根据设定温度与实际温度的偏差，计算加热输出。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;温度仿真对象&lt;/strong&gt;：根据加热输出和环境散热，计算下一时刻的模拟温度。&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;整体闭环关系如下：&lt;/p&gt;&lt;div class=&quot;mermaid-diagram-container&quot;&gt;&lt;div class=&quot;mermaid-wrapper&quot; id=&quot;mermaid-jwpled&quot;&gt;&lt;div class=&quot;mermaid&quot; data-mermaid-code=&quot;flowchart TD
+&lt;/ul&gt;&lt;p&gt;整体闭环关系如下：&lt;/p&gt;&lt;div class=&quot;mermaid-diagram-container&quot;&gt;&lt;div class=&quot;mermaid-wrapper&quot; id=&quot;mermaid-nmpr0o&quot;&gt;&lt;div class=&quot;mermaid&quot; data-mermaid-code=&quot;flowchart TD
     A[温度设定值 SP] --&amp;gt; B[PID_Compact]
     C[模拟实际温度 PV] --&amp;gt; B
     B --&amp;gt; D[加热输出 0%～100%]
