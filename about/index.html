@@ -2059,58 +2059,55 @@ const lastPostDate = "2026-09-03T00:00:00.000Z";
                     bg-[oklch(0.95_0.025_var(--hue))] dark:bg-(--primary)
                     flex items-center justify-center"> 1 </div> </div> </button> </a> </div>  </widget-layout>  </div> </div> </div> </div> </div> <main id="swup-container" class="transition-swup-fade overflow-hidden min-w-0 w-full col-span-1 row-start-1 row-end-2 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 transition-main" data-astro-cid-m6cpsp63> <div id="content-wrapper" class="onload-animation transition-leaving" data-astro-cid-m6cpsp63> <div id="page-overlay-data" data-title="关于我们" data-date data-category data-words data-is-post="false" data-is-home="false" data-wallpaper-mode="banner" class="hidden" data-astro-cid-m6cpsp63></div>   <script type="module" src="/_astro/about.astro_astro_type_script_index_0_lang.Dy_ZfsQ8.js"></script><div class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32"> <div class="card-base z-10 px-9 py-6 relative w-full"> <div class="flex flex-col items-start justify-center mb-8 "> <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
 			before:w-1 before:h-8 before:rounded-md before:bg-(--primary)
-			before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4"> 关于我们 </h1>  </div> <!-- 从MD文件读取的内容 --> <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md mt-2"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <p>This website is built with the <strong>Astro</strong> framework using the <a href="https://github.com/LyraVoid/Mizuki" data-content-link-kind="external" target="_blank" rel="nofollow noopener noreferrer">Mizuki</a> theme.</p>
-<a id="GC8cminf-card" class="card-github fetch-waiting no-styling" href="https://github.com/LyraVoid/Mizuki" target="_blank" repo="LyraVoid/Mizuki"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GC8cminf-avatar" class="gc-avatar"></div><div class="gc-user">LyraVoid</div></div><div class="gc-divider">/</div><div class="gc-repo">Mizuki</div></div><div class="github-logo"></div></div><div id="GC8cminf-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GC8cminf-stars" class="gc-stars">00K</div><div id="GC8cminf-forks" class="gc-forks">0K</div><div id="GC8cminf-license" class="gc-license">0K</div><span id="GC8cminf-language" class="gc-language">Waiting...</span></div><script id="GC8cminf-script" type="text/javascript" defer>
-      fetch('https://api.github.com/repos/LyraVoid/Mizuki', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
-        document.getElementById('GC8cminf-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
-        document.getElementById('GC8cminf-language').innerText = data.language;
-        document.getElementById('GC8cminf-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
-        document.getElementById('GC8cminf-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
-        const avatarEl = document.getElementById('GC8cminf-avatar');
+			before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4"> 关于我们 </h1>  </div> <!-- 从MD文件读取的内容 --> <div data-pagefind-body class="prose dark:prose-invert prose-base !max-w-none custom-md mt-2"> <!--<div class="prose dark:prose-invert max-w-none custom-md">--> <!--<div class="max-w-none custom-md">-->  <section class="markdown-section"><h2 id="-关于我">👋 关于我<a class="anchor" href="#-关于我"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>你好，我是叶工，自动化专业毕业，目前从事电气技术相关工作。</p><p>日常工作主要涉及生产设备维护、电气故障处理和设备技术改造。工作之外，我正在系统学习PLC编程、自动化控制和数字化仿真，希望逐步从设备维护走向更完整的自动化系统设计与集成。</p></section>
+<section class="markdown-section"><h2 id="-当前学习方向">🔧 当前学习方向<a class="anchor" href="#-当前学习方向"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><ul>
+<li>西门子S7-1200与S7-1500 PLC</li>
+<li>TIA Portal V19</li>
+<li>LAD梯形图编程</li>
+<li>PLCSIM虚拟调试</li>
+<li>模拟量采集与工程量转换</li>
+<li>PID闭环控制</li>
+<li>WinCC与HMI画面</li>
+<li>工业通信与自动化系统集成</li>
+</ul><p>目前没有完整的实体实验设备，因此本站大部分项目采用PLC仿真完成。我会尽量记录每个项目的控制需求、程序逻辑、变量规划、LAD程序、调试过程和错误复盘。</p></section>
+<section class="markdown-section"><h2 id="-学习进度">📚 学习进度<a class="anchor" href="#-学习进度"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>目前正在按照项目阶梯逐步练习：</p><ol>
+<li>开关量启停、自锁与互锁控制</li>
+<li>模拟量采集及温度、液位工程量转换</li>
+<li>S7-1500与PID_Compact恒温闭环控制</li>
+<li>温度对象仿真FB设计</li>
+<li>HMI监控与趋势曲线</li>
+<li>后续继续学习工业通信和虚拟调试</li>
+</ol><p>我更关注的不只是“把程序写出来”，还希望理解每一个程序段为什么存在、各变量如何连接，以及怎样从控制需求一步步规划出完整程序。</p></section>
+<section class="markdown-section"><h2 id="-关于本站">📝 关于本站<a class="anchor" href="#-关于本站"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>这个博客用于记录我的PLC、电气工程和自动化项目学习过程，包括：</p><ul>
+<li>PLC项目练习</li>
+<li>LAD程序与变量说明</li>
+<li>仿真调试记录</li>
+<li>故障现象与解决过程</li>
+<li>电气元件和硬件选型</li>
+<li>自动化学习笔记</li>
+</ul><p>这些内容主要是个人学习、实践和复盘记录。部分文章可能会随着理解加深而继续修正和完善。</p><blockquote>
+<p>程序并不一定最难，真正困难的是如何从工艺需求中想清楚控制逻辑。</p>
+</blockquote></section>
+<section class="markdown-section"><h2 id="-联系与主页">🔗 联系与主页<a class="anchor" href="#-联系与主页"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><ul>
+<li>GitHub：<a href="https://github.com/Yewei0302" data-content-link-kind="external" target="_blank" rel="nofollow noopener noreferrer">Yewei0302</a></li>
+</ul><a id="GC4my4d3-card" class="card-github fetch-waiting no-styling" href="https://github.com/Yewei0302/yewei0302.github.io" target="_blank" repo="Yewei0302/yewei0302.github.io"><div class="gc-titlebar"><div class="gc-titlebar-left"><div class="gc-owner"><div id="GC4my4d3-avatar" class="gc-avatar"></div><div class="gc-user">Yewei0302</div></div><div class="gc-divider">/</div><div class="gc-repo">yewei0302.github.io</div></div><div class="github-logo"></div></div><div id="GC4my4d3-description" class="gc-description">Waiting for api.github.com...</div><div class="gc-infobar"><div id="GC4my4d3-stars" class="gc-stars">00K</div><div id="GC4my4d3-forks" class="gc-forks">0K</div><div id="GC4my4d3-license" class="gc-license">0K</div><span id="GC4my4d3-language" class="gc-language">Waiting...</span></div><script id="GC4my4d3-script" type="text/javascript" defer>
+      fetch('https://api.github.com/repos/Yewei0302/yewei0302.github.io', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
+        document.getElementById('GC4my4d3-description').innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') || "Description not set";
+        document.getElementById('GC4my4d3-language').innerText = data.language;
+        document.getElementById('GC4my4d3-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll(" ", '');
+        document.getElementById('GC4my4d3-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll(" ", '');
+        const avatarEl = document.getElementById('GC4my4d3-avatar');
         avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')';
         avatarEl.style.backgroundColor = 'transparent';
-        document.getElementById('GC8cminf-license').innerText = data.license?.spdx_id || "no-license";
-        document.getElementById('GC8cminf-card').classList.remove("fetch-waiting");
-        console.log("[GITHUB-CARD] Loaded card for LyraVoid/Mizuki | GC8cminf.")
+        document.getElementById('GC4my4d3-license').innerText = data.license?.spdx_id || "no-license";
+        document.getElementById('GC4my4d3-card').classList.remove("fetch-waiting");
+        console.log("[GITHUB-CARD] Loaded card for Yewei0302/yewei0302.github.io | GC4my4d3.")
       }).catch(err => {
-        const c = document.getElementById('GC8cminf-card');
+        const c = document.getElementById('GC4my4d3-card');
         c?.classList.add("fetch-error");
-        console.warn("[GITHUB-CARD] (Error) Loading card for LyraVoid/Mizuki | GC8cminf.")
+        console.warn("[GITHUB-CARD] (Error) Loading card for Yewei0302/yewei0302.github.io | GC4my4d3.")
       })
-    </script></a>
-<section class="markdown-section"><h2 id="-theme-features">🌟 Theme Features<a class="anchor" href="#-theme-features"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><section class="markdown-section"><h3 id="-design--user-experience">🎨 Design &#x26; User Experience<a class="anchor" href="#-design--user-experience"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ul>
-<li><strong>Modern &#x26; Elegant Design</strong> - Clean, minimalist interface with beautiful typography</li>
-<li><strong>Fully Responsive</strong> - Optimized for all devices from mobile to desktop</li>
-<li><strong>Dark/Light Mode</strong> - Automatic theme switching with smooth transitions</li>
-<li><strong>Beautiful Typography</strong> - Enhanced readability with JetBrains Mono font</li>
-<li><strong>Smooth Animations</strong> - Fluid page transitions and interactive elements</li>
-</ul></section><section class="markdown-section"><h3 id="-content--search">🔍 Content &#x26; Search<a class="anchor" href="#-content--search"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ul>
-<li><strong>Advanced Search</strong> - Powered by <a href="https://pagefind.app/" data-content-link-kind="external" target="_blank" rel="nofollow noopener noreferrer">Pagefind</a> for fast, accurate results</li>
-<li><strong>Enhanced Markdown</strong> - Extended syntax with code highlighting and math support</li>
-<li><strong>Interactive Table of Contents</strong> - Auto-scroll navigation for long articles</li>
-<li><strong>RSS Feed Generation</strong> - Stay updated with automatic feed generation</li>
-<li><strong>Reading Time Estimation</strong> - Know how long articles take to read</li>
-<li><strong>Post Categorization</strong> - Organize content with tags and categories</li>
-</ul></section><section class="markdown-section"><h3 id="-special-pages">📱 Special Pages<a class="anchor" href="#-special-pages"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ul>
-<li><strong>Anime Tracking Page</strong> - Track your anime watching progress with ratings</li>
-<li><strong>Friends Links Page</strong> - Showcase friend websites with beautiful cards</li>
-<li><strong>Diary/Moments Page</strong> - Share life moments like social media posts</li>
-<li><strong>Archive Page</strong> - Organized timeline view of all posts</li>
-<li><strong>About Page</strong> - Customizable personal introduction (this page!)</li>
-</ul></section><section class="markdown-section"><h3 id="-technical-features">🛠 Technical Features<a class="anchor" href="#-technical-features"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ul>
-<li><strong>Enhanced Code Blocks</strong> - Powered by <a href="https://expressive-code.com/" data-content-link-kind="external" target="_blank" rel="nofollow noopener noreferrer">Expressive Code</a></li>
-<li><strong>Math Support</strong> - LaTeX rendering with KaTeX for mathematical expressions</li>
-<li><strong>Image Optimization</strong> - PhotoSwipe gallery with lazy loading</li>
-<li><strong>SEO Optimized</strong> - Built-in sitemap and meta tags for better search visibility</li>
-<li><strong>Performance Optimized</strong> - Fast loading with caching and optimization</li>
-<li><strong>Comment System Ready</strong> - Integration support for Twikoo comments</li>
-</ul></section><section class="markdown-section"><h3 id="-advanced-markdown-features">🎯 Advanced Markdown Features<a class="anchor" href="#-advanced-markdown-features"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h3><ul>
-<li><strong>Callouts &#x26; Admonitions</strong> - Beautiful info boxes with <code>> [!NOTE]</code>, <code>> [!TIP]</code>, <code>> [!WARNING]</code></li>
-<li><strong>Mathematical Equations</strong> - Write LaTeX math with <code>$inline$</code> and <code>$$block$$</code> syntax</li>
-<li><strong>GitHub Cards</strong> - Embed repository cards with <code>::github{repo="user/repo"}</code></li>
-<li><strong>Syntax Highlighting</strong> - Advanced code highlighting with line numbers</li>
-<li><strong>Copy Code Buttons</strong> - Easy code copying functionality</li>
-</ul><hr><p><em>Built with ❤️ using Astro and inspired by modern web design principles.</em></p></section></section>  </div> <script type="module">document.addEventListener("click",function(l){const o=l.target;if(o&&o.classList.contains("copy-btn")){const c=o.parentElement?.querySelector("code");let i="";if(c){const t=c.querySelectorAll("span.line");if(t.length>0){const e=[];for(let n=0;n<t.length;n++){const s=t[n].textContent||"";e.push(s)}i=e.join(`
+    </script></a><p>欢迎交流PLC、电气工程与自动化相关的学习问题。</p></section>  </div> <script type="module">document.addEventListener("click",function(l){const o=l.target;if(o&&o.classList.contains("copy-btn")){const c=o.parentElement?.querySelector("code");let i="";if(c){const t=c.querySelectorAll("span.line");if(t.length>0){const e=[];for(let n=0;n<t.length;n++){const s=t[n].textContent||"";e.push(s)}i=e.join(`
 `)}else{const e=c.querySelectorAll(".code:not(summary *)");if(e.length>0){const n=[];for(let s=0;s<e.length;s++){const r=e[s].textContent||"";n.push(r)}i=n.join(`
 `)}else i=c.textContent||""}}i=i.replace(/\n\n\n+/g,function(t){const e=t.length-1;let n;return e%2===0?n=e/2:n=Math.floor((e+1)/2),n<1&&(n=1),`
 `.repeat(n+1)}),(async t=>{if(!navigator.clipboard?.writeText)throw new Error("Clipboard API 不可用");await navigator.clipboard.writeText(t)})(i).then(()=>{const t=o.getAttribute("data-timeout-id");t&&clearTimeout(parseInt(t)),o.classList.add("success");const e=setTimeout(()=>{o.classList.remove("success")},1e3);o.setAttribute("data-timeout-id",e.toString())}).catch(t=>{console.error("复制失败:",t)})}});</script> </div> </div> <div class="mt-4">  </div>  <div class="footer col-span-full onload-animation hidden lg:block" data-astro-cid-m6cpsp63> <!--<div class="border-t border-[var(--primary)] mx-16 border-dashed py-8 max-w-[var(--page-width)] flex flex-col items-center justify-center px-6">--> <div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div> <!--<div class="transition bg-[oklch(92%_0.01_var(--hue))] dark:bg-black rounded-2xl py-8 mt-4 mb-8 flex flex-col items-center justify-center px-6">--> <div class="transition border-dashed border-[oklch(85%_0.01_var(--hue))] dark:border-white/15 rounded-2xl mb-12 flex flex-col items-center justify-center px-6"> <div class="transition text-50 text-sm text-center">  <div class="mb-2">

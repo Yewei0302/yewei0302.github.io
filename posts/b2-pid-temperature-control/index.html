@@ -2165,7 +2165,7 @@ const visitsText = "访问次数";
 <section class="markdown-section"><h2 id="三程序总体结构">三、程序总体结构<a class="anchor" href="#三程序总体结构"><span class="anchor-icon" data-pagefind-ignore="">#</span></a></h2><p>本项目由两个核心部分组成：</p><ul>
 <li><strong>PID控制器</strong>：根据设定温度与实际温度的偏差，计算加热输出。</li>
 <li><strong>温度仿真对象</strong>：根据加热输出和环境散热，计算下一时刻的模拟温度。</li>
-</ul><p>整体闭环关系如下：</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-7p27j7"><div class="mermaid" data-mermaid-code="flowchart TD
+</ul><p>整体闭环关系如下：</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-jwpled"><div class="mermaid" data-mermaid-code="flowchart TD
     A[温度设定值 SP] --> B[PID_Compact]
     C[模拟实际温度 PV] --> B
     B --> D[加热输出 0%～100%]
