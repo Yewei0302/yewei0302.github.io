@@ -27,7 +27,7 @@
 <section class="markdown-section"><h2 id="三程序总体结构">三、程序总体结构<a class="anchor" href="https://yewei0302.github.io/posts/b2-pid-temperature-control/#%E4%B8%89%E7%A8%8B%E5%BA%8F%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>本项目由两个核心部分组成：</p><ul>
 <li><strong>PID控制器</strong>：根据设定温度与实际温度的偏差，计算加热输出。</li>
 <li><strong>温度仿真对象</strong>：根据加热输出和环境散热，计算下一时刻的模拟温度。</li>
-</ul><p>整体闭环关系如下：</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-b07xoz"><div class="mermaid" data-mermaid-code="flowchart TD
+</ul><p>整体闭环关系如下：</p><div class="mermaid-diagram-container"><div class="mermaid-wrapper" id="mermaid-wriqx1"><div class="mermaid" data-mermaid-code="flowchart TD
     A[温度设定值 SP] --&gt; B[PID_Compact]
     C[模拟实际温度 PV] --&gt; B
     B --&gt; D[加热输出 0%～100%]
