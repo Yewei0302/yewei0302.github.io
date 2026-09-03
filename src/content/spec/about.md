@@ -1,49 +1,52 @@
+## 👋 关于我
 
-This website is built with the **Astro** framework using the [Mizuki](https://github.com/LyraVoid/Mizuki) theme.
+你好，我是叶工，自动化专业毕业，目前从事电气技术相关工作。
 
-::github{repo="LyraVoid/Mizuki"}
+日常工作主要涉及生产设备维护、电气故障处理和设备技术改造。工作之外，我正在系统学习PLC编程、自动化控制和数字化仿真，希望逐步从设备维护走向更完整的自动化系统设计与集成。
 
-## 🌟 Theme Features
+## 🔧 当前学习方向
 
-### 🎨 Design & User Experience
-- **Modern & Elegant Design** - Clean, minimalist interface with beautiful typography
-- **Fully Responsive** - Optimized for all devices from mobile to desktop
-- **Dark/Light Mode** - Automatic theme switching with smooth transitions
-- **Beautiful Typography** - Enhanced readability with JetBrains Mono font
-- **Smooth Animations** - Fluid page transitions and interactive elements
+- 西门子S7-1200与S7-1500 PLC
+- TIA Portal V19
+- LAD梯形图编程
+- PLCSIM虚拟调试
+- 模拟量采集与工程量转换
+- PID闭环控制
+- WinCC与HMI画面
+- 工业通信与自动化系统集成
 
-### 🔍 Content & Search
-- **Advanced Search** - Powered by [Pagefind](https://pagefind.app/) for fast, accurate results
-- **Enhanced Markdown** - Extended syntax with code highlighting and math support
-- **Interactive Table of Contents** - Auto-scroll navigation for long articles
-- **RSS Feed Generation** - Stay updated with automatic feed generation
-- **Reading Time Estimation** - Know how long articles take to read
-- **Post Categorization** - Organize content with tags and categories
+目前没有完整的实体实验设备，因此本站大部分项目采用PLC仿真完成。我会尽量记录每个项目的控制需求、程序逻辑、变量规划、LAD程序、调试过程和错误复盘。
 
+## 📚 学习进度
 
+目前正在按照项目阶梯逐步练习：
 
-### 📱 Special Pages
-- **Anime Tracking Page** - Track your anime watching progress with ratings
-- **Friends Links Page** - Showcase friend websites with beautiful cards
-- **Diary/Moments Page** - Share life moments like social media posts
-- **Archive Page** - Organized timeline view of all posts
-- **About Page** - Customizable personal introduction (this page!)
+1. 开关量启停、自锁与互锁控制
+2. 模拟量采集及温度、液位工程量转换
+3. S7-1500与PID_Compact恒温闭环控制
+4. 温度对象仿真FB设计
+5. HMI监控与趋势曲线
+6. 后续继续学习工业通信和虚拟调试
 
-### 🛠 Technical Features
-- **Enhanced Code Blocks** - Powered by [Expressive Code](https://expressive-code.com/)
-- **Math Support** - LaTeX rendering with KaTeX for mathematical expressions
-- **Image Optimization** - PhotoSwipe gallery with lazy loading
-- **SEO Optimized** - Built-in sitemap and meta tags for better search visibility
-- **Performance Optimized** - Fast loading with caching and optimization
-- **Comment System Ready** - Integration support for Twikoo comments
+我更关注的不只是“把程序写出来”，还希望理解每一个程序段为什么存在、各变量如何连接，以及怎样从控制需求一步步规划出完整程序。
 
-### 🎯 Advanced Markdown Features
-- **Callouts & Admonitions** - Beautiful info boxes with `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`
-- **Mathematical Equations** - Write LaTeX math with `$inline$` and `$$block$$` syntax
-- **GitHub Cards** - Embed repository cards with `::github{repo="user/repo"}`
-- **Syntax Highlighting** - Advanced code highlighting with line numbers
-- **Copy Code Buttons** - Easy code copying functionality
+## 📝 关于本站
 
----
+这个博客用于记录我的PLC、电气工程和自动化项目学习过程，包括：
 
-*Built with ❤️ using Astro and inspired by modern web design principles.*
+- PLC项目练习
+- LAD程序与变量说明
+- 仿真调试记录
+- 故障现象与解决过程
+- 电气元件和硬件选型
+- 自动化学习笔记
+
+这些内容主要是个人学习、实践和复盘记录。部分文章可能会随着理解加深而继续修正和完善。
+
+> 程序并不一定最难，真正困难的是如何从工艺需求中想清楚控制逻辑。
+
+## 🔗 联系与主页
+
+- GitHub：[Yewei0302](https://github.com/Yewei0302)
+
+欢迎交流PLC、电气工程与自动化相关的学习问题。
