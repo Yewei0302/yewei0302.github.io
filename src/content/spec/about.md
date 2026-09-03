@@ -1,4 +1,3 @@
-
 ## 👋 关于我
 
 你好，我是叶工，自动化专业毕业，目前从事电气技术相关工作。
@@ -49,5 +48,7 @@
 ## 🔗 联系与主页
 
 - GitHub：[Yewei0302](https://github.com/Yewei0302)
+
+::github{repo="Yewei0302/yewei0302.github.io"}
 
 欢迎交流PLC、电气工程与自动化相关的学习问题。
