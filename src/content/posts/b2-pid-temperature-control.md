@@ -3,7 +3,6 @@ author: 叶工
 category: PLC项目练习
 description: 在无实体硬件条件下，使用TIA Portal V19、S7-1500、PLCSIM与WinCC RT Advanced完成房间恒温PID闭环、安全联锁、趋势和报警系统。
 draft: false
-image: /images/posts/b2-room-temp-pid/51.webp
 lang: zh-CN
 published: 2026-09-08
 tags:
@@ -1519,7 +1518,7 @@ B2_RoomTempPID项目归档
 
 ------------------------------------------------------------------------
 
-## 15. 项目总结与下一阶段
+## 15. 项目总结
 
 ### 15.1 本项目已掌握的能力
 
@@ -1534,23 +1533,3 @@ B2_RoomTempPID项目归档
 - PLC/HMI 联合仿真（网络组态、HMI 连接、联合调试）
 - 项目归档（`.zap19` 归档与重新打开验证）
 
-### 15.2 下一阶段可以衔接的方向
-
-- 电机启停与正反转控制
-- 变频器速度控制
-- Factory I/O 联动仿真
-- NX MCD 机械仿真
-- 伺服定位与运动控制
-
-------------------------------------------------------------------------
-
-## 附录 A　待人工确认项
-
-以下内容无法从现有项目截图中完全确认，整理时未做臆测，列出供后续核对：
-
-1.  `xPIDResetCmd` 的完整注释（DB 截图中被截断为"TRUE 时 PID 处于手动…"，完整表述待核对）。
-2.  HMI 变量表总数：截图标题栏显示 `HMI_B2_Tags [14]`，但表格中可见 15 行变量（含 `xSimResetCmd`），后期又新增 `wHMIAlarmTrigger`，最终总数待核对。
-3.  报警缓冲区大小、报警记录（日志）等长期存储设置未在截图中出现，是否配置待确认。
-4.  趋势"趋势值 100"的确切含义（推断为约 100 个采样点）。
-5.  归档恢复时使用的目标目录名称。
-6.  早期文字中出现、但未出现在最终 DB 截图中的变量：`rRoomTempLowLimit`、`xPIDActiveSts`、`rTempRiseRate`、`rTempLossRate`（其中后两者与 FB 临时变量 `rHeatRate`、`rHeatLossRate` 含义相同，疑为早期命名）。
