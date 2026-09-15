@@ -361,7 +361,206 @@
 &lt;li&gt;无PID故障；&lt;/li&gt;
 &lt;li&gt;无持续振荡。&lt;/li&gt;
 &lt;/ul&gt;&lt;/section&gt;
-&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;总结&quot;&gt;总结&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/b3_pid%E8%87%AA%E6%95%B4%E5%AE%9A%E6%81%92%E6%B8%A9%E7%B3%BB%E7%BB%9F/#%E6%80%BB%E7%BB%93&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;通过B3项目，我不再只是让PID_Compact“运行起来”，而是完整经历了被控对象验证、预调节、精确调节、参数上传和阶跃响应验收。&lt;/p&gt;&lt;p&gt;这次最大的收获是：PID自整定并不是按一下按钮就结束。开始前必须确认模式、过程稳定性、设定值与过程值偏差以及输入输出范围；完成后还必须上传参数，并通过新的阶跃测试判断整定结果是否真正有效。&lt;/p&gt;&lt;p&gt;参考阅读：&lt;a href=&quot;https://m.gkong.com/bbs/508846.ashx&quot; data-content-link-kind=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;PLC工程师必看！PID参数自整定，控制效果轻松翻倍&lt;/a&gt;&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>B2房间恒温PID控制系统：S7-1500、PID_Compact与WinCC联合仿真</title><link>https://yewei0302.github.io/posts/b2-pid-temperature-control/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/b2-pid-temperature-control/</guid><description>在无实体硬件条件下，使用TIA Portal V19、S7-1500、PLCSIM与WinCC RT Advanced完成房间恒温PID闭环、安全联锁、趋势和报警系统。</description><pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;总结&quot;&gt;总结&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/b3_pid%E8%87%AA%E6%95%B4%E5%AE%9A%E6%81%92%E6%B8%A9%E7%B3%BB%E7%BB%9F/#%E6%80%BB%E7%BB%93&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;通过B3项目，我不再只是让PID_Compact“运行起来”，而是完整经历了被控对象验证、预调节、精确调节、参数上传和阶跃响应验收。&lt;/p&gt;&lt;p&gt;这次最大的收获是：PID自整定并不是按一下按钮就结束。开始前必须确认模式、过程稳定性、设定值与过程值偏差以及输入输出范围；完成后还必须上传参数，并通过新的阶跃测试判断整定结果是否真正有效。&lt;/p&gt;&lt;p&gt;参考阅读：&lt;a href=&quot;https://m.gkong.com/bbs/508846.ashx&quot; data-content-link-kind=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;PLC工程师必看！PID参数自整定，控制效果轻松翻倍&lt;/a&gt;&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>C1｜S7-1500 LAD交通灯状态机：步序循环、夜间闪烁与急停</title><link>https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/</guid><description>使用TIA Portal、S7-1500和标准PLCSIM，以LAD梯形图完成红绿黄步序循环、夜间黄灯闪烁、急停处理和防自动重启。</description><pubDate>Tue, 15 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;项目说明&quot;&gt;项目说明&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;完成B2、B3恒温PID项目后，学习路线从单回路控制进入顺序控制。本次C1项目使用LAD梯形图编写一个交通灯状态机，实现红、绿、黄三步定时循环，并加入夜间黄灯闪烁、急停和防止急停解除后自动重启。&lt;/p&gt;&lt;p&gt;交通灯本身并不复杂，真正需要掌握的是：如何把一个完整工艺拆成步骤、如何记录当前步骤，以及如何根据转换条件进入下一步。这套结构后续可以迁移到输送、灌装、包装等非标自动化流程。&lt;/p&gt;&lt;blockquote&gt;
+&lt;p&gt;本项目全部使用软件仿真。文中的急停是普通PLC程序逻辑，真实设备的急停必须配合安全继电器、安全PLC或符合要求的硬接线。&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;一项目环境&quot;&gt;一、项目环境&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E4%B8%80%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;配置&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;编程软件&lt;/td&gt;&lt;td&gt;TIA Portal&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;PLC&lt;/td&gt;&lt;td&gt;S7-1500 CPU 1511-1 PN，固件V2.9&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;仿真软件&lt;/td&gt;&lt;td&gt;标准版S7-PLCSIM&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;编程语言&lt;/td&gt;&lt;td&gt;LAD梯形图&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;核心方法&lt;/td&gt;&lt;td&gt;步序号 + 比较指令 + MOVE + TON&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;项目名称&lt;/td&gt;&lt;td&gt;C1_TrafficLight_StateMachine&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;控制块&lt;/td&gt;&lt;td&gt;FB_C1_TrafficLightCtrl&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;CPU 1511-1 PN本体没有集成数字量I/O，因此编译时出现“所组态的硬件中没有所用到的输入或输出”警告。本项目使用PLCSIM操作I0.0～I0.2并监视Q0.0～Q0.2，不影响纯软件仿真。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;二控制目标&quot;&gt;二、控制目标&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E4%BA%8C%E6%8E%A7%E5%88%B6%E7%9B%AE%E6%A0%87&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;项目包含三种运行情况：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;运行情况&lt;/th&gt;&lt;th&gt;控制结果&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;正常模式&lt;/td&gt;&lt;td&gt;红灯5秒 → 绿灯5秒 → 黄灯2秒 → 返回红灯&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;夜间模式&lt;/td&gt;&lt;td&gt;红灯、绿灯熄灭，黄灯每500 ms切换一次亮灭状态&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;急停&lt;/td&gt;&lt;td&gt;三盏灯立即熄灭，运行状态和正常步序复位&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;I/O分配如下：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;地址&lt;/th&gt;&lt;th&gt;变量名&lt;/th&gt;&lt;th&gt;含义&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;I0.0&lt;/td&gt;&lt;td&gt;&lt;code&gt;xSystemEnableCmd&lt;/code&gt;&lt;/td&gt;&lt;td&gt;系统运行允许开关&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;I0.1&lt;/td&gt;&lt;td&gt;&lt;code&gt;xNightModeSel&lt;/code&gt;&lt;/td&gt;&lt;td&gt;夜间闪烁模式选择&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;I0.2&lt;/td&gt;&lt;td&gt;&lt;code&gt;xEmergencyStopSts&lt;/code&gt;&lt;/td&gt;&lt;td&gt;急停状态，1表示触发&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Q0.0&lt;/td&gt;&lt;td&gt;&lt;code&gt;xRedLightOut&lt;/code&gt;&lt;/td&gt;&lt;td&gt;红灯实际输出&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Q0.1&lt;/td&gt;&lt;td&gt;&lt;code&gt;xGreenLightOut&lt;/code&gt;&lt;/td&gt;&lt;td&gt;绿灯实际输出&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Q0.2&lt;/td&gt;&lt;td&gt;&lt;code&gt;xYellowLightOut&lt;/code&gt;&lt;/td&gt;&lt;td&gt;黄灯实际输出&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;三状态机原理&quot;&gt;三、状态机原理&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E4%B8%89%E7%8A%B6%E6%80%81%E6%9C%BA%E5%8E%9F%E7%90%86&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;本项目使用&lt;code&gt;iStepNo&lt;/code&gt;记录当前状态：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;iStepNo&lt;/th&gt;&lt;th&gt;当前状态&lt;/th&gt;&lt;th&gt;执行动作&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;停止/初始化&lt;/td&gt;&lt;td&gt;三盏灯熄灭，等待启动&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;红灯步骤&lt;/td&gt;&lt;td&gt;红灯亮，红灯TON计时&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;20&lt;/td&gt;&lt;td&gt;绿灯步骤&lt;/td&gt;&lt;td&gt;绿灯亮，绿灯TON计时&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;30&lt;/td&gt;&lt;td&gt;黄灯步骤&lt;/td&gt;&lt;td&gt;黄灯亮，黄灯TON计时&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;使用10、20、30而不是1、2、3，是为了以后方便插入新的步骤。例如，需要在红灯和绿灯之间增加准备步骤时，可以直接使用15。&lt;/p&gt;&lt;p&gt;正常步序关系为：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:18ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;iStepNo = 0&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot; style=&quot;--ecIndent:4ch&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span class=&quot;indent&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;    &lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;↓ 系统启动&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;iStepNo = 10（红灯5秒）&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot; style=&quot;--ecIndent:4ch&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;4&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span class=&quot;indent&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;    &lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;↓ 红灯计时完成&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;5&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;iStepNo = 20（绿灯5秒）&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot; style=&quot;--ecIndent:4ch&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;6&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span class=&quot;indent&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;    &lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;↓ 绿灯计时完成&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;7&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;iStepNo = 30（黄灯2秒）&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot; style=&quot;--ecIndent:4ch&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;8&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span class=&quot;indent&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;    &lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;↓ 黄灯计时完成&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;9&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;iStepNo = 10，开始下一轮&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;每个TON只在自己的步骤中运行。步序切换后，原步骤的启动条件变为FALSE，对应TON自动复位。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;四fb接口设计&quot;&gt;四、FB接口设计&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E5%9B%9Bfb%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;FB_C1_TrafficLightCtrl&lt;/code&gt;的输入包含运行允许、夜间模式、急停以及四个时间设定值；输出包含运行状态、三盏灯的命令和当前步序号。变量继续采用数据类型小写前缀，并填写中文注释。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/01-fb-interface.png&quot; alt=&quot;FB接口变量&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;主要参数：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;变量名&lt;/th&gt;&lt;th&gt;类型&lt;/th&gt;&lt;th&gt;默认值&lt;/th&gt;&lt;th&gt;作用&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;tRedTimeSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Time&lt;/td&gt;&lt;td&gt;T#5s&lt;/td&gt;&lt;td&gt;红灯运行时间&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;tGreenTimeSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Time&lt;/td&gt;&lt;td&gt;T#5s&lt;/td&gt;&lt;td&gt;绿灯运行时间&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;tYellowTimeSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Time&lt;/td&gt;&lt;td&gt;T#2s&lt;/td&gt;&lt;td&gt;黄灯运行时间&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;tBlinkTimeSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Time&lt;/td&gt;&lt;td&gt;T#500ms&lt;/td&gt;&lt;td&gt;黄灯闪烁半周期&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;xNightBlinkSts&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Bool&lt;/td&gt;&lt;td&gt;false&lt;/td&gt;&lt;td&gt;当前夜间闪烁阶段&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;iStepNo&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Int&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;当前步序号&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;五启动停止与急停处理&quot;&gt;五、启动、停止与急停处理&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E4%BA%94%E5%90%AF%E5%8A%A8%E5%81%9C%E6%AD%A2%E4%B8%8E%E6%80%A5%E5%81%9C%E5%A4%84%E7%90%86&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;运行允许命令先经过&lt;code&gt;R_TRIG&lt;/code&gt;上升沿检测，再置位&lt;code&gt;xSystemRunningSts&lt;/code&gt;。系统运行允许关闭或急停触发时，立即复位运行状态。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/02-start-stop-estop.png&quot; alt=&quot;启动停止及急停逻辑&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;这里没有直接使用运行开关的电平启动系统，而是使用上升沿，目的是防止急停解除后自动重启：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:29ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;正常启动：I0.0由0变1 → 产生上升沿 → 系统运行&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;急停触发：运行状态复位&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;急停解除：I0.0仍为1，但没有新上升沿 → 系统保持停止&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;4&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;重新启动：I0.0先回到0，再切换到1&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;控制优先级为：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:26ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;急停（最高）→ 夜间模式 → 正常循环 → 停止等待&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;六正常步序控制&quot;&gt;六、正常步序控制&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E5%85%AD%E6%AD%A3%E5%B8%B8%E6%AD%A5%E5%BA%8F%E6%8E%A7%E5%88%B6&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;系统停止或进入夜间模式时，MOVE指令把0写入&lt;code&gt;iStepNo&lt;/code&gt;。系统运行、未选择夜间模式且当前步序为0时，再把10写入&lt;code&gt;iStepNo&lt;/code&gt;，从红灯步骤开始。&lt;/p&gt;&lt;p&gt;步序10使用&lt;code&gt;tonRedStep&lt;/code&gt;计时，完成后将步序切换为20：&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/03-step-red.png&quot; alt=&quot;步序初始化及红灯步骤&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;步序20使用&lt;code&gt;tonGreenStep&lt;/code&gt;计时，完成后切换为30；步序30使用&lt;code&gt;tonYellowStep&lt;/code&gt;计时，完成后重新写入10：&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/04-step-green-yellow.png&quot; alt=&quot;绿灯和黄灯步骤&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;三步逻辑结构相同：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:13ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;判断当前步序&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 启动本步骤TON&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ TON.Q变为TRUE&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;4&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ MOVE写入下一步序号&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;这样编写的优点是每个步骤的动作和转换条件清晰。以后扩展复杂流程时，只需要继续增加步序和转换条件。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;七夜间黄灯闪烁&quot;&gt;七、夜间黄灯闪烁&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E4%B8%83%E5%A4%9C%E9%97%B4%E9%BB%84%E7%81%AF%E9%97%AA%E7%83%81&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;进入夜间模式后，正常步序复位为0。两个TON分别负责熄灭阶段和点亮阶段：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:22ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;xNightBlinkSts = FALSE&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 熄灭计时500 ms&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 置位xNightBlinkSts&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;4&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 黄灯点亮&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;5&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 点亮计时500 ms&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;6&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 复位xNightBlinkSts&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;7&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 黄灯熄灭并重复循环&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/05-night-blink.png&quot; alt=&quot;夜间黄灯闪烁逻辑&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;退出夜间模式、系统停止或急停触发时，&lt;code&gt;xNightBlinkSts&lt;/code&gt;都会被复位，避免再次进入夜间模式时继承上一次的闪烁状态。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;八灯光输出控制&quot;&gt;八、灯光输出控制&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E5%85%AB%E7%81%AF%E5%85%89%E8%BE%93%E5%87%BA%E6%8E%A7%E5%88%B6&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;三个输出命令统一放在状态机之后生成：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:46ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;红灯：运行 AND 非夜间 AND 非急停 AND iStepNo=10&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;绿灯：运行 AND 非夜间 AND 非急停 AND iStepNo=20&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;黄灯：运行 AND 非急停 AND&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot; style=&quot;--ecIndent:6ch&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;4&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span class=&quot;indent&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;      &lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;（正常模式下iStepNo=30 OR 夜间模式下xNightBlinkSts）&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/06-output-control.png&quot; alt=&quot;红绿黄输出控制&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;这种写法把“步序如何跳转”和“当前步骤输出什么”分开，调试时更容易定位问题。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;九ob1调用&quot;&gt;九、OB1调用&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E4%B9%9Dob1%E8%B0%83%E7%94%A8&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在&lt;code&gt;Main [OB1]&lt;/code&gt;中周期调用&lt;code&gt;FB_C1_TrafficLightCtrl&lt;/code&gt;，背景数据块为&lt;code&gt;DB_C1_TrafficLightCtrl&lt;/code&gt;。输入连接I0.0～I0.2，时间参数连接常量，三个输出命令分别连接Q0.0～Q0.2。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/07-ob1-call.png&quot; alt=&quot;OB1调用及编译结果&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;程序编译结果为0错误。一个硬件I/O警告来自CPU未配置实体DI/DO模块，对本次PLCSIM测试没有影响。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;十仿真测试&quot;&gt;十、仿真测试&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E5%8D%81%E4%BB%BF%E7%9C%9F%E6%B5%8B%E8%AF%95&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;测试一正常循环&quot;&gt;测试一：正常循环&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E6%B5%8B%E8%AF%95%E4%B8%80%E6%AD%A3%E5%B8%B8%E5%BE%AA%E7%8E%AF&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;保持夜间模式和急停为FALSE，将&lt;code&gt;xSystemEnableCmd&lt;/code&gt;从FALSE切换为TRUE。三盏灯按照红→绿→黄→红的顺序循环，任意时刻只有一盏灯点亮。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/08-test-normal.gif&quot; alt=&quot;正常循环测试&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;/section&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;测试二夜间模式&quot;&gt;测试二：夜间模式&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E6%B5%8B%E8%AF%95%E4%BA%8C%E5%A4%9C%E9%97%B4%E6%A8%A1%E5%BC%8F&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;系统运行时将&lt;code&gt;xNightModeSel&lt;/code&gt;切换为TRUE，正常步序回到0，红灯和绿灯熄灭，黄灯按照500 ms半周期闪烁。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/09-test-night.gif&quot; alt=&quot;夜间模式测试&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;/section&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;测试三急停与防自动重启&quot;&gt;测试三：急停与防自动重启&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E6%B5%8B%E8%AF%95%E4%B8%89%E6%80%A5%E5%81%9C%E4%B8%8E%E9%98%B2%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;运行期间触发&lt;code&gt;xEmergencyStopSts&lt;/code&gt;，三路输出立即变为FALSE。解除急停后，即使运行允许仍为TRUE，系统也不会自动启动；运行开关重新产生上升沿后才能再次运行。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c1-traffic-light/10-test-estop.gif&quot; alt=&quot;急停测试&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;十一项目验收结果&quot;&gt;十一、项目验收结果&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E5%8D%81%E4%B8%80%E9%A1%B9%E7%9B%AE%E9%AA%8C%E6%94%B6%E7%BB%93%E6%9E%9C&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;红灯、绿灯、黄灯定时顺序正确；&lt;/li&gt;
+&lt;li&gt;步序10→20→30→10持续循环；&lt;/li&gt;
+&lt;li&gt;夜间模式下只闪烁黄灯；&lt;/li&gt;
+&lt;li&gt;退出夜间模式后从红灯步骤重新开始；&lt;/li&gt;
+&lt;li&gt;急停触发后三路输出立即关闭；&lt;/li&gt;
+&lt;li&gt;急停解除后不会自动重启；&lt;/li&gt;
+&lt;li&gt;程序段标题和变量均有中文注释；&lt;/li&gt;
+&lt;li&gt;全部控制逻辑使用LAD完成；&lt;/li&gt;
+&lt;li&gt;PLCSIM三项测试通过。&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;总结&quot;&gt;总结&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/#%E6%80%BB%E7%BB%93&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;通过C1项目，我第一次用完整的LAD程序实现了步序状态机。与之前的单回路PID不同，本项目开始关注“设备现在处于哪一步、满足什么条件才能进入下一步，以及特殊模式如何覆盖正常流程”。&lt;/p&gt;&lt;p&gt;本次最大的收获是建立了顺序控制的基本框架：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:14ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;拆分工艺步骤&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 给步骤编号&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 定义每一步的动作&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;4&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 定义转换条件&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;5&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 处理停止、急停和特殊模式&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;6&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;→ 根据当前步骤统一生成输出&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;TIA Portal中的GRAPH是专门描述步序流程的工具，复杂流程会更加直观。本项目先完全使用LAD，是为了看清状态机底层逻辑；后续可以再用GRAPH复刻一次，对比两种实现方式。&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>B2房间恒温PID控制系统：S7-1500、PID_Compact与WinCC联合仿真</title><link>https://yewei0302.github.io/posts/b2-pid-temperature-control/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/b2-pid-temperature-control/</guid><description>在无实体硬件条件下，使用TIA Portal V19、S7-1500、PLCSIM与WinCC RT Advanced完成房间恒温PID闭环、安全联锁、趋势和报警系统。</description><pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;本笔记记录在纯仿真环境（无真实 PLC、加热器和温度传感器）下，基于 TIA Portal V19 + S7-PLCSIM + WinCC RT Advanced V17 完成一个房间恒温 PID 闭环控制项目的完整过程，包括程序设计、HMI 组态、报警系统、联调验收和项目归档。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;运行演示动图&quot;&gt;运行演示动图&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/b2-pid-temperature-control/#%E8%BF%90%E8%A1%8C%E6%BC%94%E7%A4%BA%E5%8A%A8%E5%9B%BE&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;以下动图录制自 WinCC RT Advanced V17 运行画面（TIA Portal V19 + S7-1500 + S7-PLCSIM 联合仿真，无真实硬件，房间温度由 &lt;code&gt;FB_RoomTempSim&lt;/code&gt; 仿真）。先看系统实际运行效果，再看具体实现。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/b2-room-temp-pid/demo-start.gif&quot; alt=&quot;图 D-1　系统启动演示动图&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;&lt;strong&gt;图 D-1　系统启动演示&lt;/strong&gt;：从冷启动初始状态（指示灯全灰、输出 &lt;code&gt;0.0%&lt;/code&gt;）点击”系统启动”后，系统运行、加热允许指示灯点亮，PID 投入自动模式，加热器实际输出升至约 &lt;code&gt;60%&lt;/code&gt;，房间实际温度沿趋势曲线平稳爬升并逼近 &lt;code&gt;55 ℃&lt;/code&gt; 设定值，无明显超调。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/b2-room-temp-pid/demo-stop.gif&quot; alt=&quot;图 D-2　系统停止演示动图&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;&lt;strong&gt;图 D-2　系统停止演示&lt;/strong&gt;：在稳定运行状态（实际温度 &lt;code&gt;55.0 ℃&lt;/code&gt;、输出 &lt;code&gt;60.0%&lt;/code&gt;）点击”系统停止”后，系统运行与加热允许指示灯熄灭，加热器实际输出立即降为 &lt;code&gt;0.0%&lt;/code&gt;；系统只有加热、无主动制冷，房间温度失去补偿后沿趋势曲线向环境温度缓慢回落。&lt;/p&gt;&lt;/section&gt;
