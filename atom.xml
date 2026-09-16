@@ -5,7 +5,255 @@
   <link href="https://yewei0302.github.io/" rel="alternate" type="text/html"/>
   <link href="https://yewei0302.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <id>https://yewei0302.github.io/</id>
-  <updated>2026-09-15T00:00:00.000Z</updated>
+  <updated>2026-09-16T00:00:00.000Z</updated>
+  <entry>
+    <title>C1进阶｜S7-1500 GRAPH交通灯顺控：步骤、转换条件与LAD外围控制</title>
+    <link href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/" rel="alternate" type="text/html"/>
+    <id>https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/</id>
+    <published>2026-09-16T00:00:00.000Z</published>
+    <updated>2026-09-16T00:00:00.000Z</updated>
+    <summary>在已完成的LAD状态机基础上，使用TIA Portal GRAPH重构红绿黄正常顺控，并以LAD完成夜间闪烁、急停和防自动重启。</summary>
+    <content type="html"><![CDATA[<section class="markdown-section"><h2 id="项目定位">项目定位<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>上一篇C1使用纯LAD梯形图，通过<code>iStepNo = 10/20/30</code>、TON和MOVE指令实现交通灯状态机。本篇保留相同的I/O和控制要求，但把正常红绿黄流程改为TIA Portal的GRAPH顺控器，再用一个LAD外围控制FB处理启停、夜间闪烁、急停与最终输出。</p><p><a href="https://yewei0302.github.io/posts/plc-projects/c1_lad%E4%BA%A4%E9%80%9A%E7%81%AF%E7%8A%B6%E6%80%81%E6%9C%BA/" data-content-link-kind="internal">上一篇：C1｜S7-1500 LAD交通灯状态机</a></p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>对比项</th><th>上一篇LAD版</th><th>本篇GRAPH版</th></tr></thead><tbody><tr><td>步骤记录</td><td><code>iStepNo</code>整数变量</td><td>GRAPH步骤激活状态</td></tr><tr><td>计时方式</td><td>每步一个TON</td><td>使用<code>Step.T</code>步骤时间</td></tr><tr><td>步骤切换</td><td>比较 + MOVE</td><td>GRAPH转换条件</td></tr><tr><td>正常流程</td><td>多个LAD程序段</td><td>图形化顺控图</td></tr><tr><td>夜间与急停</td><td>同一个LAD FB</td><td>独立LAD外围控制FB</td></tr></tbody></table></div><blockquote>
+<p>本项目仍为纯软件仿真。文中“急停”是普通PLC程序逻辑；真实设备必须配合安全继电器、安全PLC或符合要求的硬接线。</p>
+</blockquote></section>
+<section class="markdown-section"><h2 id="一项目环境与目标">一、项目环境与目标<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E4%B8%80%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E4%B8%8E%E7%9B%AE%E6%A0%87"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>配置</th></tr></thead><tbody><tr><td>编程软件</td><td>TIA Portal</td></tr><tr><td>PLC</td><td>S7-1500 CPU 1511-1 PN，固件V2.9</td></tr><tr><td>仿真软件</td><td>标准版S7-PLCSIM</td></tr><tr><td>编程语言</td><td>GRAPH + LAD</td></tr><tr><td>GRAPH块</td><td><code>FB_C1_TrafficLightSeq</code> / <code>DB_C1_TrafficLightSeq</code></td></tr><tr><td>外围控制块</td><td><code>FB_C1_TrafficLightPeripheral</code> / <code>DB_C1_TrafficLightPeripheral</code></td></tr><tr><td>正常循环</td><td>红灯5秒 → 绿灯5秒 → 黄灯2秒</td></tr><tr><td>夜间模式</td><td>只有黄灯按500 ms半周期闪烁</td></tr><tr><td>急停</td><td>三灯立即熄灭，解除后不自动重启</td></tr></tbody></table></div><p>I/O地址与LAD版保持一致，便于对照测试：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>地址</th><th>变量</th><th>作用</th></tr></thead><tbody><tr><td>I0.0</td><td><code>xSystemEnableCmd</code></td><td>系统运行允许</td></tr><tr><td>I0.1</td><td><code>xNightModeSel</code></td><td>夜间模式选择</td></tr><tr><td>I0.2</td><td><code>xEmergencyStopSts</code></td><td>急停状态</td></tr><tr><td>Q0.0</td><td><code>xRedLightOut</code></td><td>红灯输出</td></tr><tr><td>Q0.1</td><td><code>xGreenLightOut</code></td><td>绿灯输出</td></tr><tr><td>Q0.2</td><td><code>xYellowLightOut</code></td><td>黄灯输出</td></tr></tbody></table></div><p>CPU 1511-1 PN本体没有集成数字量I/O，所以编译时出现“所组态的硬件中没有所用到的输入或输出”警告。本项目通过PLCSIM直接修改I0.0～I0.2并监视Q0.0～Q0.2，不影响测试。</p></section>
+<section class="markdown-section"><h2 id="二程序架构">二、程序架构<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E4%BA%8C%E7%A8%8B%E5%BA%8F%E6%9E%B6%E6%9E%84"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>程序被拆成两个功能块：</p><div class="expressive-code"><figure class="frame" data-language="text"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:33ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">FB_C1_TrafficLightSeq（GRAPH）</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">└─ 只负责Init、红灯、绿灯、黄灯步骤及转换条件</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code">
+</div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">FB_C1_TrafficLightPeripheral（LAD）</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">5</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">├─ 启动上升沿与运行状态锁存</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">6</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">├─ 夜间黄灯闪烁</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">7</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">├─ 急停和GRAPH初始化命令</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">8</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">└─ 红、绿、黄灯最终输出联锁</span></div></div></code></pre><div class="copy-btn-icon"></div></figure></div><p>这种分层后，GRAPH可以专注于“顺序”，LAD可以专注于“模式与安全联锁”。</p></section>
+<section class="markdown-section"><h2 id="三graph顺控器设计">三、GRAPH顺控器设计<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E4%B8%89graph%E9%A1%BA%E6%8E%A7%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><section class="markdown-section"><h3 id="1-步骤结构">1. 步骤结构<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#1-%E6%AD%A5%E9%AA%A4%E7%BB%93%E6%9E%84"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>顺控器共设置四个步骤：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>步骤</th><th>名称</th><th>作用</th></tr></thead><tbody><tr><td>S1</td><td><code>Init</code></td><td>初始化并等待启动条件</td></tr><tr><td>S2</td><td><code>RedLight</code></td><td>红灯步骤，运行5秒</td></tr><tr><td>S3</td><td><code>GreenLight</code></td><td>绿灯步骤，运行5秒</td></tr><tr><td>S4</td><td><code>YellowLight</code></td><td>黄灯步骤，运行2秒</td></tr></tbody></table></div><p>T4不是回到Init，而是跳转到S2，因此正常运行时会持续执行“红 → 绿 → 黄 → 红”。</p><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/01-graph-sequence.png" alt="GRAPH步骤结构" loading="lazy" decoding="async" /></section><section class="markdown-section"><h3 id="2-转换条件">2. 转换条件<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#2-%E8%BD%AC%E6%8D%A2%E6%9D%A1%E4%BB%B6"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>转换</th><th>条件</th><th>说明</th></tr></thead><tbody><tr><td>T1 <code>StartToRed</code></td><td>运行允许 AND 非夜间 AND 非急停</td><td>Init进入红灯步骤</td></tr><tr><td>T2 <code>RedToGreen</code></td><td><code>RedLight.T &gt;= tRedTimeSP</code></td><td>红灯到时进入绿灯</td></tr><tr><td>T3 <code>GreenToYellow</code></td><td><code>GreenLight.T &gt;= tGreenTimeSP</code></td><td>绿灯到时进入黄灯</td></tr><tr><td>T4 <code>YellowToRed</code></td><td><code>YellowLight.T &gt;= tYellowTimeSP</code></td><td>黄灯到时返回红灯</td></tr></tbody></table></div><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/02-transition-conditions.png" alt="GRAPH转换条件" loading="lazy" decoding="async" /><p>GRAPH步骤自带运行时间<code>.T</code>，因此不需要像LAD版那样为红、绿、黄分别建立TON。这是本次重构最重要的区别。</p></section><section class="markdown-section"><h3 id="3-步骤动作">3. 步骤动作<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#3-%E6%AD%A5%E9%AA%A4%E5%8A%A8%E4%BD%9C"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>四个步骤都使用<code>N</code>限定符：步骤激活时对应状态为TRUE，离开步骤后自动恢复FALSE。</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>步骤</th><th>动作变量</th></tr></thead><tbody><tr><td>Init</td><td><code>xInitStepActiveSts</code></td></tr><tr><td>RedLight</td><td><code>xRedStepActiveSts</code></td></tr><tr><td>GreenLight</td><td><code>xGreenStepActiveSts</code></td></tr><tr><td>YellowLight</td><td><code>xYellowStepActiveSts</code></td></tr></tbody></table></div><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/03-step-actions.png" alt="GRAPH步骤动作" loading="lazy" decoding="async" /><p>GRAPH只输出“当前是哪一步”，不直接写Q0.0～Q0.2。最终灯光输出交给外围控制FB，避免多处同时写同一输出。</p></section></section>
+<section class="markdown-section"><h2 id="四lad外围控制fb">四、LAD外围控制FB<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E5%9B%9Blad%E5%A4%96%E5%9B%B4%E6%8E%A7%E5%88%B6fb"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p><code>FB_C1_TrafficLightPeripheral</code>的输入包含三个外部命令、三个GRAPH步骤状态和闪烁时间；输出包含系统运行状态、GRAPH初始化命令和三路灯光命令。</p><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/04-peripheral-interface.png" alt="LAD外围控制FB接口" loading="lazy" decoding="async" /><section class="markdown-section"><h3 id="1-启动停止与防自动重启">1. 启动、停止与防自动重启<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#1-%E5%90%AF%E5%8A%A8%E5%81%9C%E6%AD%A2%E4%B8%8E%E9%98%B2%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>I0.0先经过<code>R_TRIG</code>产生上升沿，再置位<code>xSystemRunningSts</code>。当I0.0断开或急停触发时，运行状态被复位。</p><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/05-start-latch.png" alt="启动上升沿与运行锁存" loading="lazy" decoding="async" /><p>急停解除后，如果I0.0仍为TRUE，由于没有新的上升沿，系统保持停止。必须将I0.0先切回FALSE，再切到TRUE才能重新启动。</p><p>当系统停止、进入夜间模式或急停触发时，<code>xGraphInitCmd</code>为TRUE，通过GRAPH块的<code>INIT_SQ</code>将顺控器送回Init步骤。</p><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/06-stop-init.png" alt="停止复位与GRAPH初始化命令" loading="lazy" decoding="async" /></section><section class="markdown-section"><h3 id="2-夜间黄灯闪烁">2. 夜间黄灯闪烁<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#2-%E5%A4%9C%E9%97%B4%E9%BB%84%E7%81%AF%E9%97%AA%E7%83%81"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>夜间闪烁没有放入GRAPH，而是保留在LAD外围控制中。两个TON分别完成熄灭阶段和点亮阶段的500 ms计时：</p><div class="expressive-code"><figure class="frame" data-language="text"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:22ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">xNightBlinkSts = FALSE</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">→ tonBlinkOnDelay计时</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">→ 置位xNightBlinkSts</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">→ 黄灯点亮</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">5</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">→ tonBlinkOffDelay计时</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">6</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">→ 复位xNightBlinkSts</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">7</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">→ 黄灯熄灭</span></div></div></code></pre><div class="copy-btn-icon"></div></figure></div><div class="image-grid" data-columns="2" style="--image-grid-columns:2;--image-grid-aspect-ratio:16 / 10;--image-grid-fit:cover"><figure class="image-grid__item"><a class="image-grid__link no-styling" href="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/07-night-blink-a.png" data-fancybox="image-grid-0" data-no-swup="true" data-caption="夜间闪烁复位与熄灭阶段"><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/07-night-blink-a.png" alt="夜间闪烁复位与熄灭阶段" loading="lazy" decoding="async" /></a><figcaption class="image-grid__caption">夜间闪烁复位与熄灭阶段</figcaption></figure><figure class="image-grid__item"><a class="image-grid__link no-styling" href="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/08-night-blink-b.png" data-fancybox="image-grid-0" data-no-swup="true" data-caption="夜间闪烁点亮阶段"><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/08-night-blink-b.png" alt="夜间闪烁点亮阶段" loading="lazy" decoding="async" /></a><figcaption class="image-grid__caption">夜间闪烁点亮阶段</figcaption></figure></div></section><section class="markdown-section"><h3 id="3-最终输出联锁">3. 最终输出联锁<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#3-%E6%9C%80%E7%BB%88%E8%BE%93%E5%87%BA%E8%81%94%E9%94%81"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>灯光命令不只取决于GRAPH步骤，还必须同时满足系统运行、模式和急停条件：</p><div class="expressive-code"><figure class="frame" data-language="text"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:34ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">红灯 = 运行 AND 非夜间 AND 非急停 AND 红灯步骤激活</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">绿灯 = 运行 AND 非夜间 AND 非急停 AND 绿灯步骤激活</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span style="--0:#24292e;--1:#e1e4e8">黄灯 = 运行 AND 非急停 AND</span></div></div><div class="ec-line" style="--ecIndent:7ch"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">       </span></span><span style="--0:#24292e;--1:#e1e4e8">（正常模式下黄灯步骤激活 OR 夜间模式下闪烁状态）</span></div></div></code></pre><div class="copy-btn-icon"></div></figure></div><div class="image-grid" data-columns="2" style="--image-grid-columns:2;--image-grid-aspect-ratio:16 / 10;--image-grid-fit:cover"><figure class="image-grid__item"><a class="image-grid__link no-styling" href="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/09-output-red.png" data-fancybox="image-grid-1" data-no-swup="true" data-caption="GRAPH红灯步骤输出控制"><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/09-output-red.png" alt="GRAPH红灯步骤输出控制" loading="lazy" decoding="async" /></a><figcaption class="image-grid__caption">GRAPH红灯步骤输出控制</figcaption></figure><figure class="image-grid__item"><a class="image-grid__link no-styling" href="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/10-output-green-yellow.png" data-fancybox="image-grid-1" data-no-swup="true" data-caption="GRAPH绿灯与正常/夜间黄灯输出控制"><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/10-output-green-yellow.png" alt="GRAPH绿灯与正常/夜间黄灯输出控制" loading="lazy" decoding="async" /></a><figcaption class="image-grid__caption">GRAPH绿灯与正常/夜间黄灯输出控制</figcaption></figure></div></section></section>
+<section class="markdown-section"><h2 id="五ob1互连">五、OB1互连<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E4%BA%94ob1%E4%BA%92%E8%BF%9E"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>OB1中先调用GRAPH顺控FB，再调用LAD外围控制FB。</p><p>GRAPH调用的两个关键连接为：</p><ul>
+<li><code>INIT_SQ := DB_C1_TrafficLightPeripheral.xGraphInitCmd</code></li>
+<li><code>xSystemEnableCmd := DB_C1_TrafficLightPeripheral.xSystemRunningSts</code></li>
+</ul><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/11-ob1-graph-call.png" alt="OB1调用GRAPH顺控FB" loading="lazy" decoding="async" /><p>外围控制FB读取GRAPH背景数据块中的红、绿、黄步骤状态，然后把最终命令连接到Q0.0～Q0.2。</p><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/12-ob1-peripheral-call.png" alt="OB1调用LAD外围控制FB" loading="lazy" decoding="async" /><p>两个FB之间存在一个PLC扫描周期的状态传递延迟，但对秒级交通灯顺控没有实际影响。急停发生时，外围控制FB仍会在当前扫描周期直接封锁三路输出。</p></section>
+<section class="markdown-section"><h2 id="六plcsim功能验证">六、PLCSIM功能验证<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E5%85%ADplcsim%E5%8A%9F%E8%83%BD%E9%AA%8C%E8%AF%81"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>本次将正常循环、夜间模式、急停和恢复过程录制在同一段动图中。</p><img src="https://yewei0302.github.io/images/posts/c1-graph-traffic-light/13-final-demo.gif" alt="GRAPH版交通灯全功能测试" loading="lazy" decoding="async" /><p>验证结果：</p><ul>
+<li>I0.0产生上升沿后，红灯、绿灯、黄灯按5秒、5秒、2秒循环；</li>
+<li>任意时刻只有一盏交通灯输出为TRUE；</li>
+<li>夜间模式下红灯和绿灯熄灭，黄灯按500 ms半周期闪烁；</li>
+<li>退出夜间模式后，GRAPH从红灯步骤重新开始；</li>
+<li>急停触发时三路输出立即变为FALSE；</li>
+<li>急停解除后系统不自动重启，必须重新产生运行允许上升沿；</li>
+<li>程序编译0错误，仅有CPU未配置实体I/O模块的常规警告。</li>
+</ul></section>
+<section class="markdown-section"><h2 id="七两种实现方式的选择">七、两种实现方式的选择<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E4%B8%83%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E7%9A%84%E9%80%89%E6%8B%A9"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>LAD步序号状态机和GRAPH并不是谁完全替代谁。</p><ul>
+<li>步骤较少、项目要求全部使用LAD、需要自由处理特殊跳转时，<code>iStepNo + MOVE + TON</code>仍然很实用。</li>
+<li>步骤较多、工艺流程需要频繁查看与调试时，GRAPH更直观。</li>
+<li>对于实际项目，可以像本篇一样组合使用：GRAPH管理工艺步骤，LAD处理启停、联锁、模式切换和最终输出。</li>
+</ul></section>
+<section class="markdown-section"><h2 id="总结">总结<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/c1_graph%E4%BA%A4%E9%80%9A%E7%81%AF%E9%A1%BA%E6%8E%A7/#%E6%80%BB%E7%BB%93"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>这次并不是简单重复C1，而是用另一种程序结构重构同一控制任务。通过对比，可以清楚看到：LAD状态机需要程序员自己管理步序号、定时器和跳转；GRAPH则把这些内容直接变成“步骤—转换—动作”图。</p><p>本次重点收获：</p><ol>
+<li>掌握GRAPH步骤、转换条件和<code>N</code>限定符；</li>
+<li>掌握使用<code>Step.T</code>完成步骤计时；</li>
+<li>理解<code>INIT_SQ</code>如何在停止、夜间和急停时复位顺控器；</li>
+<li>学会将GRAPH工艺顺控与LAD外围联锁分层；</li>
+<li>完成正常循环、夜间闪烁、急停和防自动重启的联合仿真。</li>
+</ol></section>]]></content>
+    <author><name>叶工</name></author>
+    <category term="PLC项目练习"/>
+  </entry>
   <entry>
     <title>B3｜S7-1500 PID_Compact参数自整定：从预调节到精确调节</title>
     <link href="https://yewei0302.github.io/posts/plc-projects/b3_pid%E8%87%AA%E6%95%B4%E5%AE%9A%E6%81%92%E6%B8%A9%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html"/>
