@@ -1,4 +1,274 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>叶工的自动化学习笔记</title><description>记录PLC、电气工程与自动化项目的学习与实践</description><link>https://yewei0302.github.io/</link><language>zh_CN</language><item><title>C2进行中｜S7-1500自动灌装输送线：GRAPH顺控、PLCSIM Advanced与Factory I/O联调</title><link>https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E8%BF%9B%E8%A1%8C%E4%B8%AD/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E8%BF%9B%E8%A1%8C%E4%B8%AD/</guid><description>记录C2自动灌装输送线项目的阶段成果：PLC程序架构、GRAPH工艺步、故障停序、PLCSIM Advanced启动、Factory I/O场景搭建与I/O映射。</description><pubDate>Sat, 19 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;项目定位&quot;&gt;项目定位&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E8%BF%9B%E8%A1%8C%E4%B8%AD/#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;C2项目开始进入正式联调阶段。本项目使用TIA Portal V19完成S7-1500控制程序，以GRAPH组织灌装顺序，以LAD完成模式、报警、计数和最终输出控制，再通过S7-PLCSIM Advanced V6.0与Factory I/O搭建虚拟生产线。&lt;/p&gt;&lt;p&gt;今天完成的重点不是单独验证某一个线圈，而是把PLC程序、虚拟PLC实例、Factory I/O驱动和场景中的执行器连接成一条完整链路。&lt;/p&gt;&lt;blockquote&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>叶工的自动化学习笔记</title><description>记录PLC、电气工程与自动化项目的学习与实践</description><link>https://yewei0302.github.io/</link><language>zh_CN</language><item><title>C2总结｜S7-1500自动灌装输送线：GRAPH、Factory I/O与WinCC三方联调</title><link>https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid><description>从PLC程序架构、GRAPH七步顺控、Factory I/O场景与I/O映射，到WinCC RT Advanced监控画面和三方联调，完整复盘C2自动灌装输送线项目及暴露出的逻辑问题。</description><pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;项目定位&quot;&gt;项目定位&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;C2是在C1交通灯顺控之后完成的一次综合练习。项目不再只验证PLC内部的步序，而是把以下三个部分真正连接起来：&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;TIA Portal V19中的S7-1500控制程序；&lt;/li&gt;
+&lt;li&gt;PLCSIM Advanced与Factory I/O构成的虚拟生产线；&lt;/li&gt;
+&lt;li&gt;WinCC RT Advanced制作的操作与监控画面。&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;控制对象是一条自动灌装输送线：发射器生成空瓶，输送带将瓶体送至灌装位，系统完成稳定等待、定时灌装和滴漏等待，再把成品送到出口并计数。&lt;/p&gt;&lt;blockquote&gt;
+&lt;p&gt;本项目的三方通信、HMI控制、动态显示和主要工艺步骤已经跑通，学习目标已经完成；但GRAPH的出瓶、离位和重新启动逻辑仍暴露出较明显的设计问题。因此本文把它定义为“完成的学习项目”，而不是可以直接复制到真实设备上的成熟程序。&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;一项目环境&quot;&gt;一、项目环境&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E4%B8%80%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;配置&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;编程软件&lt;/td&gt;&lt;td&gt;TIA Portal V19&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;PLC&lt;/td&gt;&lt;td&gt;S7-1500 CPU 1511-1 PN&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;PLC语言&lt;/td&gt;&lt;td&gt;GRAPH + LAD&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;PLC仿真&lt;/td&gt;&lt;td&gt;S7-PLCSIM Advanced V6.0&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;产线仿真&lt;/td&gt;&lt;td&gt;Factory I/O中文版&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HMI&lt;/td&gt;&lt;td&gt;WinCC RT Advanced&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;PLCSIM实例&lt;/td&gt;&lt;td&gt;&lt;code&gt;factoryio&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Factory I/O驱动&lt;/td&gt;&lt;td&gt;Siemens S7-PLCSIM，S7-1500 Advanced模式&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;本项目全部采用软件仿真，没有使用实体PLC、传感器和执行器。文中的急停是普通程序逻辑，只用于学习；真实设备必须使用符合要求的安全回路、安全继电器或安全PLC。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;二plc程序架构&quot;&gt;二、PLC程序架构&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E4%BA%8Cplc%E7%A8%8B%E5%BA%8F%E6%9E%B6%E6%9E%84&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;OB1将程序拆分为多个职责明确的块：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;顺序&lt;/th&gt;&lt;th&gt;程序块&lt;/th&gt;&lt;th&gt;主要职责&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;&lt;code&gt;FB_Alarm&lt;/code&gt;&lt;/td&gt;&lt;td&gt;进瓶超时、出瓶超时及综合故障处理&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;&lt;code&gt;FB_ModeControl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;自动模式、启停、复位和系统允许&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;&lt;code&gt;FB_FillingSequence&lt;/code&gt;&lt;/td&gt;&lt;td&gt;使用GRAPH执行自动灌装步序&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;&lt;code&gt;FB_Counter&lt;/code&gt;&lt;/td&gt;&lt;td&gt;完成瓶数计数与手动清零&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;&lt;code&gt;FC_OutputControl&lt;/code&gt;&lt;/td&gt;&lt;td&gt;统一生成输送带、灌装阀、指示灯等物理输出&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;程序采用“命令—状态—顺控请求—最终输出”的分层思路。GRAPH只产生输送请求、灌装请求和计数脉冲，Q点由&lt;code&gt;FC_OutputControl&lt;/code&gt;统一写入，避免GRAPH步骤和外围程序同时写同一个输出。&lt;/p&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;hmi与现场命令合并&quot;&gt;HMI与现场命令合并&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#hmi%E4%B8%8E%E7%8E%B0%E5%9C%BA%E5%91%BD%E4%BB%A4%E5%90%88%E5%B9%B6&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;现场按钮和HMI按钮最终都进入统一请求变量：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:51ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;xStartReq      = xStartPB OR xHMIStartCmd&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;xStopReq       = xStopPB  OR xHMIStopCmd&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;xResetReq      = xResetPB OR xHMIResetCmd&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;4&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;xAutoModeReq   = xAutoModeSel OR xHMIAutoModeCmd&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;5&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;xCountResetReq = xCountResetPB OR xHMICountResetCmd&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;调试中曾发现停止请求误接成&lt;code&gt;xHMIEStopCmd&lt;/code&gt;，导致HMI普通停止按钮没有进入正常停止逻辑。这个问题让我更直观地认识到：变量名称相似时，必须逐网络核对信号用途，不能只看编译是否为0错误。&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;三graph七步工艺流程&quot;&gt;三、GRAPH七步工艺流程&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E4%B8%89graph%E4%B8%83%E6%AD%A5%E5%B7%A5%E8%89%BA%E6%B5%81%E7%A8%8B&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;自动流程划分为七个步骤：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;步骤&lt;/th&gt;&lt;th&gt;名称&lt;/th&gt;&lt;th&gt;主要动作与转换目标&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;S0&lt;/td&gt;&lt;td&gt;待机&lt;/td&gt;&lt;td&gt;等待自动模式、系统允许和启动请求&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;S10&lt;/td&gt;&lt;td&gt;进瓶&lt;/td&gt;&lt;td&gt;发射工件并启动输送带，等待灌装位传感器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;S20&lt;/td&gt;&lt;td&gt;稳定&lt;/td&gt;&lt;td&gt;瓶体到位后按&lt;code&gt;tBottleStablePT&lt;/code&gt;等待&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;S30&lt;/td&gt;&lt;td&gt;灌装&lt;/td&gt;&lt;td&gt;打开灌装阀并保持&lt;code&gt;tFillingPT&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;S40&lt;/td&gt;&lt;td&gt;滴漏等待&lt;/td&gt;&lt;td&gt;关闭灌装阀并等待&lt;code&gt;tDripPT&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;S50&lt;/td&gt;&lt;td&gt;出瓶&lt;/td&gt;&lt;td&gt;启动输送带，将成品送向出口传感器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;S60&lt;/td&gt;&lt;td&gt;完成&lt;/td&gt;&lt;td&gt;产生计数脉冲并结束本次循环&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;每个步骤通过&lt;code&gt;N&lt;/code&gt;限定符输出动作，并同步写入&lt;code&gt;iSeqStepNo&lt;/code&gt;。HMI不直接读取GRAPH内部复杂结构，而是根据&lt;code&gt;iSeqStepNo = 0/10/20/30/40/50/60&lt;/code&gt;显示当前步号、中文步骤名称和七步流程色块。&lt;/p&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;故障时停止的不只是q点&quot;&gt;故障时停止的不只是Q点&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E6%95%85%E9%9A%9C%E6%97%B6%E5%81%9C%E6%AD%A2%E7%9A%84%E4%B8%8D%E5%8F%AA%E6%98%AFq%E7%82%B9&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;如果报警只封锁最终输出，GRAPH仍可能在后台继续跳步。故障解除后，流程可能已经偏离实际设备位置。因此程序增加：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:38ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;xSequenceOffCmd = NOT xSystemEnableSts&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;并将其送入GRAPH的&lt;code&gt;OFF_SQ&lt;/code&gt;，使系统失去允许条件时，顺控器与物理输出一起停止。&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;四io与factory-io映射&quot;&gt;四、I/O与Factory I/O映射&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E5%9B%9Bio%E4%B8%8Efactory-io%E6%98%A0%E5%B0%84&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;plc输入&quot;&gt;PLC输入&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#plc%E8%BE%93%E5%85%A5&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;地址&lt;/th&gt;&lt;th&gt;变量&lt;/th&gt;&lt;th&gt;作用&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.0&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xStartPB&lt;/code&gt;&lt;/td&gt;&lt;td&gt;现场启动&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.1&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xStopPB&lt;/code&gt;&lt;/td&gt;&lt;td&gt;现场停止&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.2&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xResetPB&lt;/code&gt;&lt;/td&gt;&lt;td&gt;故障复位&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.3&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xEStopOK&lt;/code&gt;&lt;/td&gt;&lt;td&gt;急停回路正常&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.4&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xAutoModeSel&lt;/code&gt;&lt;/td&gt;&lt;td&gt;现场自动模式&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.5&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xBottleAtFillSns&lt;/code&gt;&lt;/td&gt;&lt;td&gt;灌装位传感器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.6&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xBottleExitSns&lt;/code&gt;&lt;/td&gt;&lt;td&gt;出口传感器&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%I0.7&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xCountResetPB&lt;/code&gt;&lt;/td&gt;&lt;td&gt;现场计数清零&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;plc输出&quot;&gt;PLC输出&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#plc%E8%BE%93%E5%87%BA&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;地址&lt;/th&gt;&lt;th&gt;变量&lt;/th&gt;&lt;th&gt;Factory I/O对象&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%Q0.0&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xConveyorRunCmd&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Belt Conveyor&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%Q0.1&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xFillValveCmd&lt;/code&gt;&lt;/td&gt;&lt;td&gt;灌装阀指示&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%Q0.2&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xRunLamp&lt;/code&gt;&lt;/td&gt;&lt;td&gt;运行指示灯&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%Q0.3&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xFaultLamp&lt;/code&gt;&lt;/td&gt;&lt;td&gt;故障指示灯&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%Q0.4&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xBottleEmitterCmd&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Emitter&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;%Q0.5&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;xBottleRemoverCmd&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Remover&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;Factory I/O场景从空白开始搭建，主要包含一条6 m输送带、两个Diffuse Sensor、Emitter、Remover和指示灯。两个传感器分别映射到&lt;code&gt;%I0.5&lt;/code&gt;和&lt;code&gt;%I0.6&lt;/code&gt;。&lt;/p&gt;&lt;p&gt;联调时还遇到一个容易忽略的问题：Factory I/O接管输入区后，未映射的&lt;code&gt;%I0.3&lt;/code&gt;保持为0，HMI会立即显示急停回路异常。最终把&lt;code&gt;FACTORY I/O (Running)&lt;/code&gt;映射到&lt;code&gt;%I0.3&lt;/code&gt;，使场景进入运行状态时急停回路正常。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c2-auto-filling-mapping.jpg&quot; alt=&quot;Factory I/O驱动与I/O映射&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;五wincc-rt-advanced画面&quot;&gt;五、WinCC RT Advanced画面&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E4%BA%94wincc-rt-advanced%E7%94%BB%E9%9D%A2&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;HMI画面分为操作控制、系统状态、设备流程监控、参数设定、步序显示和累计计数六个区域。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/c2-auto-filling-final.jpg&quot; alt=&quot;C2最终HMI与Factory I/O联调画面&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;1-pc站与plc连接&quot;&gt;1. PC站与PLC连接&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#1-pc%E7%AB%99%E4%B8%8Eplc%E8%BF%9E%E6%8E%A5&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;最初PC站只有&lt;code&gt;WinCC RT Advanced&lt;/code&gt;，没有网络接口，因此HMI连接页面只能手工填写IP，无法选择PLC伙伴。解决过程是：&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;在PC站中加入&lt;code&gt;IE General&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;PLC设置为&lt;code&gt;192.168.0.1&lt;/code&gt;，PC/HMI设置为&lt;code&gt;192.168.0.2&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;两端加入同一个&lt;code&gt;PN/IE_1&lt;/code&gt;子网；&lt;/li&gt;
+&lt;li&gt;在“设备和网络—连接”中，从&lt;code&gt;HMI_RT_1&lt;/code&gt;建立到CPU的HMI连接。&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;完成后，HMI变量可以直接使用符号访问，不需要手工填写DB绝对地址。&lt;/p&gt;&lt;/section&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;2-操作变量与按钮事件&quot;&gt;2. 操作变量与按钮事件&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#2-%E6%93%8D%E4%BD%9C%E5%8F%98%E9%87%8F%E4%B8%8E%E6%8C%89%E9%92%AE%E4%BA%8B%E4%BB%B6&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;主要HMI命令变量包括：&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xHMIStartCmd&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xHMIStopCmd&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xHMIResetCmd&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xHMIAutoModeCmd&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xHMICountResetCmd&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xHMIEStopCmd&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;普通按钮使用“按下置位、释放复位”，形成瞬时命令。模拟急停使用保持置位，由故障复位按钮清除。调试中如果把“单击置位”和“释放复位”混用，事件执行顺序可能让变量最终停在TRUE，这也是HMI按钮看似松开、PLC命令却持续有效的原因。&lt;/p&gt;&lt;/section&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;3-动态状态与设备监控&quot;&gt;3. 动态状态与设备监控&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#3-%E5%8A%A8%E6%80%81%E7%8A%B6%E6%80%81%E4%B8%8E%E8%AE%BE%E5%A4%87%E7%9B%91%E6%8E%A7&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;系统状态灯连接急停正常、系统使能、系统运行和综合故障变量；设备状态灯直接读取Q0.0、Q0.1、Q0.4和Q0.5对应的符号变量。未激活时为灰色，运行时为绿色，故障时为红色。&lt;/p&gt;&lt;p&gt;原计划使用WinCC自带GRAPH概览控件，但它需要专用的GRAPH数据连接，普通&lt;code&gt;Int&lt;/code&gt;步号不能直接替代。最终使用&lt;code&gt;iSeqStepNo&lt;/code&gt;、文本列表和七个动态色块自制流程概览，结构更简单，也能明确显示当前步骤。&lt;/p&gt;&lt;/section&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;4-time参数显示&quot;&gt;4. TIME参数显示&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#4-time%E5%8F%82%E6%95%B0%E6%98%BE%E7%A4%BA&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;五个工艺参数在PLC中均使用&lt;code&gt;TIME&lt;/code&gt;：&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;tBottleStablePT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tFillingPT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tDripPT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tBottleInTimeoutPT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tBottleOutTimeoutPT&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;直接选择WinCC“时间”格式时，持续时间会被当成钟表时间显示。改为十进制格式并把小数点左移3位后，PLC中的毫秒值可以显示成秒：&lt;/p&gt;&lt;div class=&quot;expressive-code&quot;&gt;&lt;figure class=&quot;frame&quot; data-language=&quot;text&quot;&gt;&lt;figcaption class=&quot;header&quot;&gt;&lt;/figcaption&gt;&lt;pre data-language=&quot;text&quot; class=&quot;wrap&quot; style=&quot;--ecMaxLine:19ch&quot;&gt;&lt;code&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;1&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;T#500ms  →  0.500 s&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;2&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;T#1s     →  1.000 s&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ec-line&quot;&gt;&lt;div class=&quot;gutter&quot;&gt;&lt;div class=&quot;ln&quot; aria-hidden=&quot;true&quot;&gt;3&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;code&quot;&gt;&lt;span style=&quot;--0:#24292e;--1:#e1e4e8&quot;&gt;T#10s    → 10.000 s&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;copy-btn-icon&quot;&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;&lt;p&gt;当&lt;code&gt;10.000&lt;/code&gt;显示为&lt;code&gt;######&lt;/code&gt;时，不仅要增加控件宽度，还要把“域长度”增加到能够容纳符号、整数位和小数位。&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;六三方联调结果&quot;&gt;六、三方联调结果&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E5%85%AD%E4%B8%89%E6%96%B9%E8%81%94%E8%B0%83%E7%BB%93%E6%9E%9C&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;本次已经验证：&lt;/p&gt;&lt;ul&gt;
+&lt;li&gt;PLCSIM Advanced虚拟CPU能够正常下载并进入RUN；&lt;/li&gt;
+&lt;li&gt;Factory I/O能够读取PLC输出并写入两个传感器信号；&lt;/li&gt;
+&lt;li&gt;WinCC能够通过符号变量读写&lt;code&gt;DB_C2_Control&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;HMI自动模式、启动、停止、故障复位、计数清零和模拟急停均完成配置；&lt;/li&gt;
+&lt;li&gt;设备状态灯、系统状态灯、当前步号、步骤文本和工艺参数能够动态显示；&lt;/li&gt;
+&lt;li&gt;GRAPH可以执行进瓶、稳定、灌装、滴漏、出瓶和完成步骤；&lt;/li&gt;
+&lt;li&gt;HMI、PLC与Factory I/O之间形成了完整的数据链路。&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;七暴露出的graph逻辑问题&quot;&gt;七、暴露出的GRAPH逻辑问题&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E4%B8%83%E6%9A%B4%E9%9C%B2%E5%87%BA%E7%9A%84graph%E9%80%BB%E8%BE%91%E9%97%AE%E9%A2%98&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;项目最后的主要问题出现在S50出瓶和S60完成之间。&lt;/p&gt;&lt;p&gt;原逻辑在出口传感器检测到瓶体时，从S50切换到S60；但&lt;code&gt;xSeqConveyorReq&lt;/code&gt;只在S50有效，离开S50后输送请求立即消失。结果是瓶体可能正好停在第二个传感器处，没有真正离开检测区域或进入移除器。&lt;/p&gt;&lt;p&gt;更合理的思路应当是：&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;S50负责把瓶体送到出口传感器；&lt;/li&gt;
+&lt;li&gt;S60继续保持输送带运行并产生一次计数；&lt;/li&gt;
+&lt;li&gt;只有当出口传感器从1恢复为0，确认瓶体已经离开后，流程才返回S0；&lt;/li&gt;
+&lt;li&gt;对停止、急停、报警后的步骤恢复策略进行单独设计，而不是只依赖重新按启动按钮。&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;这次问题说明，顺控程序不能只考虑“传感器检测到了什么”，还要考虑执行器在步骤切换瞬间是否继续保持、工件是否真正离开，以及异常中断后如何恢复。编译0错误只代表语法和组态通过，不代表工艺逻辑正确。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;八这次真正学到的内容&quot;&gt;八、这次真正学到的内容&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E5%85%AB%E8%BF%99%E6%AC%A1%E7%9C%9F%E6%AD%A3%E5%AD%A6%E5%88%B0%E7%9A%84%E5%86%85%E5%AE%B9&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;用GRAPH拆分工艺步骤、动作和转换条件；&lt;/li&gt;
+&lt;li&gt;理解步骤&lt;code&gt;N&lt;/code&gt;动作离开步骤后会立即撤销；&lt;/li&gt;
+&lt;li&gt;用LAD处理模式、联锁、报警、计数和最终输出；&lt;/li&gt;
+&lt;li&gt;使用PLCSIM Advanced连接Factory I/O；&lt;/li&gt;
+&lt;li&gt;从空白场景搭建输送带、传感器、Emitter和Remover；&lt;/li&gt;
+&lt;li&gt;建立PC站&lt;code&gt;IE General&lt;/code&gt;、PN/IE子网和指定HMI连接；&lt;/li&gt;
+&lt;li&gt;使用WinCC符号变量、按钮事件、动态外观和文本列表；&lt;/li&gt;
+&lt;li&gt;正确显示并输入PLC的&lt;code&gt;TIME&lt;/code&gt;参数；&lt;/li&gt;
+&lt;li&gt;根据HMI、PLC在线值和Factory I/O动作共同定位问题；&lt;/li&gt;
+&lt;li&gt;接受“程序能运行”和“工艺逻辑成熟”之间仍有明显差距。&lt;/li&gt;
+&lt;/ul&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;总结&quot;&gt;总结&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E6%80%BB%E7%BB%93&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;C2不是一个逻辑完全成熟的成品，但它完成了本阶段最重要的学习目标：第一次把PLC程序、虚拟产线和HMI监控连接成一个整体，并在联调中真正遇到通信、变量、显示格式、按钮事件和工艺转换问题。&lt;/p&gt;&lt;p&gt;相比单纯照着程序输入，最后暴露出的GRAPH问题更有价值。它让我认识到，顺序控制的核心不是把步骤画出来，而是确保每个步骤的进入条件、保持动作、离开条件和异常恢复都与真实工件运动一致。&lt;/p&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;项目状态：学习目标完成，基础联调完成；GRAPH出瓶与异常恢复逻辑保留为后续重构项。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;&lt;/section&gt;</content:encoded></item><item><title>C2进行中｜S7-1500自动灌装输送线：GRAPH顺控、PLCSIM Advanced与Factory I/O联调</title><link>https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E8%BF%9B%E8%A1%8C%E4%B8%AD/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E8%BF%9B%E8%A1%8C%E4%B8%AD/</guid><description>记录C2自动灌装输送线项目的阶段成果：PLC程序架构、GRAPH工艺步、故障停序、PLCSIM Advanced启动、Factory I/O场景搭建与I/O映射。</description><pubDate>Sat, 19 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;项目定位&quot;&gt;项目定位&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E8%BF%9B%E8%A1%8C%E4%B8%AD/#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;C2项目开始进入正式联调阶段。本项目使用TIA Portal V19完成S7-1500控制程序，以GRAPH组织灌装顺序，以LAD完成模式、报警、计数和最终输出控制，再通过S7-PLCSIM Advanced V6.0与Factory I/O搭建虚拟生产线。&lt;/p&gt;&lt;p&gt;今天完成的重点不是单独验证某一个线圈，而是把PLC程序、虚拟PLC实例、Factory I/O驱动和场景中的执行器连接成一条完整链路。&lt;/p&gt;&lt;blockquote&gt;
 &lt;p&gt;本文记录当前阶段的真实进度。HMI画面和整线动态测试尚未完成，因此项目仍处于进行中状态。&lt;/p&gt;
 &lt;/blockquote&gt;&lt;/section&gt;
 &lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;一项目环境&quot;&gt;一、项目环境&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E8%BF%9B%E8%A1%8C%E4%B8%AD/#%E4%B8%80%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
