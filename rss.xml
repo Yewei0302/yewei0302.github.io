@@ -236,7 +236,243 @@
 &lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;参考学习&quot;&gt;参考学习&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#%E5%8F%82%E8%80%83%E5%AD%A6%E4%B9%A0&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://1847.siemens.com.cn/course/detail/1/17780/1496&quot; data-content-link-kind=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;西门子官方视频：组态触摸屏的离散量报警&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://docs.tia.siemens.cloud/r/zh-cn/v21/%E4%BD%BF%E7%94%A8%E6%8A%A5%E8%AD%A6-basic-panels-panels-comfort-panels-rt-advanced-rt-professional/%E4%BD%BF%E7%94%A8%E6%8A%A5%E8%AD%A6%E8%AE%B0%E5%BD%95-basic-panels-panels-comfort-panels-rt-advanced-rt-professional/%E7%BB%84%E6%80%81%E6%8A%A5%E8%AD%A6%E8%AE%B0%E5%BD%95-panels-comfort-panels-rt-advanced/%E5%85%B3%E4%BA%8E%E6%8A%A5%E8%AD%A6%E8%AE%B0%E5%BD%95%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-panels-comfort-panels-rt-advanced&quot; data-content-link-kind=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;西门子文档：报警记录基础知识（Panels、Comfort Panels、RT Advanced）&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;p&gt;视频使用旧版博途，适合对照理解组态流程；具体界面以本机工程和对应版本帮助为准。&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>C2总结｜S7-1500自动灌装输送线：GRAPH、Factory I/O与WinCC三方联调</title><link>https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid><description>从PLC程序架构、GRAPH七步顺控、Factory I/O场景与I/O映射，到WinCC RT Advanced监控画面和三方联调，完整复盘C2自动灌装输送线项目及暴露出的逻辑问题。</description><pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;项目定位&quot;&gt;项目定位&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;C2是在C1交通灯顺控之后完成的一次综合练习。项目不再只验证PLC内部的步序，而是把以下三个部分真正连接起来：&lt;/p&gt;&lt;ol&gt;
+&lt;/ul&gt;&lt;p&gt;视频使用旧版博途，适合对照理解组态流程；具体界面以本机工程和对应版本帮助为准。&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>D2 HMI历史数据与趋势：用WinCC记录温度、回看曲线并读取CSV</title><link>https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/</guid><description>基于B2恒温PID与D1报警工程，完成WinCC RT Advanced数据记录、双坐标历史趋势及CSV保存，梳理采集周期、记录周期和历史回看的配置方法。</description><pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;B2已经能够显示温度实时曲线，D1补充了报警管理。D2继续使用同一套恒温系统，重点学习如何把过程数据保存下来，再通过HMI和CSV查看已经发生的过程。&lt;/p&gt;
+&lt;p&gt;这次没有增加新的PLC控制逻辑。现有的实际温度、设定温度和加热输出就是数据源，主要工作集中在WinCC的数据记录、历史趋势和存储配置。&lt;/p&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;1-历史趋势运行效果&quot;&gt;1. 历史趋势运行效果&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#1-%E5%8E%86%E5%8F%B2%E8%B6%8B%E5%8A%BF%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/01-history-running.png&quot; alt=&quot;历史趋势显示升温过程、55℃设定值和逐渐降低的加热输出&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;黑线是实际温度，红线是设定温度，蓝线是加热输出。温度从约25℃向55℃上升，加热输出先增大，再随着温度接近目标逐渐降低，稳定阶段约为20%。&lt;/p&gt;&lt;p&gt;温度和输出的单位不同，因此使用左右两条数值轴：左侧为℃，右侧为%。虽然这次两边都设为0～100，读图时仍要区分量纲。&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;项目&lt;/th&gt;&lt;th&gt;配置&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;工程名称&lt;/td&gt;&lt;td&gt;&lt;code&gt;D2_HMI_TrendArchive&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;基础工程&lt;/td&gt;&lt;td&gt;B2房间恒温PID，沿用D1报警功能&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;编程环境&lt;/td&gt;&lt;td&gt;TIA Portal V19&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;PLC&lt;/td&gt;&lt;td&gt;S7-1500 CPU 1511-1 PN，软件仿真&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;HMI&lt;/td&gt;&lt;td&gt;PC站，WinCC RT Advanced&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;记录名称&lt;/td&gt;&lt;td&gt;&lt;code&gt;Log_RoomTemp&lt;/code&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;文件格式&lt;/td&gt;&lt;td&gt;CSV文件（ASCII）&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;记录变量&lt;/td&gt;&lt;td&gt;实际温度、设定温度、联锁后的加热输出&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;记录周期&lt;/td&gt;&lt;td&gt;三个变量均为1秒&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;历史趋势窗口&lt;/td&gt;&lt;td&gt;600秒，即10分钟&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;2-先分清读取保存显示&quot;&gt;2. 先分清“读取、保存、显示”&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#2-%E5%85%88%E5%88%86%E6%B8%85%E8%AF%BB%E5%8F%96%E4%BF%9D%E5%AD%98%E6%98%BE%E7%A4%BA&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;实时曲线能动，只能说明画面正在取得数据。要让这些数据可以回看，还需要配置记录及其存储位置。&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;环节&lt;/th&gt;&lt;th&gt;作用&lt;/th&gt;&lt;th&gt;需要关注的设置&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;HMI变量采集&lt;/td&gt;&lt;td&gt;从PLC取得过程值&lt;/td&gt;&lt;td&gt;连接、变量地址或符号、采集周期&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;数据记录&lt;/td&gt;&lt;td&gt;把过程值按规则写入记录&lt;/td&gt;&lt;td&gt;记录变量、记录周期、文件路径、容量&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;趋势显示&lt;/td&gt;&lt;td&gt;将当前值或记录值画成曲线&lt;/td&gt;&lt;td&gt;趋势类型、数据源、时间窗口、数值轴&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;采集周期、记录周期和画面刷新不是同一个概念。把趋势窗口设为10分钟，也不表示文件只能保存10分钟；窗口决定一次看多长，记录容量与记录频率决定能保留多少数据。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;3-创建log_roomtemp数据记录&quot;&gt;3. 创建Log_RoomTemp数据记录&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#3-%E5%88%9B%E5%BB%BAlog_roomtemp%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;在本机界面中，入口是项目树下的 &lt;strong&gt;HMI_RT_1 → 记录 → 数据记录&lt;/strong&gt;。一些旧版教程将入口称为“历史数据”，实际操作时需要对照当前软件界面。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/02-data-log.png&quot; alt=&quot;数据记录与三个记录变量的配置&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;上半部分定义记录本身，下半部分定义哪些变量写入这份记录。&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;配置项&lt;/th&gt;&lt;th&gt;本次做法与含义&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;名称&lt;/td&gt;&lt;td&gt;&lt;code&gt;Log_RoomTemp&lt;/code&gt;，用于关联趋势数据源&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;存储位置&lt;/td&gt;&lt;td&gt;选择CSV文件（ASCII），方便查看保存结果&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;路径&lt;/td&gt;&lt;td&gt;指定电脑上的实际保存目录&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;记录方法&lt;/td&gt;&lt;td&gt;循环记录，容量达到上限后逐步替换旧数据&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;运行系统启动时启用记录&lt;/td&gt;&lt;td&gt;勾选，Runtime启动时开始记录&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;每个记录的数据记录数&lt;/td&gt;&lt;td&gt;决定容量；图中的组态值为1000&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;循环记录适合保留最近一段过程，但它不是无限期保存方案。需要更长历史时，应结合变量数量、记录周期和磁盘空间增加容量，或进一步设计分段与备份。&lt;/p&gt;&lt;p&gt;本次使用PC运行系统，保存路径是运行WinCC的电脑目录。面板教程中的U盘或存储卡路径不能原样照搬到PC工程。&lt;/p&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;关联三个过程变量&quot;&gt;关联三个过程变量&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#%E5%85%B3%E8%81%94%E4%B8%89%E4%B8%AA%E8%BF%87%E7%A8%8B%E5%8F%98%E9%87%8F&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;记录变量名称&lt;/th&gt;&lt;th&gt;过程变量&lt;/th&gt;&lt;th&gt;单位&lt;/th&gt;&lt;th&gt;采集模式&lt;/th&gt;&lt;th&gt;记录周期&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;Log_TempPV&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;rRoomTempPV&lt;/code&gt;&lt;/td&gt;&lt;td&gt;℃&lt;/td&gt;&lt;td&gt;循环&lt;/td&gt;&lt;td&gt;1 s&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;Log_TempSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;rRoomTempSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;℃&lt;/td&gt;&lt;td&gt;循环&lt;/td&gt;&lt;td&gt;1 s&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;Log_HeatOut&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;rHeaterOutSafePct&lt;/code&gt;&lt;/td&gt;&lt;td&gt;%&lt;/td&gt;&lt;td&gt;循环&lt;/td&gt;&lt;td&gt;1 s&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;这里记录的是 &lt;code&gt;rHeaterOutSafePct&lt;/code&gt;，即经过联锁处理后的输出。它能反映停止或故障时加热被禁止的结果，比只记录PID内部计算输出更适合这次实验。&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;4-让趋势读取记录数据&quot;&gt;4. 让趋势读取记录数据&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#4-%E8%AE%A9%E8%B6%8B%E5%8A%BF%E8%AF%BB%E5%8F%96%E8%AE%B0%E5%BD%95%E6%95%B0%E6%8D%AE&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;新建 &lt;code&gt;Scr_D2_History&lt;/code&gt; 画面，放入“趋势视图”，主画面增加“历史记录”入口，历史画面保留返回按钮。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/03-trend-config.png&quot; alt=&quot;三条趋势均选择数据记录，加热输出使用右侧值轴&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;这一步的关键是把三条曲线的“趋势类型”设为 &lt;strong&gt;数据记录&lt;/strong&gt;。然后打开每一行的“源设置”，选择 &lt;code&gt;Log_RoomTemp&lt;/code&gt; 和对应过程值。&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;曲线&lt;/th&gt;&lt;th&gt;数据记录&lt;/th&gt;&lt;th&gt;源设置中的过程值&lt;/th&gt;&lt;th&gt;数值轴&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;实际温度&lt;/td&gt;&lt;td&gt;&lt;code&gt;Log_RoomTemp&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;rRoomTempPV&lt;/code&gt;&lt;/td&gt;&lt;td&gt;左&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;设定温度&lt;/td&gt;&lt;td&gt;&lt;code&gt;Log_RoomTemp&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;rRoomTempSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;左&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;加热输出&lt;/td&gt;&lt;td&gt;&lt;code&gt;Log_RoomTemp&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;rHeaterOutSafePct&lt;/code&gt;&lt;/td&gt;&lt;td&gt;右&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;本机数据源对话框显示的是“过程值”，选择原有HMI变量名；它与记录编辑器里填写的 &lt;code&gt;Log_TempPV&lt;/code&gt; 等名称不是同一个字段。配置时要看数据关联，而不是只凭名称是否相同判断。&lt;/p&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;时间轴与工具栏&quot;&gt;时间轴与工具栏&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#%E6%97%B6%E9%97%B4%E8%BD%B4%E4%B8%8E%E5%B7%A5%E5%85%B7%E6%A0%8F&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/04-time-axis.png&quot; alt=&quot;时间轴设为600秒，显示十分钟范围&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;左右值轴都设为0～100，时间间隔设为600秒，并显示工具栏。运行后可以暂停刷新、翻看前面的时间段、缩放和使用标尺查看数值。&lt;/p&gt;&lt;p&gt;趋势控件的停止刷新用于固定当前查看位置，与主画面的“系统停止”是两个操作。前者不等于停止PLC，也不能据此认定后台记录已经停止。&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;5-升温与停止过程&quot;&gt;5. 升温与停止过程&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#5-%E5%8D%87%E6%B8%A9%E4%B8%8E%E5%81%9C%E6%AD%A2%E8%BF%87%E7%A8%8B&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;系统启动后，实际温度逐渐接近55℃。稳定阶段主画面显示实际温度54.9℃、加热输出20.1%，与历史趋势中的变化相对应。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/05-steady-state.png&quot; alt=&quot;恒温运行：设定55℃，实际54.9℃，输出20.1%&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;按下系统停止后，运行和加热允许指示灯熄灭，加热输出回到0。温度不会立即归零，而是按照原有温度模型逐渐向环境温度回落。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/06-stopped.png&quot; alt=&quot;停止后输出为0，实际温度逐渐回落&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;这次对照观察让我更容易区分“控制输出变化”和“被控对象响应”：输出可以迅速撤销，但温度变化仍然有过程。&lt;/p&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;回看先前的时间段&quot;&gt;回看先前的时间段&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#%E5%9B%9E%E7%9C%8B%E5%85%88%E5%89%8D%E7%9A%84%E6%97%B6%E9%97%B4%E6%AE%B5&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/07-history-review.png&quot; alt=&quot;后续回看画面：停止降温段与后续数据段处于同一时间窗口&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;后续回看时，图中仍能查看停止后的降温段，也能看到后续数据重新出现的时间位置。&lt;/p&gt;&lt;p&gt;中间落到0的区段不能直接解释为房间实际降到0℃。判断这类记录，应结合当时的PLC/HMI运行状态、连接情况和CSV原始值。本次用它记录运行过程的变化，不把未确认的中断区段当成有效温度过程分析。&lt;/p&gt;&lt;p&gt;跨Runtime重启保留历史时，还需要关注记录的重启处理方式：追加到现有记录与重置记录会产生不同结果。正式使用前应把这一项与存储路径、循环容量一起确认。&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;6-csv里实际保存了什么&quot;&gt;6. CSV里实际保存了什么&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#6-csv%E9%87%8C%E5%AE%9E%E9%99%85%E4%BF%9D%E5%AD%98%E4%BA%86%E4%BB%80%E4%B9%88&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;保存目录中生成了 &lt;code&gt;Log_RoomTemp0.csv&lt;/code&gt;。用记事本打开后，可以看到变量名、时间和数值等字段，三个变量按各自的记录条目写入。&lt;/p&gt;&lt;img src=&quot;https://yewei0302.github.io/images/posts/d2-hmi-history-trend/08-csv.png&quot; alt=&quot;CSV原始记录：三个变量按1秒周期保存&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;&lt;p&gt;以截图中的 &lt;strong&gt;2026/9/27 23:35:14&lt;/strong&gt; 为例：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;变量&lt;/th&gt;&lt;th&gt;保存值&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;rRoomTempPV&lt;/code&gt;&lt;/td&gt;&lt;td&gt;54.54624&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;rRoomTempSP&lt;/code&gt;&lt;/td&gt;&lt;td&gt;55&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;code&gt;rHeaterOutSafePct&lt;/code&gt;&lt;/td&gt;&lt;td&gt;20.59827&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;同一个时间点对应三行，而不是一行中并排放三个数值。按这次三个变量、每秒记录一次的设置，每秒约产生三条记录。记录容量不能直接等同于秒数，更不能直接当作每个变量各自拥有的点数。&lt;/p&gt;&lt;section class=&quot;markdown-section&quot;&gt;&lt;h3 id=&quot;用excel查看的做法&quot;&gt;用Excel查看的做法&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#%E7%94%A8excel%E6%9F%A5%E7%9C%8B%E7%9A%84%E5%81%9A%E6%B3%95&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;正常关闭Runtime，或复制一份CSV作为分析副本。&lt;/li&gt;
+&lt;li&gt;在Excel中通过文本/CSV导入方式打开副本。&lt;/li&gt;
+&lt;li&gt;按文件实际使用的分隔符分列，检查变量名、时间和数值是否正确分开。&lt;/li&gt;
+&lt;li&gt;筛选一个变量查看，或按时间与变量名整理成对照表。&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;源文件由WinCC管理，分析时使用副本更方便，也能避免编辑、占用正在写入的记录文件。&lt;/p&gt;&lt;/section&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;7-这次掌握的配置方法&quot;&gt;7. 这次掌握的配置方法&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#7-%E8%BF%99%E6%AC%A1%E6%8E%8C%E6%8F%A1%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;完成D2后，数据链已经连通：PLC产生过程值，HMI按周期采集，数据记录负责保存，历史趋势负责回看，CSV提供进一步分析的入口。&lt;/p&gt;&lt;p&gt;排查时也可以按这条链分段检查：&lt;/p&gt;&lt;div class=&quot;table-wrapper&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;现象&lt;/th&gt;&lt;th&gt;优先检查&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;主画面数值不变化&lt;/td&gt;&lt;td&gt;PLC运行状态、HMI连接与变量绑定&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;实时值正常但没有文件&lt;/td&gt;&lt;td&gt;记录是否启用、目录是否可写、运行系统提示&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;文件有数据但历史趋势为空&lt;/td&gt;&lt;td&gt;趋势类型、记录及过程值关联、显示时间范围&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;找不到更早数据&lt;/td&gt;&lt;td&gt;循环容量、记录周期、重启处理方式&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;表格当前数值与曲线末端不同&lt;/td&gt;&lt;td&gt;标尺是否停在较早的时间点&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;p&gt;相比继续增加控制程序，这次的收获是理解数据从哪里来、保存在哪里，以及怎样把已经发生的过程重新展示出来。后续D3将继续使用现有工程，学习配方和整组参数的保存、读取与下发。&lt;/p&gt;&lt;/section&gt;
+&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;参考学习&quot;&gt;参考学习&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/d2-hmi-history-trend/#%E5%8F%82%E8%80%83%E5%AD%A6%E4%B9%A0&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://1847.siemens.com.cn/course/detail/1/17780/1519&quot; data-content-link-kind=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;西门子官方视频：在精智面板中组态趋势曲线&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.tia.siemens.cloud/r/en-us/v20/displaying-tags-basic-panels-panels-comfort-panels-rt-advanced-rt-professional/displaying-tags-with-runtime-advanced-and-panels-panels-comfort-panels-rt-advanced/configuring-a-trend-view-for-a-data-log-panels-comfort-panels-rt-advanced&quot; data-content-link-kind=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;西门子文档：为数据记录配置趋势视图（RT Advanced及面板）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;教程版本与本机界面有差异，本文菜单名称与变量对应关系按实际工程整理。&lt;/p&gt;&lt;/section&gt;</content:encoded></item><item><title>C2总结｜S7-1500自动灌装输送线：GRAPH、Factory I/O与WinCC三方联调</title><link>https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</link><guid isPermaLink="true">https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid><description>从PLC程序架构、GRAPH七步顺控、Factory I/O场景与I/O映射，到WinCC RT Advanced监控画面和三方联调，完整复盘C2自动灌装输送线项目及暴露出的逻辑问题。</description><pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate><content:encoded>&lt;section class=&quot;markdown-section&quot;&gt;&lt;h2 id=&quot;项目定位&quot;&gt;项目定位&lt;a class=&quot;anchor&quot; href=&quot;https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D&quot;&gt;&lt;span class=&quot;anchor-icon&quot; data-pagefind-ignore&gt;#&lt;/span&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;C2是在C1交通灯顺控之后完成的一次综合练习。项目不再只验证PLC内部的步序，而是把以下三个部分真正连接起来：&lt;/p&gt;&lt;ol&gt;
 &lt;li&gt;TIA Portal V19中的S7-1500控制程序；&lt;/li&gt;
 &lt;li&gt;PLCSIM Advanced与Factory I/O构成的虚拟生产线；&lt;/li&gt;
 &lt;li&gt;WinCC RT Advanced制作的操作与监控画面。&lt;/li&gt;
