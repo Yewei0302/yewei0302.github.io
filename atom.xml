@@ -31,6 +31,242 @@
     <category term="PLC项目练习"/>
   </entry>
   <entry>
+    <title>D1 HMI报警管理进阶：从报警触发到确认、复位与事件记录</title>
+    <link href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/" rel="alternate" type="text/html"/>
+    <id>https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/</id>
+    <published>2026-09-27T00:00:00.000Z</published>
+    <updated>2026-09-27T00:00:00.000Z</updated>
+    <summary>基于B2恒温PID系统，完成WinCC RT Advanced四类报警组态与故障模拟，整理Word位映射、报警确认与PLC复位、事件记录和归档的区别。</summary>
+    <content type="html"><![CDATA[<p>B2完成了房间恒温PID控制，也有超温和PID错误报警。进入D阶段后，我继续使用这套工程，把学习重点放在HMI报警的配置、显示和操作上：报警由哪个变量触发，什么时候算恢复，操作员确认后又改变了什么。</p>
+<p>这次沿用原来的温度仿真、PID、主画面和报警画面，增加传感器故障模拟、模拟急停，完成四类离散报警的组态。结合官方视频，把原来“能够显示报警”的功能整理成一套可以复用的方法。</p>
+<section class="markdown-section"><h2 id="1-实际运行效果">1. 实际运行效果<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#1-%E5%AE%9E%E9%99%85%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><img src="https://yewei0302.github.io/images/posts/d1-hmi-alarm-management/01-runtime.png" alt="D1报警运行记录：传感器故障模拟和模拟急停的事件显示" loading="lazy" decoding="async" /><p>运行画面中可以看到两种模拟故障的报警文本、时间、日期和状态。操作按钮用于注入故障，报警视图用于查看事件和执行确认。</p><p>同一报警编号可以出现多条记录。阅读时要同时看时间和状态，不能只按行数判断发生了多少次独立故障。</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>项目</th><th>本次配置</th></tr></thead><tbody><tr><td>工程</td><td>基于B2另存为 <code>D1_HMI_Alarm</code></td></tr><tr><td>编程环境</td><td>TIA Portal V19</td></tr><tr><td>PLC</td><td>S7-1500 CPU 1511-1 PN，软件仿真</td></tr><tr><td>HMI</td><td>PC站，WinCC RT Advanced</td></tr><tr><td>数据块</td><td><code>DB_B2_Control</code></td></tr><tr><td>画面</td><td><code>Scr_B2_Overview</code>、<code>Scr_B2_Alarms</code></td></tr><tr><td>报警来源</td><td>超温、PID错误、传感器故障模拟、模拟急停</td></tr></tbody></table></div><p>画面保留B2的名称和布局，方便对照原工程。这里的传感器故障与急停采用软件信号模拟，用于学习报警处理和联锁关系。</p></section>
+<section class="markdown-section"><h2 id="2-先分清plc和hmi各自负责什么">2. 先分清PLC和HMI各自负责什么<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#2-%E5%85%88%E5%88%86%E6%B8%85plc%E5%92%8Chmi%E5%90%84%E8%87%AA%E8%B4%9F%E8%B4%A3%E4%BB%80%E4%B9%88"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>PLC负责判断故障、锁存报警、判断复位条件，并决定是否允许运行和加热。HMI读取这些状态，显示报警文本、时间和确认状态，向PLC发送操作命令。</p><p>这次最需要分开的三个动作是：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>动作</th><th>含义</th><th>本项目中的作用</th></tr></thead><tbody><tr><td>排除故障原因</td><td>原始故障条件不再成立</td><td>例如关闭传感器故障模拟信号</td></tr><tr><td>HMI报警确认</td><td>操作员确认已经看到报警</td><td>改变HMI侧确认状态，不直接清除PLC报警位</td></tr><tr><td>PLC报警复位</td><td>满足复位条件后解除锁存</td><td>原故障解除后，通过 <code>xAlarmResetCmd</code> 清除报警锁存</td></tr></tbody></table></div><p>本项目没有配置HMI确认变量与PLC确认位的握手。因此，点击报警视图中的确认按钮，不会自动写入 <code>xAlarmResetCmd</code>，也不会直接启动系统。</p></section>
+<section class="markdown-section"><h2 id="3-用一个word组织四类报警">3. 用一个Word组织四类报警<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#3-%E7%94%A8%E4%B8%80%E4%B8%AAword%E7%BB%84%E7%BB%87%E5%9B%9B%E7%B1%BB%E6%8A%A5%E8%AD%A6"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>HMI读取 <code>DB_B2_Control.wHMIAlarmTrigger</code>，按位区分报警来源。一个Word包含16个位，本次使用bit 0～3。</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>位号</th><th>PLC报警变量</th><th>HMI报警名称</th><th>含义</th></tr></thead><tbody><tr><td>0</td><td><code>xRoomTempHighAlm</code></td><td><code>Alm_RoomTempHigh</code></td><td>房间温度超限</td></tr><tr><td>1</td><td><code>xPIDErrorAlm</code></td><td><code>Alm_PIDError</code></td><td>PID控制器错误</td></tr><tr><td>2</td><td><code>xSensorFaultAlm</code></td><td><code>Alm_SensorFault</code></td><td>温度传感器故障模拟</td></tr><tr><td>3</td><td><code>xEStopAlm</code></td><td><code>Alm_EStop</code></td><td>模拟急停</td></tr></tbody></table></div><p>PLC使用常开触点和普通线圈，把每个报警状态写到对应位。下面是新增的两个映射程序段。</p><img src="https://yewei0302.github.io/images/posts/d1-hmi-alarm-management/02-bit-mapping.png" alt="传感器故障和模拟急停分别映射到报警字bit 2、bit 3" loading="lazy" decoding="async" /><p><code>wHMIAlarmTrigger.%X2</code>表示访问这个Word的第2位。映射线圈使用普通线圈，使报警位跟随源变量；锁存已经在前面的报警逻辑中完成。</p><p>这种方法便于集中维护点表。扩展时要保证PLC位号与HMI触发位一致，也要避免其他程序段再给整个报警字赋值，覆盖已写入的位。</p><section class="markdown-section"><h3 id="hmi变量连接">HMI变量连接<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#hmi%E5%8F%98%E9%87%8F%E8%BF%9E%E6%8E%A5"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><img src="https://yewei0302.github.io/images/posts/d1-hmi-alarm-management/03-hmi-tags.png" alt="HMI变量表：报警触发字使用Word和100 ms采集周期" loading="lazy" decoding="async" /><p>本项目采用符号访问，HMI连接为 <code>HMI_Conn_PLC1</code>。选择对应PLC变量后，不需要再手填DB绝对地址。</p><p>报警字采集周期设为100 ms。它表示HMI读取数据的周期，不代表PLC联锁执行周期，也不等于归档记录周期。停机和加热禁止仍由PLC逻辑处理。</p><p>对于持续时间很短的事件，单纯缩短HMI采集周期不一定能保证捕获。本项目把故障锁存在PLC中，使HMI有机会读到稳定的报警状态。</p></section></section>
+<section class="markdown-section"><h2 id="4-离散报警怎样配置">4. 离散报警怎样配置<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#4-%E7%A6%BB%E6%95%A3%E6%8A%A5%E8%AD%A6%E6%80%8E%E6%A0%B7%E9%85%8D%E7%BD%AE"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><img src="https://yewei0302.github.io/images/posts/d1-hmi-alarm-management/04-discrete-alarms.png" alt="四条离散报警：共用触发变量，分别使用bit 0至bit 3" loading="lazy" decoding="async" /><p>在HMI的“离散量报警”中，每一行定义一条报警。此次四条报警共用 <code>wHMIAlarmTrigger</code>，类别均为 <code>Errors</code>，触发位分别为0、1、2、3，HMI确认变量留空。</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>配置项</th><th>配置时关注的问题</th></tr></thead><tbody><tr><td>报警名称与编号</td><td>是否便于定位，是否与其他报警重复</td></tr><tr><td>报警文本</td><td>能否说明发生了什么、设备处于什么状态</td></tr><tr><td>报警类别</td><td>确认要求和显示样式是否符合用途</td></tr><tr><td>触发变量与位</td><td>是否对应PLC真实报警位</td></tr><tr><td>报警视图</td><td>是否包含所需类别，当前显示哪类数据</td></tr></tbody></table></div><p>例如“温度传感器故障（模拟），加热已禁止”同时说明了故障对象和联锁动作。报警类别本身不会替PLC执行停机，联锁必须由控制程序实现。</p><p>离散报警关注某个位的状态；模拟量报警则围绕数值与限值配置。选择哪一种，要看报警判断放在哪里。本项目沿用PLC生成的布尔报警，再打包到Word中供HMI读取。</p></section>
+<section class="markdown-section"><h2 id="5-锁存与复位故障还在就不能复位">5. 锁存与复位：故障还在，就不能复位<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#5-%E9%94%81%E5%AD%98%E4%B8%8E%E5%A4%8D%E4%BD%8D%E6%95%85%E9%9A%9C%E8%BF%98%E5%9C%A8%E5%B0%B1%E4%B8%8D%E8%83%BD%E5%A4%8D%E4%BD%8D"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>新增变量分成命令和报警两组：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>变量</th><th>类型</th><th>用途</th></tr></thead><tbody><tr><td><code>xSimSensorFaultCmd</code></td><td>Bool</td><td>注入传感器故障模拟信号</td></tr><tr><td><code>xSimEStopCmd</code></td><td>Bool</td><td>注入模拟急停信号</td></tr><tr><td><code>xSensorFaultAlm</code></td><td>Bool</td><td>锁存传感器故障报警</td></tr><tr><td><code>xEStopAlm</code></td><td>Bool</td><td>锁存模拟急停报警</td></tr></tbody></table></div><img src="https://yewei0302.github.io/images/posts/d1-hmi-alarm-management/05-latch-reset.png" alt="新增报警的置位和条件复位逻辑" loading="lazy" decoding="async" /><p>以传感器故障为例，<code>xSimSensorFaultCmd</code>成立时置位 <code>xSensorFaultAlm</code>。复位支路要求 <code>xAlarmResetCmd</code>成立，同时故障模拟信号已经撤销。</p><p>因此，原始故障信号关闭后，锁存报警不会立刻消失；还需要执行PLC报警复位。对HMI而言，它监视的是锁存后的报警位，报警“离开”的时刻也就取决于该报警位何时回到0。</p><p>原有超温报警沿用80℃置位、降至75℃及以下才允许手动复位的条件。这让故障触发阈值和允许复位阈值分开，避免在同一个温度点附近反复切换。</p><section class="markdown-section"><h3 id="报警接入原有加热联锁">报警接入原有加热联锁<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#%E6%8A%A5%E8%AD%A6%E6%8E%A5%E5%85%A5%E5%8E%9F%E6%9C%89%E5%8A%A0%E7%83%AD%E8%81%94%E9%94%81"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><img src="https://yewei0302.github.io/images/posts/d1-hmi-alarm-management/06-ready-interlock.png" alt="四个报警常闭触点串联，生成系统就绪状态" loading="lazy" decoding="async" /><p>四类报警都接入 <code>xSystemReadySts</code> 的生成条件。任一报警存在，系统就绪撤销；后续原有逻辑复位运行状态、撤销加热允许，并通过SEL把 <code>rHeaterOutSafePct</code> 选择为0。</p><p>故障处理和报警显示共用同一组状态来源，便于从PLC到HMI逐级检查。</p></section></section>
+<section class="markdown-section"><h2 id="6-复用报警视图理解显示的数据">6. 复用报警视图，理解显示的数据<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#6-%E5%A4%8D%E7%94%A8%E6%8A%A5%E8%AD%A6%E8%A7%86%E5%9B%BE%E7%90%86%E8%A7%A3%E6%98%BE%E7%A4%BA%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><img src="https://yewei0302.github.io/images/posts/d1-hmi-alarm-management/07-alarm-screen.png" alt="沿用B2报警画面，增加故障模拟操作入口" loading="lazy" decoding="async" /><p>原来的 <code>Scr_B2_Alarms</code> 已经有报警视图、确认操作和返回主画面的按钮，这次直接复用。新增模拟入口后，可以在同一个画面观察报警变化。</p><p>报警显示需要同时理解两个维度：一是报警条件是否仍存在，二是操作员是否已经确认。</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>情况</th><th>含义</th></tr></thead><tbody><tr><td>条件存在、未确认</td><td>故障仍有效，尚未确认收到</td></tr><tr><td>条件存在、已确认</td><td>操作员已看到，但故障仍未解除</td></tr><tr><td>条件消失、未确认</td><td>故障条件已解除，但仍可能需要确认</td></tr><tr><td>条件消失、已确认</td><td>这一轮报警处理结束，事件可能仍保留在记录中</td></tr></tbody></table></div><p>具体显示的文字、符号、颜色和保留方式受报警类别与视图设置影响。判断状态时应结合配置，而不是只记一种颜色或一个字母。</p><section class="markdown-section"><h3 id="当前报警缓冲区归档不是同一件事">当前报警、缓冲区、归档不是同一件事<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#%E5%BD%93%E5%89%8D%E6%8A%A5%E8%AD%A6%E7%BC%93%E5%86%B2%E5%8C%BA%E5%BD%92%E6%A1%A3%E4%B8%8D%E6%98%AF%E5%90%8C%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>数据来源</th><th>主要用途</th><th>需要注意</th></tr></thead><tbody><tr><td>当前报警</td><td>查看仍有效或仍待处理的报警</td><td>显示结果受确认规则和筛选条件影响</td></tr><tr><td>报警缓冲区</td><td>查看运行期间的报警事件</td><td>容量有限，不能直接当作长期保存方案</td></tr><tr><td>报警归档</td><td>按配置把事件保存到存储介质</td><td>需要单独配置路径、记录策略、容量等</td></tr></tbody></table></div><p>本次完成的是报警触发、显示、确认与复位，以及运行期间的事件查看。长期保存报警数据需要另行配置报警归档。即使页面标题叫“报警记录”，也要检查数据源，才能判断这些记录实际存在哪里。</p></section></section>
+<section class="markdown-section"><h2 id="7-一套可复用的排查顺序">7. 一套可复用的排查顺序<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#7-%E4%B8%80%E5%A5%97%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E6%8E%92%E6%9F%A5%E9%A1%BA%E5%BA%8F"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>遇到报警没有显示时，我按下面的顺序检查：</p><ol>
+<li>原始故障条件是否成立，PLC报警变量是否置位。</li>
+<li><code>wHMIAlarmTrigger</code>对应位是否变为1。</li>
+<li>HMI变量是否连接到正确的PLC和数据块成员。</li>
+<li>离散报警的触发变量与触发位是否匹配。</li>
+<li>报警视图是否勾选相应类别，筛选条件是否隐藏了报警。</li>
+</ol><p>如果确认后设备仍不能启动，则继续检查PLC报警是否已复位、原故障是否解除、系统就绪是否恢复。HMI确认和PLC复位属于不同动作，不能混在一起判断。</p></section>
+<section class="markdown-section"><h2 id="8-d1学习收获">8. D1学习收获<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#8-d1%E5%AD%A6%E4%B9%A0%E6%94%B6%E8%8E%B7"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>D1让我把注意力从“再加一条报警程序”转向HMI报警管理本身。报警字解决数据组织问题，报警类别和视图决定信息怎样呈现，确认与复位明确操作职责，缓冲区与归档则决定事件如何保存。</p><p>这次基于已有B2工程完成了四类报警组态和两种故障模拟，原来的PID与温度模型继续作为数据来源。后续D2会重点学习过程值记录与历史趋势，D3学习整组工艺参数的配方管理。</p></section>
+<section class="markdown-section"><h2 id="参考学习">参考学习<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d1-hmi-alarm-management/#%E5%8F%82%E8%80%83%E5%AD%A6%E4%B9%A0"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><ul>
+<li><a href="https://1847.siemens.com.cn/course/detail/1/17780/1496" data-content-link-kind="external" target="_blank" rel="nofollow noopener noreferrer">西门子官方视频：组态触摸屏的离散量报警</a></li>
+<li><a href="https://docs.tia.siemens.cloud/r/zh-cn/v21/%E4%BD%BF%E7%94%A8%E6%8A%A5%E8%AD%A6-basic-panels-panels-comfort-panels-rt-advanced-rt-professional/%E4%BD%BF%E7%94%A8%E6%8A%A5%E8%AD%A6%E8%AE%B0%E5%BD%95-basic-panels-panels-comfort-panels-rt-advanced-rt-professional/%E7%BB%84%E6%80%81%E6%8A%A5%E8%AD%A6%E8%AE%B0%E5%BD%95-panels-comfort-panels-rt-advanced/%E5%85%B3%E4%BA%8E%E6%8A%A5%E8%AD%A6%E8%AE%B0%E5%BD%95%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-panels-comfort-panels-rt-advanced" data-content-link-kind="external" target="_blank" rel="nofollow noopener noreferrer">西门子文档：报警记录基础知识（Panels、Comfort Panels、RT Advanced）</a></li>
+</ul><p>视频使用旧版博途，适合对照理解组态流程；具体界面以本机工程和对应版本帮助为准。</p></section>]]></content>
+    <author><name>叶工</name></author>
+    <category term="PLC项目练习"/>
+  </entry>
+  <entry>
     <title>C2总结｜S7-1500自动灌装输送线：GRAPH、Factory I/O与WinCC三方联调</title>
     <link href="https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="alternate" type="text/html"/>
     <id>https://yewei0302.github.io/posts/plc-projects/c2_%E8%87%AA%E5%8A%A8%E7%81%8C%E8%A3%85%E8%BE%93%E9%80%81%E7%BA%BF_%E5%AE%8C%E6%95%B4%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
