@@ -51,6 +51,10 @@ Factory I/O中的传送带和传感器模拟物料输送，工位指示灯表示
 
 </details>
 
+## 正常循环
+
+<video src="/images/posts/c3-cleaning-line/normal-cycle.mp4" aria-label="正常完整循环" autoplay loop muted playsinline controls preload="metadata" style="width:100%;height:auto;"></video>
+
 ## 用GRAPH表达工艺顺序
 
 顺序从等待、生成工件开始，依次完成工位间转运与定时处理。下表中的编号是程序显示的逻辑步骤码，例如70表示毛刷处理，不是GRAPH编辑器的第70个步骤。
@@ -76,6 +80,8 @@ GRAPH转换条件同时受系统运行状态约束。这样，停止或故障后
 *图4｜毛刷处理的使能、复位与TONR调用。暂停时不触发计时复位。*
 
 停止时保留当前步骤和累计时间，初始化时清除相应过程状态。
+
+<video src="/images/posts/c3-cleaning-line/stop-resume.mp4" aria-label="停止与恢复" autoplay loop muted playsinline controls preload="metadata" style="width:100%;height:auto;"></video>
 
 ## 每件只计一次：完成脉冲与确认位
 
