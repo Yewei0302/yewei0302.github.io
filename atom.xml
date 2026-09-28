@@ -5,7 +5,45 @@
   <link href="https://yewei0302.github.io/" rel="alternate" type="text/html"/>
   <link href="https://yewei0302.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <id>https://yewei0302.github.io/</id>
-  <updated>2026-09-27T00:00:00.000Z</updated>
+  <updated>2026-09-28T00:00:00.000Z</updated>
+  <entry>
+    <title>D3 HMI配方管理：一键切换温度参数</title>
+    <link href="https://yewei0302.github.io/posts/plc-projects/d3-hmi-recipe/" rel="alternate" type="text/html"/>
+    <id>https://yewei0302.github.io/posts/plc-projects/d3-hmi-recipe/</id>
+    <published>2026-09-28T00:00:00.000Z</published>
+    <updated>2026-09-28T00:00:00.000Z</updated>
+    <summary>在恒温PID系统中完成WinCC配方组态、两组参数配置与PLC下发，通过运行画面展示温度设定值从55℃切换到45℃。</summary>
+    <content type="html"><![CDATA[<p>这次我在原有恒温PID工程上完成了HMI配方功能，把温度设定值、超温报警上限和报警复位阈值放在同一组参数中。切换工况时，可以直接选择对应配方并下发，省去逐项输入。</p>
+<p>环境沿用TIA Portal V19、S7-1500软件仿真和WinCC RT Advanced，工程另存为 <code>D3_HMI_Recipe</code>。</p>
+<section class="markdown-section"><h2 id="运行效果">运行效果<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d3-hmi-recipe/#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><img src="https://yewei0302.github.io/images/posts/d3-hmi-recipe/03-recipe-demo.gif" alt="HMI选择低温模式并下发，返回主画面后温度设定值由55℃变为45℃" loading="lazy" decoding="async" /><p>动图中，我从主画面进入“配方选择”，选中“低温模式”，将数据写入PLC。返回主画面后，温度设定值由 <strong>55℃变为45℃</strong>，完成了从配方选择到控制参数更新的操作。</p></section>
+<section class="markdown-section"><h2 id="两组温度参数">两组温度参数<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d3-hmi-recipe/#%E4%B8%A4%E7%BB%84%E6%B8%A9%E5%BA%A6%E5%8F%82%E6%95%B0"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>我建立了“温度配方”，配置三个Real类型元素，并关联已有控制变量。</p><img src="https://yewei0302.github.io/images/posts/d3-hmi-recipe/01-recipe-elements.png" alt="温度配方的三个元素及变量关联" loading="lazy" decoding="async" /><p>同一个配方下保存两条数据记录：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>数据记录</th><th>温度设定值</th><th>超温报警上限</th><th>报警复位阈值</th></tr></thead><tbody><tr><td>低温模式</td><td>45℃</td><td>65℃</td><td>60℃</td></tr><tr><td>高温模式</td><td>55℃</td><td>80℃</td><td>75℃</td></tr></tbody></table></div><img src="https://yewei0302.github.io/images/posts/d3-hmi-recipe/02-recipe-records.png" alt="低温模式与高温模式的数据记录" loading="lazy" decoding="async" /></section>
+<section class="markdown-section"><h2 id="这次掌握的功能">这次掌握的功能<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/d3-hmi-recipe/#%E8%BF%99%E6%AC%A1%E6%8E%8C%E6%8F%A1%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>通过这次练习，我已经能够建立配方、关联变量、配置不同工况的数据记录，并在HMI运行画面中选择和下发参数。</p><p>我也分清了几个概念：<strong>配方定义有哪些参数，数据记录保存一组具体数值；保存配方与写入PLC是两个操作。</strong> 选择数据记录后，还要执行下发，才能把这组参数交给控制程序使用。</p><p>后续遇到不同产品或工艺需要切换参数的场景，就可以沿用这种方法管理成组的设定值。</p></section>]]></content>
+    <author><name>叶工</name></author>
+    <category term="PLC项目练习"/>
+  </entry>
   <entry>
     <title>C3自动清洗线仿真实践：GRAPH步序、暂停恢复与HMI控制</title>
     <link href="https://yewei0302.github.io/posts/plc-projects/c3-cleaning-line/" rel="alternate" type="text/html"/>
