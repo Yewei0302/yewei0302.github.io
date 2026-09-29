@@ -5,7 +5,213 @@
   <link href="https://yewei0302.github.io/" rel="alternate" type="text/html"/>
   <link href="https://yewei0302.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <id>https://yewei0302.github.io/</id>
-  <updated>2026-09-28T00:00:00.000Z</updated>
+  <updated>2026-09-30T00:00:00.000Z</updated>
+  <entry>
+    <title>E2 Modbus TCP通信：从寄存器读写到远程温度控制</title>
+    <link href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/" rel="alternate" type="text/html"/>
+    <id>https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/</id>
+    <published>2026-09-30T00:00:00.000Z</published>
+    <updated>2026-09-30T00:00:00.000Z</updated>
+    <summary>使用S7-1500、PLCSIM Advanced和QModMaster完成Modbus TCP读写，将通信设定值接入PID温控，并记录地址越界、断线恢复和HMI显示问题的排查过程。</summary>
+    <content type="html"><![CDATA[<p>E2是我进入通信阶段后的第一个实操项目。我把之前的D3工程另存为 <code>E2_ModbusTCP_Server</code>，保留房间温度仿真、PID控制和HMI，在此基础上增加Modbus TCP服务器。</p>
+<p>这次先用QModMaster读写固定寄存器，再接入实时温度、运行状态和远程设定值。最终实现：**电脑写入600，PLC换算成60.0℃并交给PID，HMI显示当前生效设定值，客户端持续读取实际温度。**整个项目使用软件仿真，PLC新增逻辑采用LAD。</p>
+<section class="markdown-section"><h2 id="运行成果">运行成果<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E8%BF%90%E8%A1%8C%E6%88%90%E6%9E%9C"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>我通过功能码06向地址1写入600，HMI设定值从40.0℃切换到60.0℃。画面中蓝色设定曲线发生阶跃，加热输出增加，实际温度开始上升。</p><img src="https://yewei0302.github.io/images/posts/e2-modbus-tcp-server/01-remote-setpoint.png" alt="QModMaster写入600，HMI设定温度从40℃切换至60℃" loading="lazy" decoding="async" /><p>随后切回功能码03读取地址0，客户端显示570，即57.0℃；同屏HMI显示56.9℃。两边刷新时刻不同，升温过程中会有小幅读数差异。此时通信错误数为0，温度曲线继续向60℃靠近。</p><img src="https://yewei0302.github.io/images/posts/e2-modbus-tcp-server/02-temperature-response.png" alt="远程调温后，HMI温度上升，QModMaster读取实时温度570" loading="lazy" decoding="async" /></section>
+<section class="markdown-section"><h2 id="软件与通信关系">软件与通信关系<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E8%BD%AF%E4%BB%B6%E4%B8%8E%E9%80%9A%E4%BF%A1%E5%85%B3%E7%B3%BB"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>工具或设备</th><th>本次作用</th></tr></thead><tbody><tr><td>TIA Portal V19、CPU 1511-1 PN</td><td>LAD编程、数据块与PID控制</td></tr><tr><td>S7-PLCSIM Advanced V6.0</td><td>运行虚拟PLC实例 <code>E2_PLC</code></td></tr><tr><td>QModMaster</td><td>Modbus TCP客户端，主动发起读写请求</td></tr><tr><td>WinCC RT Advanced</td><td>显示温度、设定值、输出和状态</td></tr></tbody></table></div><p>虚拟PLC地址为 <code>192.168.0.1</code>，Modbus服务监听端口为 <code>502</code>。Advanced使用 <code>TCP/IP Single Adapter</code> 和 <code>&lt;Local&gt;</code>，客户端与虚拟PLC都运行在同一台电脑上。</p><p>QModMaster通过Modbus TCP访问PLC；HMI通过原有S7连接访问PLC。两条连接各自配置，这一点在后面的排障中很重要。</p></section>
+<section class="markdown-section"><h2 id="数据区与连接参数">数据区与连接参数<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E6%95%B0%E6%8D%AE%E5%8C%BA%E4%B8%8E%E8%BF%9E%E6%8E%A5%E5%8F%82%E6%95%B0"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>我建立了三个数据块：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>数据块</th><th>职责</th></tr></thead><tbody><tr><td><code>DB_E2_ModbusData</code></td><td>保存 <code>awHoldingRegs</code>，类型为 <code>Array[0..9] of Word</code></td></tr><tr><td><code>DB_E2_Comm</code></td><td>保存连接参数、诊断状态和温度转换中间量</td></tr><tr><td><code>DB_E2_MB_SERVER</code></td><td><code>MB_SERVER</code>的实例数据块</td></tr></tbody></table></div><p>寄存器数据块关闭优化访问，<code>MB_HOLD_REG</code>连接整个 <code>awHoldingRegs</code> 数组。<code>MB_SERVER</code>在OB1中持续调用，<code>DISCONNECT</code>正常保持false。</p><p><code>CONNECT</code>使用系统类型 <code>TCON_IP_v4</code>，本工程的配置如下：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>参数</th><th>值</th><th>说明</th></tr></thead><tbody><tr><td><code>InterfaceId</code></td><td>64</td><td>本工程X1接口的硬件标识符，从系统常量中确认</td></tr><tr><td><code>ID</code></td><td>1</td><td>本次连接编号</td></tr><tr><td><code>ConnectionType</code></td><td><code>16#0B</code></td><td>TCP，十进制11</td></tr><tr><td><code>ActiveEstablished</code></td><td>false</td><td>服务器等待客户端连接</td></tr><tr><td><code>RemoteAddress</code></td><td>0.0.0.0</td><td>不限定客户端IP</td></tr><tr><td><code>RemotePort</code></td><td>0</td><td>不限定客户端来源端口</td></tr><tr><td><code>LocalPort</code></td><td>502</td><td>本地Modbus监听端口</td></tr></tbody></table></div><p>这里的64来自我这个工程，换CPU或工程时，需要重新查看接口硬件标识符。</p></section>
+<section class="markdown-section"><h2 id="寄存器点表">寄存器点表<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E5%AF%84%E5%AD%98%E5%99%A8%E7%82%B9%E8%A1%A8"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>QModMaster的 <code>Base Addr</code> 设为0，下面的地址均从0开始。</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>地址</th><th>数组元素</th><th>内容</th><th>数据约定</th></tr></thead><tbody><tr><td>0</td><td><code>[0]</code></td><td>实际温度</td><td>温度×10，客户端读数再除以10</td></tr><tr><td>1</td><td><code>[1]</code></td><td>远程设定温度请求</td><td>600代表60.0℃</td></tr><tr><td>2</td><td><code>[2]</code></td><td>状态字</td><td>按位组合运行及报警状态</td></tr><tr><td>3～4</td><td><code>[3]</code>、<code>[4]</code></td><td>批量写入练习区</td><td>测试值123、456</td></tr><tr><td>5～9</td><td><code>[5]</code>～<code>[9]</code></td><td>预留</td><td>本次未分配业务含义</td></tr></tbody></table></div><p>程序每周期更新地址0和2，客户端按读取用途使用这两个地址。本次没有另外实现协议层的只读权限；不能把“点表约定只读”理解为客户端写入一定会被协议拒绝。</p><section class="markdown-section"><h3 id="先完成三种基本操作">先完成三种基本操作<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E5%85%88%E5%AE%8C%E6%88%90%E4%B8%89%E7%A7%8D%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>操作</th><th>配置</th><th>实际结果</th></tr></thead><tbody><tr><td>03读取保持寄存器</td><td>地址0，数量3</td><td>读到356、500、1</td></tr><tr><td>06写单个寄存器</td><td>地址1，写600</td><td>再次读取得到356、600、1</td></tr><tr><td>16写多个寄存器</td><td>地址3，数量2，写123和456</td><td>读回前五个值为356、600、1、123、456</td></tr></tbody></table></div><p>功能码16在软件中显示为 <code>0x10</code>。第一次批量写入时，第二格没有正确提交，读回结果是123和0；重新输入、按回车确认并发送后，两格均正确。这次也让我记住：输入框里填了数据，还要发送并读回，才能确认PLC已经收到。</p></section></section>
+<section class="markdown-section"><h2 id="接入原来的温控程序">接入原来的温控程序<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E6%8E%A5%E5%85%A5%E5%8E%9F%E6%9D%A5%E7%9A%84%E6%B8%A9%E6%8E%A7%E7%A8%8B%E5%BA%8F"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><section class="markdown-section"><h3 id="实际温度与状态字">实际温度与状态字<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E5%AE%9E%E9%99%85%E6%B8%A9%E5%BA%A6%E4%B8%8E%E7%8A%B6%E6%80%81%E5%AD%97"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>我把 <code>DB_B2_Control.rRoomTempPV</code> 乘以10，转换为Int，再传入地址0。例如25.0℃对应250。原有OB30中的PID和温度仿真FB继续运行，通信数据区负责提供对外数据。</p><p>地址2的状态字先清零，再用普通线圈写入四个位：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>位</th><th>原有PLC变量</th><th>为真时的权值</th></tr></thead><tbody><tr><td>bit0</td><td><code>xSystemRunningSts</code></td><td>1</td></tr><tr><td>bit1</td><td><code>xHeatingEnableSts</code></td><td>2</td></tr><tr><td>bit2</td><td><code>xRoomTempHighAlm</code></td><td>4</td></tr><tr><td>bit3</td><td><code>xPIDErrorAlm</code></td><td>8</td></tr></tbody></table></div><p>系统运行、加热允许且无上述报警时，客户端读到3，也就是1＋2。这样一个WORD就能同时表达多个布尔状态。</p></section><section class="markdown-section"><h3 id="远程设定值与范围限制">远程设定值与范围限制<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E8%BF%9C%E7%A8%8B%E8%AE%BE%E5%AE%9A%E5%80%BC%E4%B8%8E%E8%8C%83%E5%9B%B4%E9%99%90%E5%88%B6"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>地址1先通过MOVE传入UInt中间变量，再转换为Real。只有 <code>xRemoteSPEnable</code> 为true，并且原始值在200～700之间，才除以10后写入 <code>DB_B2_Control.rRoomTempSP</code>。</p><p>本次练习的远程设定范围为 <strong>20.0～70.0℃</strong>。远程使能期间，PLC每周期采用通信区内的有效请求值；这时我不通过HMI或配方同时修改设定温度。关闭远程使能后，通信逻辑停止覆盖设定值。</p><p>我还向地址1写入了750。再次读取时，寄存器确实返回750，通信错误数为0，但超范围的75.0℃没有交给PID使用，控制程序保留之前的有效设定值。</p><p>**通信写入成功，与参数被控制程序接受，是两个不同的结果。**因此地址1表示请求值，判断当前生效温度还要看PLC的 <code>rRoomTempSP</code>。</p></section></section>
+<section class="markdown-section"><h2 id="异常处理与排障记录">异常处理与排障记录<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%8E%E6%8E%92%E9%9A%9C%E8%AE%B0%E5%BD%95"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><section class="markdown-section"><h3 id="1-地址越界与恢复">1. 地址越界与恢复<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#1-%E5%9C%B0%E5%9D%80%E8%B6%8A%E7%95%8C%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>数组只有0～9十个元素。我故意用03读取地址10、数量1，客户端返回 <code>Illegal data address</code>。改回地址0后恢复读取，累计错误数保留为1，没有继续增加。</p><p>这类异常说明服务器收到了请求，但请求的数据地址不合法，排查方向与网络连接失败不同。</p></section><section class="markdown-section"><h3 id="2-客户端断开与重连">2. 客户端断开与重连<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#2-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%96%AD%E5%BC%80%E4%B8%8E%E9%87%8D%E8%BF%9E"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>我断开QModMaster，在TIA监视表中把测试温度改成375，然后重新连接并读取，得到375、600、1、123、456，确认重连后读取的是PLC当前值。</p><p>新增程序并下载后，还遇到过 <code>Read data failed. Error: No error</code>。停止扫描、断开连接、确认PLC处于RUN后重新连接，读取恢复正常。这次验证的是客户端手动重连；断线心跳和自动重连状态机留在后续通信项目中继续练习。</p></section><section class="markdown-section"><h3 id="3-hmi显示井号但modbus读取正常">3. HMI显示井号，但Modbus读取正常<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#3-hmi%E6%98%BE%E7%A4%BA%E4%BA%95%E5%8F%B7%E4%BD%86modbus%E8%AF%BB%E5%8F%96%E6%AD%A3%E5%B8%B8"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>当时QModMaster能够读取温度，HMI实际温度和加热输出却显示 <code>#####</code>。检查发现，Windows的 <code>S7ONLINE</code> 仍指向 <code>PLCSIM.TCPIP.1</code>。</p><p>我将它改为 <code>Siemens PLCSIM Virtual Ethernet Adapter.TCPIP.1</code>，重新启动HMI仿真，温度、输出与趋势恢复显示。这次实际分清了：Modbus连通，并不等于HMI的S7通信路径也已正确配置。</p></section><section class="markdown-section"><h3 id="4-plc设定值为60hmi却显示0">4. PLC设定值为60℃，HMI却显示0℃<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#4-plc%E8%AE%BE%E5%AE%9A%E5%80%BC%E4%B8%BA60hmi%E5%8D%B4%E6%98%BE%E7%A4%BA0"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h3><p>我逐项监视了寄存器、远程使能、UInt中间量、Real中间量和最终设定值，确认600已经换算为60.0℃，PID也在按这个目标运行。问题出在HMI显示侧。</p><p>原D3配方启用了“手动传送各个修改的值（teach-in模式）”，主画面和趋势又复用了配方变量。为保留原来的配方编辑方式，我新增独立HMI变量 <code>rRoomTempSP_Live</code>，仍关联PLC的 <code>DB_B2_Control.rRoomTempSP</code>，但不加入配方。设定值显示和蓝色趋势改用这个实时变量后，都正确显示60.0℃。</p></section></section>
+<section class="markdown-section"><h2 id="项目收获">项目收获<a class="anchor" href="https://yewei0302.github.io/posts/plc-projects/e2-modbus-tcp-server/#%E9%A1%B9%E7%9B%AE%E6%94%B6%E8%8E%B7"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>这次我完成了从固定寄存器读写到实际温控数据交互的连接过程，也开始能沿着“请求地址—寄存器—数据换算—控制变量—HMI显示”逐段定位问题。</p><p>目前完成的是 <strong>PLC作为Modbus TCP服务器的软件仿真项目</strong>。下一步进入E3，把角色反过来：由PLC主动发起请求，读取虚拟仪表的数据。</p></section>]]></content>
+    <author><name>叶工</name></author>
+    <category term="PLC项目练习"/>
+  </entry>
   <entry>
     <title>D3 HMI配方管理：一键切换温度参数</title>
     <link href="https://yewei0302.github.io/posts/plc-projects/d3-hmi-recipe/" rel="alternate" type="text/html"/>
