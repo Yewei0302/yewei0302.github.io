@@ -30,7 +30,7 @@ jobs:
         id: credentials
         env:
           CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_ACCOUNT: '30842877bd3361b8546ba56c96c8ccca'
         run: |
           if [ -n "$CF_TOKEN" ] && [ -n "$CF_ACCOUNT" ]; then
             echo 'ready=true' >> "$GITHUB_OUTPUT"
@@ -43,6 +43,6 @@ jobs:
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: '30842877bd3361b8546ba56c96c8ccca'
           command: pages deploy dist --project-name=yewei-notes --branch=main
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
