@@ -4,11 +4,8 @@ import { Icon } from "astro-icon/components";
 import { siteConfig } from "../../../config";
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
-import {
-	getCategoryList,
-	getSortedPosts,
-	getTagList,
-} from "../../../utils/content-utils";
+import { getSortedPosts } from "../../../utils/content-utils";
+import { blogSections } from "../../../config/blogSections";
 import WidgetLayout from "../common/WidgetLayout.astro";
 
 interface Props {
@@ -23,8 +20,6 @@ const siteStartDate = siteConfig.siteStartDate || "2025-01-01";
 
 // 获取所有文章
 const posts = await getSortedPosts();
-const categories = await getCategoryList();
-const tags = await getTagList();
 
 // 计算总字数
 let totalWords = 0;
@@ -82,12 +77,7 @@ const stats = [
 	{
 		icon: "material-symbols:folder-outline",
 		label: i18n(I18nKey.siteStatsCategoryCount),
-		value: categories.length,
-	},
-	{
-		icon: "material-symbols:label-outline",
-		label: i18n(I18nKey.siteStatsTagCount),
-		value: tags.length,
+		value: blogSections.length,
 	},
 	{
 		icon: "material-symbols:text-ad-outline-rounded",
@@ -120,37 +110,17 @@ const stats = [
 	class={className}
 	style={style}
 >
-	<div class="flex flex-col gap-1">
-		{
-			stats.map((stat) => (
-				<div class="flex items-center justify-between px-2 py-2">
-					<div class="flex items-center gap-2.5 flex-1 min-w-0">
-						<div class="text-(--primary) text-xl shrink-0">
-							<Icon name={stat.icon} />
-						</div>
-						<span class="text-neutral-700 dark:text-neutral-300 font-medium text-sm wrap-break-word leading-tight">
-							{stat.label}
-						</span>
-					</div>
-					<div class="flex items-center ml-3 shrink-0">
-						<span
-							class="text-base font-bold text-neutral-900 dark:text-neutral-100"
-							data-stat-id={stat.id}
-						>
-							{stat.formatted
-								? formatNumber(stat.value)
-								: stat.value}
-						</span>
-						{stat.suffix && (
-							<span class="text-sm text-neutral-500 dark:text-neutral-400 ml-1">
-								{stat.suffix}
-							</span>
-						)}
-					</div>
-				</div>
-			))
-		}
-	</div>
+	<div class="stats-list">
+ {stats.map((stat) => (
+  <div class:list={['stats-row', {'stats-date-row': stat.dynamic}]}>
+   <span class="stats-label"><Icon name={stat.icon} /><span>{stat.label}</span></span>
+   <div class="stats-value">
+    <strong data-stat-id={stat.id}>{stat.formatted ? formatNumber(stat.value) : stat.value}</strong>
+    {stat.suffix && <span>{stat.suffix}</span>}
+   </div>
+  </div>
+ ))}
+</div>
 </WidgetLayout>
 
 <script is:inline define:vars={{ siteStartDate, lastPostDate }}>
@@ -198,3 +168,16 @@ const stats = [
 	// 每小时更新一次（可选，因为天数变化较慢）
 	setInterval(updateDynamicStats, 60 * 60 * 1000);
 </script>
+
+<style>
+ .stats-list{display:grid;gap:0;padding:10px 8px 6px;color:var(--text-color,#2d2d2d)}
+ .stats-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px}
+ .stats-label{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:500;line-height:1.4;white-space:nowrap}
+ .stats-label :global(svg){color:var(--primary);width:21px;height:21px;flex-shrink:0}
+ .stats-value{display:flex;align-items:baseline;justify-content:flex-end;gap:5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+ .stats-value strong{font-size:17px;font-weight:700;line-height:1.4}
+ .stats-value>span{font-size:15px;opacity:.65}
+ :global(widget-layout[data-id="site-stats"]){border-radius:18px!important;background:var(--card-bg)!important;box-shadow:none!important}
+ :global(widget-layout[data-id="site-stats"]>.font-bold){font-size:20px;margin-top:20px;margin-bottom:6px}
+ :global(widget-layout[data-id="site-stats"]>.font-bold::before){background:var(--primary);height:20px;top:4px}
+</style>

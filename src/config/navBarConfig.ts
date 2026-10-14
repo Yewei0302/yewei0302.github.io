@@ -1,5 +1,5 @@
 import type { NavBarConfig } from "../types/config";
-import { LinkPreset } from "../types/config";
+
 
 /**
  * 导航栏菜单配置
@@ -127,15 +127,14 @@ import { LinkPreset } from "../types/config";
  * 5. links 数组的顺序即为导航栏从左到右的显示顺序。
  */
 export const navBarConfig: NavBarConfig = {
-  links: [
-    LinkPreset.Home,
-    LinkPreset.Archive,
-    LinkPreset.About,
-    {
-      name: "GitHub",
-      url: "https://github.com/Yewei0302",
-      external: true,
-      icon: "fa7-brands:github",
-    },
-  ],
+ links: [
+  {name:'主页',url:'/'},
+  {name:'项目展示',url:'/topics/projects/'},
+  {name:'电气设计',url:'/topics/electrical-design/'},
+  {name:'PLC',url:'/topics/plc/'},
+  {name:'上位机',url:'/topics/hmi/'},
+  {name:'视觉与机器人',url:'/topics/vision-robotics/'},
+  {name:'知识库',url:'/topics/knowledge/'},
+  {name:'关于我',url:'/about/'},
+ ],
 };

@@ -1,0 +1,9 @@
+---
+import MainGridLayout from '@layouts/MainGridLayout.astro';
+import {getSortedPostsList} from '@utils/content-utils';
+import {learningSections} from '../../config/learningSections';
+import '../../styles/learning-home.css';
+export async function getStaticPaths(){const posts=await getSortedPostsList();return learningSections.filter(s=>posts.some(p=>p.data.category===s.name)).map(section=>({params:{slug:section.slug},props:{section,posts:posts.filter(p=>p.data.category===section.name)}}));}
+const {section,posts}=Astro.props;
+---
+<MainGridLayout title={section.name}><section class="directory-page card-base"><p><a href="/">← 首页</a></p><h1>{section.name}</h1><p>{section.description}</p><div class="directory-list">{posts.map(post=><a class="record-card" href={post.url}><img class="record-cover" src={post.data.image} alt={post.data.title+"封面"} loading="lazy"/><div class="record-copy"><h2>{post.data.title}</h2><p>{post.data.description}</p><span class="record-entry">查看记录 →</span></div></a>)}</div></section></MainGridLayout>

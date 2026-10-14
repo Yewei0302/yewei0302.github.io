@@ -1,0 +1,143 @@
+/* Forest palette inspired by the supplied reference; existing media stays intact. */
+:root:not(.dark){--primary:#4a7c59;--page-bg:#f7f3eb;--card-bg:#ffffff;--btn-content:#4a7c59;--btn-regular-bg:#e8f2e9;--btn-regular-bg-hover:#dceadd;--btn-plain-bg-hover:#e8f2e9;--title-active:#4a7c59;--radius-large:.6rem;--line-divider:#e6e1d8}
+:root.dark{--primary:#8bc98d;--btn-content:#a9daab;--btn-regular-bg:#263e2b;--title-active:#a9daab}
+#navbar[data-is-home],#navbar.scrolled{background:linear-gradient(180deg,#4a7c59,#31503c)!important;border-bottom:3px solid #c9a227;box-shadow:0 3px 16px #173e2824}
+#navbar>.absolute{background:#4a7c59!important}
+#navbar>div:nth-child(2)>.btn-plain,#navbar>div:nth-child(2)>.btn-plain span,#navbar-links-container .btn-plain,#navbar #display-settings-switch,#navbar #nav-menu-switch{color:#fff!important}
+#navbar-links-container .btn-plain:hover,#navbar>div:nth-child(2)>.btn-plain:hover{background:#4a7c59!important;color:#fff!important}
+.learning-home{gap:30px;--forest-ink:#4a7c59;--forest-orange:#a64b2a}
+.learning-home .card-base{border:1px solid #e6e1d8;box-shadow:0 3px 12px #24462c0a;border-radius:8px}
+.learning-home .learning-intro{min-height:300px;border-top:4px solid #c9a227;border-radius:8px;padding:38px;display:flex;align-items:flex-end}
+.learning-home .learning-intro::before{background:linear-gradient(90deg,#173c2bcc,#173c2b30)}
+.learning-home .learning-intro .small-label{color:#f4d6a1;letter-spacing:.16em}
+.learning-home .learning-intro h1{font-size:clamp(27px,3vw,38px)}
+.learning-home .intro-actions a:first-child{background:#4a7c59;color:#fff;border-radius:30px;padding:11px 22px;font-weight:700}
+.learning-home .home-section-heading h2{color:var(--primary);border-left:5px solid #4a7c59;padding-left:13px;font-size:21px}
+.learning-home .learning-category{border-radius:7px;border-top:4px solid #c9a227;min-height:205px;box-shadow:0 3px 12px #24462c12}
+.learning-home .category-cover{transition:transform .35s}
+.learning-home .learning-category::before{background:linear-gradient(180deg,#14371f15,#14371fe0)}
+.learning-home .category-count{background:#ffffffe8;color:#4a7c59;border-radius:20px;padding:4px 9px;opacity:1;text-shadow:none}
+.learning-home .entry-arrow{background:#4a7c59;border-radius:50%;height:30px;width:30px;text-align:center;color:white}
+.learning-home .home-lower-grid{grid-template-columns:1fr}
+.learning-home .project-showcase .project-window{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.learning-home .window-header{grid-column:1/-1;background:#e8f2e9;color:var(--primary);border-bottom:1px solid var(--line-divider);padding:13px 20px}
+.learning-home .window-dots{color:#c9a227}
+.learning-home .demo-screen{background:#f7f3eb;min-height:280px;padding:18px}
+.learning-home .demo-screen img{max-height:330px;border-radius:4px}
+.learning-home .project-caption{padding:30px;display:flex;flex-direction:column;justify-content:center;min-height:280px}
+.learning-home .project-caption h2{border-left:4px solid #4a7c59;padding-left:12px;line-height:1.5;color:var(--primary)}
+.learning-home .project-caption p{font-size:14px;line-height:1.9;opacity:.9}
+.learning-home .project-caption::after{background:linear-gradient(90deg,#fffffff5,#ffffffd9)}
+.learning-home .project-carousel-controls{background:var(--card-bg);gap:14px;padding:14px}
+.learning-home .project-carousel-controls button{border-radius:20px;padding:6px 14px}
+.learning-home .project-carousel-controls button:hover{background:#4a7c59;color:#fff}
+.learning-home .home-side-stack{grid-template-columns:1fr 1fr;gap:18px}
+.learning-home .credential-card,.learning-home .naming-card{border-top:4px solid #c9a227;aspect-ratio:auto;min-height:240px;padding:26px}
+.learning-home .entry-link{display:inline-block;border-radius:20px;padding:7px 14px;background:#4a7c59;color:white;align-self:flex-start}
+.learning-home .home-footnote{border-top:1px solid var(--line-divider);padding-top:18px;color:var(--primary);opacity:1}
+.learning-home a:focus-visible,.learning-home button:focus-visible{outline:3px solid #4a7c59;outline-offset:4px}
+html.dark .learning-home .project-caption::after{background:linear-gradient(90deg,#17281df5,#17281dd9)}
+html.dark .learning-home .window-header,html.dark .learning-home .demo-screen{background:#213629}
+html.dark .learning-home .card-base{border-color:#3c5341}
+@media(max-width:900px){.learning-home .learning-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.learning-home{gap:22px}.learning-home .learning-intro{padding:24px;min-height:290px}.learning-home .learning-category-grid,.learning-home .home-side-stack{grid-template-columns:1fr}.learning-home .project-showcase .project-window{grid-template-columns:1fr}.learning-home .project-caption{min-height:190px;padding:24px}.learning-home .demo-screen{min-height:200px}.learning-home .project-carousel-controls{gap:8px;flex-wrap:wrap}.learning-home .learning-category{min-height:175px}}
+
+/* Fixed graduation hero: sky title, wall subtitle, unobstructed faces. */
+body.enable-banner:has(.custom-home-banner){--home-hero-height:clamp(480px,50vw,1000px)}
+body.enable-banner #banner-wrapper.custom-home-banner{top:0!important;height:var(--home-hero-height)!important;min-height:0!important}
+body.enable-banner:has(.custom-home-banner) .absolute.w-full.z-30:not(.mobile-main-no-banner){top:calc(var(--home-hero-height) + 24px)!important}
+.custom-home-banner #banner{object-fit:cover!important;object-position:center 40%!important;transform:none!important;animation:none!important}
+.custom-home-banner .banner-text-overlay{padding:0!important;transform:none!important;pointer-events:none}
+.custom-home-banner .banner-text-overlay>div{position:absolute!important;inset:0!important;width:100%!important;margin:0!important;transform:none!important}
+.custom-home-banner .banner-title{position:absolute;top:12%;left:5%;width:90%;margin:0!important;font-size:clamp(28px,4vw,64px)!important;line-height:1.15!important;color:#4a7c59!important;text-shadow:0 2px 0 #ffffffb0,0 0 16px #ffffff80!important;filter:none!important;animation:none!important;letter-spacing:.035em}
+.custom-home-banner .banner-subtitle{position:absolute;top:83%;left:5%;width:90%;margin:0!important;font-size:clamp(18px,1.8vw,30px)!important;line-height:1.5!important;color:#fff5df!important;text-shadow:0 2px 4px #542519b0!important;filter:none!important;animation:none!important}
+.custom-home-banner #header-waves{display:none!important}
+@media(max-width:767px){body.enable-banner:has(.custom-home-banner){--home-hero-height:520px}.custom-home-banner .banner-title{top:18%;left:4%;width:92%;font-size:clamp(22px,5.7vw,35px)!important;letter-spacing:0}.custom-home-banner .banner-subtitle{top:83%;left:6%;width:88%;font-size:17px!important}}
+body.enable-banner #banner-wrapper.custom-home-banner{transform:none!important;transition:none!important}
+body.enable-banner:has(.custom-home-banner)>div.absolute.w-full.z-30:not(.mobile-main-no-banner){top:calc(var(--home-hero-height) + 24px)!important;transform:none!important}
+
+/* Qingyou palette and compact, normal-flow homepage layout. */
+body.enable-banner #banner-wrapper.custom-home-banner{position:relative!important;margin-top:72px;height:var(--home-hero-height)!important;top:0!important}
+body.enable-banner:has(.custom-home-banner)>div.absolute.w-full.z-30:not(.mobile-main-no-banner){position:relative!important;top:0!important;margin-top:16px;transform:none!important}
+#navbar[data-is-home],#navbar.scrolled{background:#4a7c59!important;border-bottom:2px solid #c9a227;box-shadow:0 2px 8px #31503c15}
+#navbar>div:nth-child(2)>.btn-plain{background:transparent!important}
+#navbar-links-container .btn-plain:hover,#navbar>div:nth-child(2)>.btn-plain:hover{background:#31503c!important;color:#f7f3eb!important}
+#navbar #search-container button,#navbar #search-container input,#navbar #search-container svg{color:#f7f3eb!important}
+.custom-home-banner .banner-title{text-shadow:0 1px 3px #ffffff90!important;letter-spacing:.02em}
+.learning-home{gap:20px;color:#2d2d2d}
+.learning-home .learning-intro{min-height:240px;padding:28px;border-top:0}
+.learning-home .learning-intro h1{font-size:clamp(24px,2.2vw,32px);margin-top:14px}
+.learning-home .home-section-heading h2{font-size:19px;border-left-width:3px}
+.learning-home .card-base{box-shadow:none;border-radius:6px}
+.learning-home .learning-category{min-height:170px;border-top-width:2px;border-radius:6px;box-shadow:none}
+.learning-home .intro-actions a:first-child,.learning-home .entry-link{border-radius:5px}
+.learning-home .home-card-background{display:none}
+.learning-home .homepage-photo-card::after{display:none}
+.learning-home .homepage-photo-card{background:var(--card-bg)}
+.learning-home .credential-card,.learning-home .naming-card{border-top-width:2px;min-height:205px;padding:22px}
+.learning-home .project-caption{min-height:230px;padding:24px}
+.learning-home .demo-screen{min-height:230px}
+.learning-home .project-caption h2{border-left-width:3px}
+.learning-home .project-caption p{font-size:13px}
+.learning-home .entry-link{font-size:12px}
+.learning-home .project-carousel-controls{padding:10px}
+body:has(.learning-home) .widget-background-photo{display:none!important}
+body:has(.learning-home) .widget-background-overlay{display:none!important}
+@media(max-width:767px){body.enable-banner #banner-wrapper.custom-home-banner{margin-top:64px}body.enable-banner:has(.custom-home-banner){--home-hero-height:440px}.custom-home-banner .banner-title{top:11%;font-size:22px!important}.custom-home-banner .banner-subtitle{top:82%;font-size:16px!important}.learning-home .learning-intro{min-height:225px;padding:24px}}
+html.dark .learning-home{color:#e7edf2}
+html.dark .learning-home .homepage-photo-card{background:var(--card-bg)}/* The original theme reserves a viewport-height spacer above the banner. */
+body.enable-banner:has(.custom-home-banner) #top-row{height:0!important;min-height:0!important;padding-top:0!important;padding-bottom:0!important;margin-top:0!important;margin-bottom:0!important;transform:none!important}
+body.enable-banner:has(.custom-home-banner) #main-grid{transform:none!important;margin-top:0!important;padding-top:0!important}
+
+/* Summer shade: static artwork with the original layered animated wave. */
+body.enable-banner:has(.custom-home-banner){--home-hero-height:clamp(400px,42vw,720px)}
+.custom-home-banner #banner{object-position:center 65%!important}
+.custom-home-banner .banner-title{top:34%;color:#fff!important;font-size:clamp(28px,3.5vw,56px)!important;text-shadow:0 2px 8px #173e3ccc!important}
+.custom-home-banner .banner-subtitle{top:53%;color:#f7f3eb!important;font-size:clamp(17px,1.7vw,26px)!important;text-shadow:0 2px 6px #173e3ccc!important}
+.custom-home-banner #header-waves{display:block!important;height:90px!important;min-height:0!important;max-height:none!important;bottom:-1px;z-index:21;pointer-events:none}
+.custom-home-banner #header-waves svg{display:block;width:100%;height:100%}
+.custom-home-banner #header-waves use{fill:var(--page-bg)}
+@media(max-width:767px){body.enable-banner:has(.custom-home-banner){--home-hero-height:410px}.custom-home-banner .banner-title{top:30%;font-size:24px!important}.custom-home-banner .banner-subtitle{top:50%;font-size:16px!important}.custom-home-banner #header-waves{height:60px!important}}
+
+/* Quiet navigation and the user's eight learning destinations. */
+#navbar[data-is-home],#navbar.scrolled{background:#f7f3ebed!important;border-bottom:1px solid #4a7c5920;backdrop-filter:blur(16px);box-shadow:0 2px 10px #213b4610}
+#navbar>.absolute{background:transparent!important}
+#navbar>div:nth-child(2)>.btn-plain,#navbar>div:nth-child(2)>.btn-plain span,#navbar-links-container .btn-plain,#navbar #display-settings-switch,#navbar #nav-menu-switch{color:#4a7c59!important}
+#navbar #search-container button,#navbar #search-container input,#navbar #search-container svg{color:#4a7c59!important}
+#navbar-links-container{gap:2px}
+#navbar-links-container .btn-plain{width:auto!important;padding:0 10px!important;font-size:14px;font-weight:600;border-radius:5px}
+#navbar-links-container .btn-plain span{display:inline!important}
+#navbar-links-container .btn-plain:hover{background:#e8f2e9!important;color:#31503c!important}
+#navbar>div:nth-child(2)>.btn-plain:hover{background:transparent!important;color:#31503c!important}
+.topic-empty{margin-top:24px;padding:22px;background:var(--btn-regular-bg);border-radius:6px;font-size:14px}
+.topic-extra{margin-top:24px;font-size:14px;color:var(--primary)}
+@media(min-width:768px) and (max-width:1099px){#navbar-links-container{display:none!important}#navbar #nav-menu-switch{display:flex!important}}
+html.dark #navbar[data-is-home],html.dark #navbar.scrolled{background:#172733ed!important}
+html.dark #navbar>div:nth-child(2)>.btn-plain,html.dark #navbar>div:nth-child(2)>.btn-plain span,html.dark #navbar-links-container .btn-plain,html.dark #navbar #display-settings-switch,html.dark #navbar #nav-menu-switch{color:#e5eef4!important}
+
+/* Transparent home navigation laid directly over the artwork. */
+body.enable-banner #banner-wrapper.custom-home-banner{margin-top:0!important}
+body:has(.custom-home-banner) #navbar[data-is-home="true"]:not(.scrolled){background:transparent!important;border-bottom:0!important;box-shadow:none!important;backdrop-filter:none!important}
+body:has(.custom-home-banner) #navbar[data-is-home="true"]:not(.scrolled)>div:nth-child(2){background:transparent!important}
+body:has(.custom-home-banner) #navbar[data-is-home="true"]:not(.scrolled)>div:nth-child(2)>.btn-plain{background:transparent!important}
+body:has(.custom-home-banner) #navbar[data-is-home="true"]:not(.scrolled) .btn-plain span{background:transparent!important;color:#284836!important;text-shadow:0 1px 3px #ffffffb0}
+body:has(.custom-home-banner) #navbar[data-is-home="true"]:not(.scrolled) #search-container button,body:has(.custom-home-banner) #navbar[data-is-home="true"]:not(.scrolled) #search-container svg{color:#284836!important}
+body:has(.custom-home-banner) #navbar.scrolled{background:#f7f3eb66!important;backdrop-filter:blur(14px)!important}
+
+/* Keep navigation transparent on article pages and while scrolling. */
+body:has(.custom-home-banner) #navbar[data-is-home],body:has(.custom-home-banner) #navbar.scrolled{--nav-bg:transparent;--nav-shadow:none;--nav-blur:none;background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important}
+body:has(.custom-home-banner) #navbar>div:nth-child(2){background:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
+body:has(.custom-home-banner) #navbar>div:nth-child(2)>.btn-plain{background:transparent!important}
+body:has(.custom-home-banner) #navbar .btn-plain span{background:transparent!important;text-shadow:0 1px 3px #ffffffb0}
+.custom-home-banner #page-overlay-title{color:#284836!important;text-shadow:0 1px 2px #fff,0 0 8px #ffffffd9!important;filter:none!important;line-height:1.35}
+.custom-home-banner #page-overlay-meta{color:#3d6b4e!important;text-shadow:0 1px 2px #fff,0 0 5px #ffffffd9!important;font-weight:600}
+
+/* One natural palette across navigation, widgets and calendar. */
+:root{--hue:145!important}
+:root:not(.dark){--primary:#4a7c59;--page-bg:#f5f7f1;--card-bg:#ffffff;--btn-content:#4a7c59;--btn-regular-bg:#e8f2e9;--btn-regular-bg-hover:#dceadd;--btn-regular-bg-active:#d3e4d5;--btn-plain-bg-hover:#e8f2e9;--btn-plain-bg-active:#dceadd;--title-active:#3d6b4e;--line-divider:#e0e8e1;--deep-text:#284836}
+html:not(.dark) widget-layout[data-id="categories"] .min-w-8{background:#e8f2e9!important;color:#4a7c59!important}
+html:not(.dark) widget-layout.card-base{border-color:#e0e8e1}
+.learning-home .learning-intro{background:#243c2c}
+.learning-home .learning-intro .small-label{color:#e3edcf}
+.learning-home .learning-intro::before{background:linear-gradient(90deg,#1d392de0,#1d392d25)}widget-layout[data-id="site-stats"] .stats-label svg{color:var(--primary)!important}
+widget-layout[data-id="site-stats"]>.font-bold::before{background:var(--primary)!important}

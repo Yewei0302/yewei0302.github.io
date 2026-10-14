@@ -65,3 +65,12 @@ src/data/bilibili-data.json
 *.psd~
 *.cmo3
 *.vtube.json
+
+# Local preview build outputs
+/dist-*/
+/.wrangler/
+
+# Local private data and credentials
+/private-local-backup/
+.env.*
+!.env.example

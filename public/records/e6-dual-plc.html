@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>E6 双 PLC 仿真成功记录</title>
+<style>
+  body { font-family: "Microsoft YaHei", sans-serif; max-width: 900px; margin: 30px auto; padding: 0 20px; color: #222; line-height: 1.7; background: #fafafa; }
+  h1 { color: #003c71; border-bottom: 3px solid #003c71; padding-bottom: 8px; font-size: 24px; }
+  h2 { color: #0056a0; margin-top: 30px; font-size: 18px; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; background: #fff; }
+  th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; font-size: 14px; }
+  th { background: #003c71; color: #fff; }
+  .ok { color: #0a7d2c; font-weight: bold; }
+  code { background: #eef; padding: 2px 6px; border-radius: 3px; font-family: Consolas, monospace; color: #c0392b; font-size: 13px; }
+  .screenshot { text-align: center; margin: 20px 0; }
+  .screenshot img { max-width: 100%; border: 2px solid #0056a0; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .screenshot p { color: #666; font-size: 13px; margin-top: 6px; }
+  .key { background: #fff8e1; border-left: 5px solid #f39c12; padding: 12px 16px; margin: 18px 0; border-radius: 4px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<h1>E6 双 S7-1500 PLC 仿真成功记录</h1>
+<p><span class="ok">✅ 成功：</span>我已使用 TIA Portal V19 搜到并下载到 PLCSIM Advanced V6.0 虚拟 PLC，两台实例同时在线。</p>
+
+<h2>最终 IP 配置（关键）</h2>
+<table>
+  <tr><th>项目</th><th>IP 地址</th></tr>
+  <tr><td>PLC1_Client（实例）</td><td><code>192.168.60.10</code></td></tr>
+  <tr><td>PLC2_Server（实例）</td><td><code>192.168.60.20</code></td></tr>
+  <tr><td>Siemens PLCSIM Virtual Ethernet Adapter</td><td><code>192.168.60.100 / 24</code></td></tr>
+  <tr><td>PLCSIM Online Access</td><td>TCP/IP Single Adapter → <code>&lt;Local&gt;</code></td></tr>
+  <tr><td>TIA PG/PC 接口</td><td>Siemens PLCSIM Virtual Ethernet Adapter</td></tr>
+</table>
+
+<h2>成果截图 1：TIA 成功搜到仿真 PLC</h2>
+<div class="screenshot">
+  <img src="/images/posts/e6-dual-plc-simulation/screenshot_tia_download.png" alt="TIA 扩展下载到设备 - 搜索成功">
+  <p>↑ "扫描已完成。找到了 1 个与 1 可访问设备相兼容的设备" —— CPU-1500 Simulation @ 192.168.60.10</p>
+</div>
+
+<h2>成果截图 2：PLCSIM Advanced 双实例同时运行</h2>
+<div class="screenshot">
+  <img src="/images/posts/e6-dual-plc-simulation/screenshot_plcsim_instances.png" alt="PLCSIM Control Panel - 两个实例运行中">
+  <p>↑ 2 Active PLC Instance(s)：PLC1_Client / 192.168.60.10 和 PLC2_Server / 192.168.60.20</p>
+</div>
+
+<div class="key"><strong>我的经验：</strong>这次使用 &lt;Local&gt;，将虚拟网卡与两台 PLC 的 IP 对齐到 192.168.60.0/24 网段后，完成了上线和下载。</div><p>S7 PUT/GET 和 Modbus TCP 双 PLC 数据交换尚未验证。</p>
+
+<p style="text-align:center; color:#999; font-size:12px; margin-top:30px;">2026-10-11 · TIA V19 + PLCSIM Advanced V6.0 · CPU 1511-1 PN V2.9</p>
+
+</body>
+</html>

@@ -6,7 +6,7 @@ const projectRoot = path.resolve(
 	path.dirname(fileURLToPath(import.meta.url)),
 	"..",
 );
-const distDirectory = path.join(projectRoot, "dist");
+const distDirectory = path.join(projectRoot, process.env.BLOG_OUTPUT_DIR || "dist");
 
 function getAttribute(tag, name) {
 	const match = tag.match(
@@ -82,16 +82,17 @@ const pages = [
 	{
 		name: "About page",
 		htmlPath: "about/index.html",
-		requiredMarkup: [["card-github", "rendered GitHub repository card"]],
+		requiredMarkup: [["学习方向", "local about content"]],
 		requiredRules: [
-			[".card-github", "GitHub repository card styles"],
-			[".custom-md .image-grid", "extended Markdown layout styles"],
+			[".about-profile", "profile layout styles"],
+			[".skill-note", "skills section styles"],
 		],
 	},
 ];
 
 for (const page of pages) {
 	const { html, loadedCss, stylesheetUrls } = await loadPageStyles(page.htmlPath);
+	if (/https?:\/\/(?:api\.github\.com|github\.com|[^\/]*githubusercontent\.com|giscus\.app)/i.test(html)) { throw new Error(page.name + ' contains a GitHub connection'); }
 	const missingMarkup = page.requiredMarkup
 		.filter(([token]) => !html.includes(token))
 		.map(([, description]) => description);

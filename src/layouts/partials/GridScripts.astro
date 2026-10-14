@@ -141,7 +141,7 @@ const {
 			}
 
 			bannerWrapper?.classList.remove("mobile-hide-banner");
-			mainContent.style.setProperty("top", `${BANNER_HEIGHT}vh`, "important");
+			mainContent.style.setProperty("top", bannerWrapper?.classList.contains("custom-home-banner") ? "0px" : `${BANNER_HEIGHT}vh`, "important");
 			return;
 		}
 

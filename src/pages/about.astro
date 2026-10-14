@@ -1,42 +1,30 @@
 ---
-import { getEntry, render } from "astro:content";
-import Comment from "@components/comment/index.astro";
-import { PageHeader } from "@components/features/page-header";
-import Markdown from "@components/misc/Markdown.astro";
-
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { blogSections } from "../config/blogSections";
 
-const aboutPost = await getEntry("spec", "about");
-
-if (!aboutPost) {
-	throw new Error("About page content not found");
-}
-
-const { Content } = await render(aboutPost);
-const title = i18n(I18nKey.about);
 ---
+<MainGridLayout title="关于我">
 
-<MainGridLayout title={title}>
-	<!-- 引入右侧边栏布局管理器 -->
-	<script>
-		import("../scripts/right-sidebar-layout.js");
-	</script>
-	<div
-		class="flex w-full rounded-(--radius-large) overflow-hidden relative min-h-32"
-	>
-		<div class="card-base z-10 px-9 py-6 relative w-full">
-			<PageHeader title={title} />
-
-			<!-- 从MD文件读取的内容 -->
-			<Markdown class="mt-2">
-				<Content />
-			</Markdown>
-		</div>
-	</div>
-
-	<div class="mt-4">
-		<Comment path="/about/" />
-	</div>
+ <div class="about-profile card-base">
+  <section class="intro" aria-labelledby="about-title">
+   <img src="/avatar.jpg" alt="叶工的头像" width="96" height="96" />
+   <div><p class="eyebrow">个人学习与实践记录</p><h1 id="about-title">你好，我是叶工。</h1>
+   <p class="role">电气设计 · PLC · 上位机 · 视觉与机器人</p>
+   <p class="bio">这里整理我的电气与自动化学习过程。目前的实践记录主要围绕 PLC 仿真、HMI 与工业通信；电气设计、视觉与机器人等方向会随着学习逐步补充。记录结果，也记录排查与验证。</p>
+   <p class="contact">联系邮箱：<a href="mailto:zacztb@gmail.com">zacztb@gmail.com</a></p>
+   <a class="browse" href="/archive/">浏览学习记录 <span aria-hidden="true">↗</span></a></div>
+  </section>
+  <section aria-labelledby="directions"><h2 id="directions">学习方向</h2><p class="skill-note">用六个方向整理笔记，空白的方向会随着学习逐步补充。</p><div class="topic-links">{blogSections.map(section => <a href={"/topics/"+section.slug+"/"}>{section.name}<span>↗</span></a>)}</div></section>
+  <section aria-labelledby="skills">
+   <h2 id="skills">实践与能力概览</h2>
+   <div class="cards">
+    <article class="tile"><h3>PLC 与自动化控制</h3><p>围绕西门子 PLC 开展编程、组态与控制系统仿真实践。</p></article>
+    <article class="tile"><h3>上位机与数据应用</h3><p>开展 HMI 界面、运行监控与数据管理相关实践。</p></article>
+    <article class="tile"><h3>工业通信与调试</h3><p>实践设备通信、系统联调与故障排查，重视验证和复盘。</p></article>
+    <article class="tile"><h3>常用工具</h3><p>TIA Portal · PLCSIM · WinCC · Wireshark</p></article>
+   </div>
+   <p class="skill-note">以学习项目为基础，持续积累工程理解与实践经验。</p>
+  </section>
+  <p class="closing">这些是我的学习记录，还会随着实践继续完善。</p>
+ </div>
 </MainGridLayout>

@@ -168,27 +168,8 @@ export class BackToTopHandler {
 	/**
 	 * 更新 Navbar 可见性
 	 */
-	private updateNavbarVisibility(scrollTop: number): void {
-		if (!this.bannerEnabled || !this.navbar) {
-			return;
-		}
-
-		if (document.body.classList.contains("fullscreen-banner")) {
-			this.navbar.classList.remove("navbar-hidden");
-			return;
-		}
-
-		const currentBannerHeight = BANNER_HEIGHT_HOME;
-
-		const threshold =
-			window.innerHeight * (currentBannerHeight / 100) -
-			SCROLL_CONFIG.navbarHideOffset;
-
-		if (scrollTop >= threshold) {
-			this.navbar.classList.add("navbar-hidden");
-		} else {
-			this.navbar.classList.remove("navbar-hidden");
-		}
+	private updateNavbarVisibility(_scrollTop: number): void {
+		this.navbar?.classList.remove("navbar-hidden");
 	}
 
 	private updatePageOverlayScroll(scrollTop: number): void {

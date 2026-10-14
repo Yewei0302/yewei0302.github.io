@@ -3,7 +3,7 @@ import { dirname, extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const distDir = resolve(projectRoot, "dist");
+const distDir = resolve(projectRoot, process.env.BLOG_OUTPUT_DIR || "dist");
 const MAX_CUSTOM_FONT_BYTES = 8 * 1024 * 1024;
 const ASTRO_ASSET_SEGMENT = "/_astro/";
 const FONT_REFERENCE_PATTERN =

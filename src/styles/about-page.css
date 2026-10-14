@@ -1,0 +1,25 @@
+.about-profile{padding:clamp(24px,3vw,36px);color:#303b32;overflow:hidden;background:var(--card-bg);border:1px solid #e0e8e1;border-radius:14px}
+.about-profile .intro{display:flex;align-items:flex-start;gap:24px;padding-bottom:26px;border-bottom:1px solid var(--line-divider)}
+.about-profile .intro img{width:104px;height:104px;flex-shrink:0;border-radius:18px;object-fit:cover}
+.about-profile .eyebrow{font-size:12px;letter-spacing:.08em;color:#4a7c59;margin-bottom:8px}
+.about-profile h1{font-size:30px;line-height:1.4;font-weight:700;margin-bottom:10px}
+.about-profile .role{font-size:13px;color:#4a7c59;line-height:1.8;margin-bottom:12px}
+.about-profile .bio{font-size:14px;line-height:1.9;color:#637168}
+.about-profile .contact{font-size:13px;margin-top:16px;overflow-wrap:anywhere}
+.about-profile .contact a,.about-profile .read{color:#4a7c59}
+.about-profile .browse{display:inline-block;font-size:13px;padding:10px 16px;border-radius:7px;background:#e8f2e9;color:#4a7c59;margin-top:18px}
+.about-profile section+section{margin-top:28px}
+.about-profile h2{font-size:19px;font-weight:650;color:#3d6b4e;line-height:1.5;margin-bottom:16px}
+.about-profile .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.about-profile .tile{display:block;padding:18px;border:1px solid #e0e8e1;border-radius:10px;background:#f8faf6}
+.about-profile h3{font-size:15px;font-weight:600;line-height:1.6;margin-bottom:7px}
+.about-profile .tile p{font-size:13px;line-height:1.8;color:#637168}
+.about-profile .read{display:block;font-size:12px;margin-top:12px}
+.about-profile .project:hover{border-color:#4a7c59}
+.about-profile .recent-projects{display:grid;gap:14px}
+.about-profile .topic-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.about-profile .topic-links a{display:flex;justify-content:space-between;align-items:center;padding:13px;background:#f0f5ed;color:#3d6b4e;font-size:13px;border-radius:8px}
+.about-profile .skill-note,.about-profile .closing{font-size:12px;line-height:1.8;color:#718077;margin-top:14px}
+.about-profile .closing{margin-top:26px}
+@media(max-width:650px){.about-profile .intro{flex-direction:column;gap:16px}.about-profile .intro img{width:80px;height:80px}.about-profile .cards{grid-template-columns:1fr}.about-profile .topic-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+html.dark .about-profile{color:#e4eee6}html.dark .about-profile .tile,html.dark .about-profile .topic-links a{background:#243c2c}html.dark .about-profile .bio,html.dark .about-profile .tile p{color:#b7c6bc}html.dark .about-profile h2{color:#b8d2be}

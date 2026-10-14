@@ -6,28 +6,28 @@ const SITE_LANG = "zh_CN"; // 语言代码，例如：'en', 'zh_CN', 'ja' 等。
 export const siteConfig: SiteConfig = {
   title: "叶工的自动化学习笔记",
   subtitle: "记录PLC、电气工程与自动化项目的学习与实践",
-  siteURL: "https://yewei0302.github.io/", // 请替换为你的站点URL，以斜杠结尾
+  siteURL: "https://yewei-notes.pages.dev/", // 请替换为你的站点URL，以斜杠结尾
   siteStartDate: "2026-09-02", // 站点开始运行日期，用于站点统计组件计算运行天数
   timeZone: "Asia/Shanghai", // 文章日期使用的 IANA 时区，可改为 Asia/Tokyo、Europe/Berlin 等
 
   lang: SITE_LANG,
 
   themeColor: {
-    hue: 240, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
-    fixed: false, // 对访问者隐藏主题色选择器
+    hue: 145, // 主题色的默认色相，范围从 0 到 360。例如：红色：0，青色：200，蓝绿色：250，粉色：345
+    fixed: true, // 固定配色，隐藏主题色选择器
   },
 
   // 特色页面开关配置（关闭未使用的页面有助于提升 SEO，关闭后请记得在 navbarConfig 中移除对应链接）
   featurePages: {
-    anime: true, // 番剧页面开关
-    diary: true, // 日记页面开关
-    friends: true, // 友链页面开关
-    projects: true, // 项目页面开关
-    skills: true, // 技能页面开关
-    timeline: true, // 时间线页面开关
-    albums: true, // 相册页面开关
-    devices: true, // 设备页面开关
-    aiTools: true, // AI 工具页面开关
+    anime: false, // 番剧页面开关
+    diary: false, // 日记页面开关
+    friends: false, // 友链页面开关
+    projects: false, // 项目页面开关
+    skills: false, // 技能页面开关
+    timeline: false, // 时间线页面开关
+    albums: false, // 相册页面开关
+    devices: false, // 设备页面开关
+    aiTools: false, // AI 工具页面开关
   },
 
   // 顶栏标题配置
@@ -122,26 +122,16 @@ export const siteConfig: SiteConfig = {
   banner: {
     // 支持单张图片或图片数组，当数组长度 > 1 时自动启用轮播
     src: {
-      desktop: [
-        "/assets/desktop-banner/1.webp",
-        "/assets/desktop-banner/2.webp",
-        "/assets/desktop-banner/3.webp",
-        "/assets/desktop-banner/4.webp",
-      ], // 桌面横幅图片
-      mobile: [
-        "/assets/mobile-banner/1.webp",
-        "/assets/mobile-banner/2.webp",
-        "/assets/mobile-banner/3.webp",
-        "/assets/mobile-banner/4.webp",
-      ], // 移动横幅图片
+      desktop: "/images/home/summer-shade.webp", // 固定主页图片
+      mobile: "/images/home/summer-shade.webp", // 手机使用同一张固定图片
     }, // 使用本地横幅图片
 
     position: "center", // 等同于 object-position，仅支持 'top', 'center', 'bottom'。默认为 'center'
 
     carousel: {
-      enable: true,
+      enable: false,
       interval: 3,
-      switchable: true,
+      switchable: false,
     },
 
     waves: {

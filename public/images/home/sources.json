@@ -1,0 +1,23 @@
+{
+  "license": "https://unsplash.com/license",
+  "photos": [
+    {
+      "file": "notes.jpg",
+      "author": "Yen Vu",
+      "page": "https://unsplash.com/photos/TdgfSyDoWBE",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "plc-basics.jpg",
+      "author": "Jonathan Castañeda",
+      "page": "https://unsplash.com/photos/0h6O3eRg5P0",
+      "license": "Unsplash License"
+    },
+    {
+      "file": "plc-projects.jpg",
+      "author": "Homa Appliances",
+      "page": "https://unsplash.com/photos/0V9Ua2YsXfE",
+      "license": "Unsplash License"
+    }
+  ]
+}

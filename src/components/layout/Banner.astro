@@ -78,7 +78,7 @@ const bannerFormats = getImageFormats();
 
 <div
 	id="banner-wrapper"
-	class={`absolute z-10 w-full transition duration-700 overflow-hidden ${mobileNonHomeBannerClass}`}
+	class={`absolute z-10 w-full transition duration-700 overflow-hidden ${desktopImages[0]?.includes("summer-shade") ? "custom-home-banner" : ""} ${mobileNonHomeBannerClass}`}
 	style={`top: -${BANNER_HEIGHT_EXTEND}vh`}
 >
 	{isCarouselEnabled ? (

@@ -18,7 +18,7 @@ export async function processPosterImage(
 	if (isLocal && filePath) {
 		const basePath = filePath.replace(/\/[^/]+$/, "").replace(/\\/g, "/");
 		const files = import.meta.glob<ImageMetadata>(
-			"../../**/*.{jpg,jpeg,png,gif,webp,avif,svg}",
+			"../../src/**/*.{jpg,jpeg,png,gif,webp,avif,svg}",
 			{
 				import: "default",
 			},

@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "叶工笔记：启动本地预览",
+      "type": "process",
+      "command": "E:/Node/node.exe",
+      "args": [
+        "node_modules/astro/bin/astro.mjs",
+        "dev",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "4322"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "ASTRO_DEV_BACKGROUND": "1"
+        }
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ]
+}

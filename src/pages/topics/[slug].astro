@@ -1,0 +1,15 @@
+---
+import MainGridLayout from '@layouts/MainGridLayout.astro';
+import {getSortedPostsList} from '@utils/content-utils';
+import {blogSections,matchesSection} from '../../config/blogSections';
+import '../../styles/learning-home.css';
+export async function getStaticPaths(){const posts=await getSortedPostsList();return blogSections.map(section=>({params:{slug:section.slug},props:{section,posts:posts.filter(post=>matchesSection(post,section.slug))}}));}
+const {section,posts}=Astro.props;
+---
+<MainGridLayout title={section.name}>
+ <section class="directory-page card-base">
+  <p><a href="/">← 主页</a></p><h1>{section.name}</h1><p>{section.description}</p>
+  {posts.length ? <div class="directory-list">{posts.map(post=><a class="record-card" href={post.url}><img class="record-cover" src={post.data.image} alt={post.data.title+"封面"} loading="lazy"/><div class="record-copy"><h2>{post.data.title}</h2><p>{post.data.description}</p><span class="record-entry">查看记录 →</span></div></a>)}</div> : <p class="topic-empty">这个方向的学习记录将陆续整理在这里。</p>}
+  {section.slug==='knowledge'&&<p class="topic-extra"><a href="/archive/">全部记录 →</a> · <a href="/credentials/">技能与证书 →</a></p>}
+ </section>
+</MainGridLayout>

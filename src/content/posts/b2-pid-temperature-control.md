@@ -1,6 +1,6 @@
 ---
 author: 叶工
-category: PLC项目练习
+category: PLC练习项目
 description: 在无实体硬件条件下，使用TIA Portal V19、S7-1500、PLCSIM与WinCC RT Advanced完成房间恒温PID闭环、安全联锁、趋势和报警系统。
 draft: false
 lang: zh-CN

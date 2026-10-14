@@ -1,3 +1,4 @@
+import { getRecordCover } from "./record-cover";
 import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
@@ -72,11 +73,11 @@ export async function getSortedPostsList(): Promise<PostForList[]> {
 	initPostIdMap(sortedFullPosts);
 
 	// delete post.body，并预计算 URL
-	const sortedPostsList = sortedFullPosts.map((post) => ({
+	const sortedPostsList = await Promise.all(sortedFullPosts.map(async (post) => ({
 		id: post.id,
-		data: post.data,
-		url: getPostUrl(post),
-	}));
+		data: { ...post.data, image: await getRecordCover(post) },
+        url: getPostUrl(post),
+    })));
 
 	return sortedPostsList;
 }

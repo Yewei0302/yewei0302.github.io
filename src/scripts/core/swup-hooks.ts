@@ -258,13 +258,7 @@ export class SwupHooksManager {
 	 * 处理链接点击时的 navbar 隐藏
 	 */
 	private handleNavbarHideOnLinkClick(): void {
-		const navbar = this.getCachedElement(SWUP_SELECTORS.navbarWrapper);
-		if (navbar) {
-			const threshold = window.innerHeight * (BANNER_HEIGHT / 100) - 88;
-			if (document.documentElement.scrollTop >= threshold) {
-				navbar.classList.add("navbar-hidden");
-			}
-		}
+		this.getCachedElement(SWUP_SELECTORS.navbarWrapper)?.classList.remove("navbar-hidden");
 	}
 
 	/**
@@ -482,7 +476,7 @@ export class SwupHooksManager {
 			bannerWrapper?.classList.remove("mobile-hide-banner");
 			mainContentWrapper.style.setProperty(
 				"top",
-				`${BANNER_HEIGHT}vh`,
+				bannerWrapper?.classList.contains("custom-home-banner") ? "0px" : `${BANNER_HEIGHT}vh`,
 				"important",
 			);
 			return;

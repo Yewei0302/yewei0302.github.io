@@ -1,22 +1,17 @@
 ---
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
-import { getCategoryList } from "../../../utils/content-utils";
-import { widgetManager } from "../../../utils/widget-manager";
+import { getSortedPostsList } from "../../../utils/content-utils";
+import { blogSections, matchesSection } from "../../../config/blogSections";
 import ButtonLink from "../../control/ButtonLink.astro";
 import WidgetLayout from "../common/WidgetLayout.astro";
 
-const categories = await getCategoryList();
-
-const COLLAPSED_HEIGHT = "7.5rem";
-
-// 使用统一的组件管理器检查是否应该折叠
-const categoriesComponent = widgetManager
-	.getConfig()
-	.properties.find((p) => p.type === "categories");
-const isCollapsed = categoriesComponent
-	? widgetManager.isCollapsed(categoriesComponent, categories.length)
-	: false;
+const posts = await getSortedPostsList();
+const categories = blogSections.map((section) => ({
+    name: section.name,
+    url: `/topics/${section.slug}/`,
+    count: posts.filter((post) => matchesSection(post, section.slug)).length,
+}));
 
 interface Props {
 	class?: string;
@@ -29,8 +24,7 @@ const style = Astro.props.style;
 <WidgetLayout
 	name={i18n(I18nKey.categories)}
 	id="categories"
-	isCollapsed={isCollapsed}
-	collapsedHeight={COLLAPSED_HEIGHT}
+	isCollapsed={false}
 	class={className}
 	style={style}
 >
@@ -39,7 +33,7 @@ const style = Astro.props.style;
 			<ButtonLink
 				url={c.url}
 				badge={String(c.count)}
-				label={`View all posts in the ${c.name.trim()} category`}
+				label={`查看${c.name}，${c.count}篇文章`}
 			>
 				{c.name.trim()}
 			</ButtonLink>
