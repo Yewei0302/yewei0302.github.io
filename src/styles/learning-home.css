@@ -273,3 +273,77 @@ html.dark .learning-home .learning-intro.learning-intro{background:#243c2c!impor
   bottom: 12px;
  }
 }
+
+/* Keep the middle homepage column compact beside both sidebars. */
+.learning-home.learning-home { padding-block: 0 12px; gap: 18px; }
+.learning-home .learning-intro.learning-intro { padding: 20px 24px; gap: 22px; }
+.learning-home .learning-intro .intro-cover { height: 190px; max-height: 190px; object-fit: contain !important; }
+.learning-home .home-section-heading { margin-bottom: 12px; }
+@media (min-width: 1100px) {
+ .learning-home .learning-category-grid.learning-category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+ .learning-home .learning-category.learning-category { min-height: 156px; aspect-ratio: auto; padding: 54px 18px 18px; justify-content: flex-start; }
+ .learning-home .learning-category .category-symbol { top: 17px; left: 18px; font-size: 22px; }
+ .learning-home .learning-category .category-count { top: 15px; right: 16px; padding: 3px 7px; }
+ .learning-home .learning-category h3 { font-size: 18px; margin: 0 0 8px; }
+ .learning-home .learning-category p { font-size: 12px; line-height: 1.7; padding-right: 16px; }
+ .learning-home .learning-category .entry-arrow { bottom: 14px; right: 12px; }
+ .learning-home .home-footnote { padding-top: 12px; }
+}
+@media (max-width: 767px) {
+ .learning-home .learning-intro.learning-intro { padding: 22px; }
+ .learning-home .learning-intro .intro-cover { height: auto; max-height: 240px; }
+}
+
+/* Match the category card baseline to the final cards in both sidebars. */
+@media (min-width: 1280px) {
+ .learning-home .learning-category-grid.learning-category-grid {
+  height: var(--home-category-height, auto);
+  grid-template-rows: repeat(2, minmax(156px, 1fr));
+ }
+ .learning-home .learning-category.learning-category {
+  height: 100%; min-height: 156px; justify-content: center;
+ }
+ .learning-home .learning-category h3 { margin-top: 0; }
+}
+
+/* Small visual refinements inside the existing aligned homepage column. */
+@media (min-width: 1280px) {
+ .learning-home .learning-intro.learning-intro {
+  padding: 24px 28px;
+  gap: 26px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+ }
+ .learning-home .learning-intro .intro-cover {
+  height: 232px;
+  max-height: 232px;
+  border-radius: 9px;
+ }
+ .learning-home .learning-intro .small-label { font-size: 13px; letter-spacing: .06em; }
+ .learning-home .learning-intro h1 { font-size: clamp(27px, 2.1vw, 31px); line-height: 1.4; margin: 14px 0; }
+ .learning-home .learning-intro p:not(.small-label) { font-size: 14px; line-height: 1.85; }
+ .learning-home .learning-intro .intro-actions { font-size: 13px; margin-top: 22px; gap: 16px; }
+ .learning-home .learning-category.learning-category {
+  padding: 52px 20px 30px;
+  justify-content: center;
+ }
+ .learning-home .learning-category h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 10px;
+  letter-spacing: .01em;
+ }
+ .learning-home .learning-category p {
+  font-size: 14px;
+  line-height: 1.65;
+  padding-right: 0;
+  color: #526159;
+  text-wrap: pretty;
+ }
+ .learning-home .learning-category .category-symbol { top: 19px; left: 20px; font-size: 24px; }
+ .learning-home .learning-category .category-count { top: 17px; right: 18px; font-size: 11px; }
+ .learning-home .learning-category .entry-arrow { bottom: 13px; right: 14px; }
+}
+@media (min-width: 1280px) {
+ .learning-home .learning-category p { min-height: 46.2px; }
+}

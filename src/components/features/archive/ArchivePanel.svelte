@@ -4,6 +4,7 @@ import { i18n } from "@i18n/translation";
 import { formatDateToYYYYMMDD, getPostDateParts } from "@utils/date-utils";
 import { comparePublishedDatesDescending } from "@utils/post-date-utils";
 import { onMount } from "svelte";
+import { matchesSection } from "@/config/blogSections";
 import type { ArchivePanelProps, Group, Post } from "./types";
 
 let {
@@ -16,6 +17,7 @@ const params = new URLSearchParams(window.location.search);
 tags = params.has("tag") ? params.getAll("tag") : [];
 categories = params.has("category") ? params.getAll("category") : [];
 const uncategorized = params.get("uncategorized");
+const section = params.get("section");
 
 let groups = $state<Group[]>([]);
 
@@ -29,6 +31,7 @@ function formatTag(tagList: string[]) {
 
 onMount(async () => {
 	let filteredPosts: Post[] = sortedPosts;
+	if (section) filteredPosts = filteredPosts.filter(post => matchesSection(post, section));
 
 	if (tags.length > 0) {
 		filteredPosts = filteredPosts.filter(

@@ -3,11 +3,13 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { Icon } from "astro-icon/components";
 
-import { getCategoryList, getSortedPostsList } from "@/utils/content-utils";
-import { getCategoryUrl, url } from "@/utils/url-utils";
+import { getSortedPostsList } from "@/utils/content-utils";
+import { blogSections, matchesSection } from "@/config/blogSections";
+import { url } from "@/utils/url-utils";
 
-const categories = await getCategoryList();
-const totalPosts = (await getSortedPostsList()).length;
+const posts = await getSortedPostsList();
+const categories = blogSections.map(section => ({ name: section.name, slug: section.slug, count: posts.filter(post => matchesSection(post, section.slug)).length }));
+const totalPosts = posts.length;
 const homeUrl = url("/");
 const archiveUrl = url("/archive/");
 ---
@@ -44,10 +46,10 @@ const archiveUrl = url("/archive/");
 				{
 					categories.map((cat) => (
 						<a
-							href={getCategoryUrl(cat.name)}
+							href={archiveUrl + "?section=" + cat.slug}
 							class="category-pill text-sm px-3 py-1 rounded-lg whitespace-nowrap
 								   transition-colors duration-200 flex items-center justify-center"
-							data-category-name={cat.name}
+							data-category-name={cat.slug}
 						>
 							{cat.name}
 							<span class="text-xs opacity-60 ml-1">
@@ -169,7 +171,7 @@ const archiveUrl = url("/archive/");
 		// 高亮当前分类
 		const pills = bar.querySelectorAll<HTMLAnchorElement>(".category-pill");
 		const params = new URLSearchParams(window.location.search);
-		const activeCategory = params.get("category") || "";
+		const activeCategory = params.get("section") || params.get("category") || "";
 		const hasTag = params.has("tag");
 		const hasUncategorized = params.has("uncategorized");
 
