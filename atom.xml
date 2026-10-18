@@ -73,6 +73,252 @@
     <category term="PLC练习项目"/>
   </entry>
   <entry>
+    <title>HEX 与 ASCII 基础：为什么文字 0A 不是换行</title>
+    <link href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/" rel="alternate" type="text/html"/>
+    <id>https://yewei-notes.pages.dev/posts/hex-ascii-basics/</id>
+    <published>2026-10-18T00:00:00.000Z</published>
+    <updated>2026-10-18T00:00:00.000Z</updated>
+    <summary>用 TCP 扫码项目讲清 HEX、ASCII、字节与换行，区分文字 0A 和真正的 LF 字节。</summary>
+    <content type="html"><![CDATA[<section class="markdown-section"><h2 id="先记住这一句话">先记住这一句话<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#%E5%85%88%E8%AE%B0%E4%BD%8F%E8%BF%99%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p><strong>HEX 是十六进制的表示方式；ASCII 是字符与数字之间的对应规则。它们都不是通信协议。</strong></p><p>我在 TCP 扫码项目里遇到过：想发换行，却把文字 <code>0A</code> 发了出去。区别就在于：发送框里的内容，要按什么规则变成字节。</p></section>
+<section class="markdown-section"><h2 id="1字节是什么">1．字节是什么？<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#1%E5%AD%97%E8%8A%82%E6%98%AF%E4%BB%80%E4%B9%88"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>可以把一个字节看成一个小格子，装得下 <strong>0～255</strong>。计算机实际处理的是二进制；我们常用十进制或十六进制把它显示出来。</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>同一个数</th><th>十进制</th><th>十六进制</th></tr></thead><tbody><tr><td>十</td><td>10</td><td>0A</td></tr><tr><td>十五</td><td>15</td><td>0F</td></tr><tr><td>十六</td><td>16</td><td>10</td></tr><tr><td>六十五</td><td>65</td><td>41</td></tr><tr><td>最大的一个无符号字节值</td><td>255</td><td>FF</td></tr></tbody></table></div><p><strong>注意：十六进制 10 等于十进制 16，不是十进制 10。</strong></p></section>
+<section class="markdown-section"><h2 id="2hex用十六进制写数字">2．HEX：用十六进制写数字<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#2hex%E7%94%A8%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%86%99%E6%95%B0%E5%AD%97"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>HEX 是 hexadecimal（十六进制）的简称。十进制用 0～9；十六进制多用六个字母：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>符号</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead><tbody><tr><td>对应十进制</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr></tbody></table></div><p>例如 <code>2A</code> = 2 × 16 + 10 = <strong>42</strong>。写一个字节常用两位 HEX：<code>00</code>～<code>FF</code>。</p><p>在 TIA 中，<code>16#41</code>、<code>B#16#41</code> 都能用来表示十六进制数；后者还明确是 Byte（字节）常量。<code>16#</code> 是写法的一部分，不是要发出去的正文。</p></section>
+<section class="markdown-section"><h2 id="3ascii字母数字各自有编号">3．ASCII：字母、数字各自有编号<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#3ascii%E5%AD%97%E6%AF%8D%E6%95%B0%E5%AD%97%E5%90%84%E8%87%AA%E6%9C%89%E7%BC%96%E5%8F%B7"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>ASCII 可以理解成一张字符编号表。<strong>标准 ASCII 是 7 位编码，共 128 个编号；在本次项目中，每个 ASCII 字符用一个字节收发。</strong></p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>字符或用途</th><th>十进制编号</th><th>HEX 字节</th></tr></thead><tbody><tr><td>字符 0</td><td>48</td><td>30</td></tr><tr><td>字符 1</td><td>49</td><td>31</td></tr><tr><td>字符 9</td><td>57</td><td>39</td></tr><tr><td>大写 A</td><td>65</td><td>41</td></tr><tr><td>小写 a</td><td>97</td><td>61</td></tr><tr><td>大写 O</td><td>79</td><td>4F</td></tr><tr><td>大写 K</td><td>75</td><td>4B</td></tr><tr><td>冒号 :</td><td>58</td><td>3A</td></tr><tr><td>空格</td><td>32</td><td>20</td></tr><tr><td>LF，换行</td><td>10</td><td>0A</td></tr><tr><td>CR，回车</td><td>13</td><td>0D</td></tr></tbody></table></div><p><strong>字符“1”的编号是 49，不是数字值 1。</strong> 中文不属于标准 ASCII；发送中文还要明确 UTF-8 等其他编码。</p></section>
+<section class="markdown-section"><h2 id="4我最容易弄混的-0a">4．我最容易弄混的 0A<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#4%E6%88%91%E6%9C%80%E5%AE%B9%E6%98%93%E5%BC%84%E6%B7%B7%E7%9A%84-0a"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>网络助手的发送模式</th><th>发送框填写</th><th>真正发出的字节</th><th>字节数</th></tr></thead><tbody><tr><td>ASCII</td><td>0A</td><td>30 41</td><td>2</td></tr><tr><td>HEX</td><td>0A</td><td>0A</td><td>1</td></tr><tr><td>ASCII</td><td>A</td><td>41</td><td>1</td></tr><tr><td>HEX</td><td>41</td><td>41</td><td>1</td></tr><tr><td>ASCII</td><td>OK</td><td>4F 4B</td><td>2</td></tr><tr><td>HEX</td><td>4F 4B</td><td>4F 4B</td><td>2</td></tr></tbody></table></div><p><strong>ASCII 模式把输入当文字；HEX 模式把输入当字节数值。</strong> 所以 ASCII 输入 A，与 HEX 输入 41，实际发送的是同一个字节。</p><p>NetAssist 的日志也能帮助判断：<code>SEND ASCII/2</code> 表示按 ASCII 发了 2 字节，<code>SEND HEX/1</code> 表示按 HEX 发了 1 字节。</p></section>
+<section class="markdown-section"><h2 id="5和我的-tcp-扫码项目对上">5．和我的 TCP 扫码项目对上<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#5%E5%92%8C%E6%88%91%E7%9A%84-tcp-%E6%89%AB%E7%A0%81%E9%A1%B9%E7%9B%AE%E5%AF%B9%E4%B8%8A"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p>文字 <code>CODE:123456</code> 一共 <strong>11 个 ASCII 字符，也就是 11 字节</strong>：</p><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>文字</th><th>C</th><th>O</th><th>D</th><th>E</th><th>:</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead><tbody><tr><td>HEX</td><td>43</td><td>4F</td><td>44</td><td>45</td><td>3A</td><td>31</td><td>32</td><td>33</td><td>34</td><td>35</td><td>36</td></tr></tbody></table></div><p>本项目约定 <strong>LF（0A）是报文结束符</strong>，不是 TCP 自动规定的。LF 不放入保存的正文长度。</p><p>在 NetAssist <strong>发送区选择 HEX</strong>，下面这串会发送一条完整测试报文：</p><p><code>43 4F 44 45 3A 31 32 33 34 35 36 0A</code></p><p>一共发 <strong>12 字节</strong>：正文 11 字节 + LF 1 字节。PLC 最终保存的 <code>uiLastFrameLen</code> 是 <strong>11</strong>。</p><p><strong>CR 与 LF 不是同一个字节。</strong> Windows 常见换行为 <code>0D 0A</code>（CR+LF）；我们当前程序只把 <code>0A</code> 当结束符，<code>0D</code> 会当普通正文。所以这次测试用单独 LF，不要额外加 CR。</p></section>
+<section class="markdown-section"><h2 id="61234文字与数字-1234-也不同">6．“1234”文字与数字 1234 也不同<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#61234%E6%96%87%E5%AD%97%E4%B8%8E%E6%95%B0%E5%AD%97-1234-%E4%B9%9F%E4%B8%8D%E5%90%8C"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><div class="table-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>要表达什么</th><th>示例字节</th><th>占用</th></tr></thead><tbody><tr><td>ASCII 文字 1234</td><td>31 32 33 34</td><td>4 字节</td></tr><tr><td>数字 1234 存为一个 16 位整数</td><td>数值为 16#04D2</td><td>2 字节</td></tr></tbody></table></div><p>整数通过网络发送时，两个字节先发哪个，还需要约定字节顺序。<strong>不要把文字、整数和显示格式混在一起。</strong></p></section>
+<section class="markdown-section"><h2 id="7接收区切换格式会改数据吗">7．接收区切换格式，会改数据吗？<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#7%E6%8E%A5%E6%94%B6%E5%8C%BA%E5%88%87%E6%8D%A2%E6%A0%BC%E5%BC%8F%E4%BC%9A%E6%94%B9%E6%95%B0%E6%8D%AE%E5%90%97"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><p><strong>只切换接收显示格式，不会改变已经收到的字节。</strong> 比如收到 <code>4F 4B</code>，用 HEX 看是 4F 4B，用 ASCII 看是 OK。</p><p>但发送区切换模式后，同样的输入内容可能发出不同字节。发送前检查的是左下方的“发送设置”，不要只改上方的“接收设置”。</p><p>十六进制数字 <code>0A</code> 和 <code>0a</code> 数值相同；字符大写 A 和小写 a 的 ASCII 编号却不同。</p><section data-ascii-reference id="ascii-reference"><h2>8．完整 ASCII 对照表：0～127</h2><p><strong>标准 ASCII 一共 128 个编号：</strong>0～31 是控制字符，32～126 是可打印字符（包括空格），127 是 DEL 控制字符。控制码用于控制或分隔，通常不会显示成可见文字。</p><p>表中的 NUL、LF、CR 等是控制码的名称缩写，<strong>不是要逐字发送的英文字母</strong>。例如 LF 是一个 0A 字节，不是字符 L 和 F。</p><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:16px 0">查找方式 <span data-ascii-count style="font-size:14px;color:#617365">显示 128 / 128 项</span></div><p style="font-size:15px">查字符 A：选择“字符／缩写”，输入 A；查换行：选择 HEX 输入 0A，或选择“名称／中文含义”输入“换行”。</p><div class="table-wrap"><table><thead><tr><th>十进制</th><th>HEX</th><th>字符／缩写</th><th>英文名称</th><th>中文说明</th></tr></thead><tbody><tr data-dec="0" data-hex="00" data-char="NUL" data-name="Null" data-meaning="空字符" style="background:#f3f7f4"><td>0</td><td><code>00</code></td><td><code>NUL</code></td><td>Null</td><td>空字符</td></tr><tr data-dec="1" data-hex="01" data-char="SOH" data-name="Start of Heading" data-meaning="标题开始" style="background:#f3f7f4"><td>1</td><td><code>01</code></td><td><code>SOH</code></td><td>Start of Heading</td><td>标题开始</td></tr><tr data-dec="2" data-hex="02" data-char="STX" data-name="Start of Text" data-meaning="正文开始" style="background:#f3f7f4"><td>2</td><td><code>02</code></td><td><code>STX</code></td><td>Start of Text</td><td>正文开始</td></tr><tr data-dec="3" data-hex="03" data-char="ETX" data-name="End of Text" data-meaning="正文结束" style="background:#f3f7f4"><td>3</td><td><code>03</code></td><td><code>ETX</code></td><td>End of Text</td><td>正文结束</td></tr><tr data-dec="4" data-hex="04" data-char="EOT" data-name="End of Transmission" data-meaning="传输结束" style="background:#f3f7f4"><td>4</td><td><code>04</code></td><td><code>EOT</code></td><td>End of Transmission</td><td>传输结束</td></tr><tr data-dec="5" data-hex="05" data-char="ENQ" data-name="Enquiry" data-meaning="询问" style="background:#f3f7f4"><td>5</td><td><code>05</code></td><td><code>ENQ</code></td><td>Enquiry</td><td>询问</td></tr><tr data-dec="6" data-hex="06" data-char="ACK" data-name="Acknowledge" data-meaning="确认" style="background:#f3f7f4"><td>6</td><td><code>06</code></td><td><code>ACK</code></td><td>Acknowledge</td><td>确认</td></tr><tr data-dec="7" data-hex="07" data-char="BEL" data-name="Bell" data-meaning="响铃" style="background:#f3f7f4"><td>7</td><td><code>07</code></td><td><code>BEL</code></td><td>Bell</td><td>响铃</td></tr><tr data-dec="8" data-hex="08" data-char="BS" data-name="Backspace" data-meaning="退格" style="background:#f3f7f4"><td>8</td><td><code>08</code></td><td><code>BS</code></td><td>Backspace</td><td>退格</td></tr><tr data-dec="9" data-hex="09" data-char="HT" data-name="Horizontal Tab" data-meaning="水平制表符（Tab）" style="background:#f3f7f4"><td>9</td><td><code>09</code></td><td><code>HT</code></td><td>Horizontal Tab</td><td>水平制表符（Tab）</td></tr><tr data-dec="10" data-hex="0A" data-char="LF" data-name="Line Feed" data-meaning="换行；本项目报文结束符" style="background:#f3f7f4"><td>10</td><td><code>0A</code></td><td><code>LF</code></td><td>Line Feed</td><td>换行；本项目报文结束符</td></tr><tr data-dec="11" data-hex="0B" data-char="VT" data-name="Vertical Tab" data-meaning="垂直制表符" style="background:#f3f7f4"><td>11</td><td><code>0B</code></td><td><code>VT</code></td><td>Vertical Tab</td><td>垂直制表符</td></tr><tr data-dec="12" data-hex="0C" data-char="FF" data-name="Form Feed" data-meaning="换页" style="background:#f3f7f4"><td>12</td><td><code>0C</code></td><td><code>FF</code></td><td>Form Feed</td><td>换页</td></tr><tr data-dec="13" data-hex="0D" data-char="CR" data-name="Carriage Return" data-meaning="回车" style="background:#f3f7f4"><td>13</td><td><code>0D</code></td><td><code>CR</code></td><td>Carriage Return</td><td>回车</td></tr><tr data-dec="14" data-hex="0E" data-char="SO" data-name="Shift Out" data-meaning="移出" style="background:#f3f7f4"><td>14</td><td><code>0E</code></td><td><code>SO</code></td><td>Shift Out</td><td>移出</td></tr><tr data-dec="15" data-hex="0F" data-char="SI" data-name="Shift In" data-meaning="移入" style="background:#f3f7f4"><td>15</td><td><code>0F</code></td><td><code>SI</code></td><td>Shift In</td><td>移入</td></tr><tr data-dec="16" data-hex="10" data-char="DLE" data-name="Data Link Escape" data-meaning="数据链路转义" style="background:#f3f7f4"><td>16</td><td><code>10</code></td><td><code>DLE</code></td><td>Data Link Escape</td><td>数据链路转义</td></tr><tr data-dec="17" data-hex="11" data-char="DC1" data-name="Device Control 1" data-meaning="设备控制 1，常作 XON（恢复发送）" style="background:#f3f7f4"><td>17</td><td><code>11</code></td><td><code>DC1</code></td><td>Device Control 1</td><td>设备控制 1，常作 XON（恢复发送）</td></tr><tr data-dec="18" data-hex="12" data-char="DC2" data-name="Device Control 2" data-meaning="设备控制 2" style="background:#f3f7f4"><td>18</td><td><code>12</code></td><td><code>DC2</code></td><td>Device Control 2</td><td>设备控制 2</td></tr><tr data-dec="19" data-hex="13" data-char="DC3" data-name="Device Control 3" data-meaning="设备控制 3，常作 XOFF（暂停发送）" style="background:#f3f7f4"><td>19</td><td><code>13</code></td><td><code>DC3</code></td><td>Device Control 3</td><td>设备控制 3，常作 XOFF（暂停发送）</td></tr><tr data-dec="20" data-hex="14" data-char="DC4" data-name="Device Control 4" data-meaning="设备控制 4" style="background:#f3f7f4"><td>20</td><td><code>14</code></td><td><code>DC4</code></td><td>Device Control 4</td><td>设备控制 4</td></tr><tr data-dec="21" data-hex="15" data-char="NAK" data-name="Negative Acknowledge" data-meaning="否定确认" style="background:#f3f7f4"><td>21</td><td><code>15</code></td><td><code>NAK</code></td><td>Negative Acknowledge</td><td>否定确认</td></tr><tr data-dec="22" data-hex="16" data-char="SYN" data-name="Synchronous Idle" data-meaning="同步空闲" style="background:#f3f7f4"><td>22</td><td><code>16</code></td><td><code>SYN</code></td><td>Synchronous Idle</td><td>同步空闲</td></tr><tr data-dec="23" data-hex="17" data-char="ETB" data-name="End of Transmission Block" data-meaning="传输块结束" style="background:#f3f7f4"><td>23</td><td><code>17</code></td><td><code>ETB</code></td><td>End of Transmission Block</td><td>传输块结束</td></tr><tr data-dec="24" data-hex="18" data-char="CAN" data-name="Cancel" data-meaning="取消" style="background:#f3f7f4"><td>24</td><td><code>18</code></td><td><code>CAN</code></td><td>Cancel</td><td>取消</td></tr><tr data-dec="25" data-hex="19" data-char="EM" data-name="End of Medium" data-meaning="介质结束" style="background:#f3f7f4"><td>25</td><td><code>19</code></td><td><code>EM</code></td><td>End of Medium</td><td>介质结束</td></tr><tr data-dec="26" data-hex="1A" data-char="SUB" data-name="Substitute" data-meaning="替代" style="background:#f3f7f4"><td>26</td><td><code>1A</code></td><td><code>SUB</code></td><td>Substitute</td><td>替代</td></tr><tr data-dec="27" data-hex="1B" data-char="ESC" data-name="Escape" data-meaning="转义" style="background:#f3f7f4"><td>27</td><td><code>1B</code></td><td><code>ESC</code></td><td>Escape</td><td>转义</td></tr><tr data-dec="28" data-hex="1C" data-char="FS" data-name="File Separator" data-meaning="文件分隔符" style="background:#f3f7f4"><td>28</td><td><code>1C</code></td><td><code>FS</code></td><td>File Separator</td><td>文件分隔符</td></tr><tr data-dec="29" data-hex="1D" data-char="GS" data-name="Group Separator" data-meaning="组分隔符" style="background:#f3f7f4"><td>29</td><td><code>1D</code></td><td><code>GS</code></td><td>Group Separator</td><td>组分隔符</td></tr><tr data-dec="30" data-hex="1E" data-char="RS" data-name="Record Separator" data-meaning="记录分隔符" style="background:#f3f7f4"><td>30</td><td><code>1E</code></td><td><code>RS</code></td><td>Record Separator</td><td>记录分隔符</td></tr><tr data-dec="31" data-hex="1F" data-char="US" data-name="Unit Separator" data-meaning="单元分隔符" style="background:#f3f7f4"><td>31</td><td><code>1F</code></td><td><code>US</code></td><td>Unit Separator</td><td>单元分隔符</td></tr><tr data-dec="32" data-hex="20" data-char="SP" data-name="Space" data-meaning="空格（不可见，但占 1 字节）"><td>32</td><td><code>20</code></td><td><code>SP</code></td><td>Space</td><td>空格（不可见，但占 1 字节）</td></tr><tr data-dec="33" data-hex="21" data-char="!" data-name="Exclamation mark" data-meaning="感叹号"><td>33</td><td><code>21</code></td><td><code>!</code></td><td>Exclamation mark</td><td>感叹号</td></tr><tr data-dec="34" data-hex="22" data-char="&quot;" data-name="Quotation mark" data-meaning="双引号"><td>34</td><td><code>22</code></td><td><code>"</code></td><td>Quotation mark</td><td>双引号</td></tr><tr data-dec="35" data-hex="23" data-char="#" data-name="Number sign" data-meaning="井号"><td>35</td><td><code>23</code></td><td><code>#</code></td><td>Number sign</td><td>井号</td></tr><tr data-dec="36" data-hex="24" data-char="$" data-name="Dollar sign" data-meaning="美元符号"><td>36</td><td><code>24</code></td><td><code>$</code></td><td>Dollar sign</td><td>美元符号</td></tr><tr data-dec="37" data-hex="25" data-char="%" data-name="Percent sign" data-meaning="百分号"><td>37</td><td><code>25</code></td><td><code>%</code></td><td>Percent sign</td><td>百分号</td></tr><tr data-dec="38" data-hex="26" data-char="&amp;" data-name="Ampersand" data-meaning="与号"><td>38</td><td><code>26</code></td><td><code>&amp;</code></td><td>Ampersand</td><td>与号</td></tr><tr data-dec="39" data-hex="27" data-char="'" data-name="Apostrophe" data-meaning="单引号"><td>39</td><td><code>27</code></td><td><code>'</code></td><td>Apostrophe</td><td>单引号</td></tr><tr data-dec="40" data-hex="28" data-char="(" data-name="Left parenthesis" data-meaning="左圆括号"><td>40</td><td><code>28</code></td><td><code>(</code></td><td>Left parenthesis</td><td>左圆括号</td></tr><tr data-dec="41" data-hex="29" data-char=")" data-name="Right parenthesis" data-meaning="右圆括号"><td>41</td><td><code>29</code></td><td><code>)</code></td><td>Right parenthesis</td><td>右圆括号</td></tr><tr data-dec="42" data-hex="2A" data-char="*" data-name="Asterisk" data-meaning="星号"><td>42</td><td><code>2A</code></td><td><code>*</code></td><td>Asterisk</td><td>星号</td></tr><tr data-dec="43" data-hex="2B" data-char="+" data-name="Plus sign" data-meaning="加号"><td>43</td><td><code>2B</code></td><td><code>+</code></td><td>Plus sign</td><td>加号</td></tr><tr data-dec="44" data-hex="2C" data-char="," data-name="Comma" data-meaning="逗号"><td>44</td><td><code>2C</code></td><td><code>,</code></td><td>Comma</td><td>逗号</td></tr><tr data-dec="45" data-hex="2D" data-char="-" data-name="Hyphen-minus" data-meaning="连字符／减号"><td>45</td><td><code>2D</code></td><td><code>-</code></td><td>Hyphen-minus</td><td>连字符／减号</td></tr><tr data-dec="46" data-hex="2E" data-char="." data-name="Full stop" data-meaning="句点／小数点"><td>46</td><td><code>2E</code></td><td><code>.</code></td><td>Full stop</td><td>句点／小数点</td></tr><tr data-dec="47" data-hex="2F" data-char="/" data-name="Solidus" data-meaning="正斜杠"><td>47</td><td><code>2F</code></td><td><code>/</code></td><td>Solidus</td><td>正斜杠</td></tr><tr data-dec="48" data-hex="30" data-char="0" data-name="Digit 0" data-meaning="数字字符 0"><td>48</td><td><code>30</code></td><td><code>0</code></td><td>Digit 0</td><td>数字字符 0</td></tr><tr data-dec="49" data-hex="31" data-char="1" data-name="Digit 1" data-meaning="数字字符 1"><td>49</td><td><code>31</code></td><td><code>1</code></td><td>Digit 1</td><td>数字字符 1</td></tr><tr data-dec="50" data-hex="32" data-char="2" data-name="Digit 2" data-meaning="数字字符 2"><td>50</td><td><code>32</code></td><td><code>2</code></td><td>Digit 2</td><td>数字字符 2</td></tr><tr data-dec="51" data-hex="33" data-char="3" data-name="Digit 3" data-meaning="数字字符 3"><td>51</td><td><code>33</code></td><td><code>3</code></td><td>Digit 3</td><td>数字字符 3</td></tr><tr data-dec="52" data-hex="34" data-char="4" data-name="Digit 4" data-meaning="数字字符 4"><td>52</td><td><code>34</code></td><td><code>4</code></td><td>Digit 4</td><td>数字字符 4</td></tr><tr data-dec="53" data-hex="35" data-char="5" data-name="Digit 5" data-meaning="数字字符 5"><td>53</td><td><code>35</code></td><td><code>5</code></td><td>Digit 5</td><td>数字字符 5</td></tr><tr data-dec="54" data-hex="36" data-char="6" data-name="Digit 6" data-meaning="数字字符 6"><td>54</td><td><code>36</code></td><td><code>6</code></td><td>Digit 6</td><td>数字字符 6</td></tr><tr data-dec="55" data-hex="37" data-char="7" data-name="Digit 7" data-meaning="数字字符 7"><td>55</td><td><code>37</code></td><td><code>7</code></td><td>Digit 7</td><td>数字字符 7</td></tr><tr data-dec="56" data-hex="38" data-char="8" data-name="Digit 8" data-meaning="数字字符 8"><td>56</td><td><code>38</code></td><td><code>8</code></td><td>Digit 8</td><td>数字字符 8</td></tr><tr data-dec="57" data-hex="39" data-char="9" data-name="Digit 9" data-meaning="数字字符 9"><td>57</td><td><code>39</code></td><td><code>9</code></td><td>Digit 9</td><td>数字字符 9</td></tr><tr data-dec="58" data-hex="3A" data-char=":" data-name="Colon" data-meaning="冒号"><td>58</td><td><code>3A</code></td><td><code>:</code></td><td>Colon</td><td>冒号</td></tr><tr data-dec="59" data-hex="3B" data-char=";" data-name="Semicolon" data-meaning="分号"><td>59</td><td><code>3B</code></td><td><code>;</code></td><td>Semicolon</td><td>分号</td></tr><tr data-dec="60" data-hex="3C" data-char="&lt;" data-name="Less-than sign" data-meaning="小于号"><td>60</td><td><code>3C</code></td><td><code>&lt;</code></td><td>Less-than sign</td><td>小于号</td></tr><tr data-dec="61" data-hex="3D" data-char="=" data-name="Equals sign" data-meaning="等号"><td>61</td><td><code>3D</code></td><td><code>=</code></td><td>Equals sign</td><td>等号</td></tr><tr data-dec="62" data-hex="3E" data-char="&gt;" data-name="Greater-than sign" data-meaning="大于号"><td>62</td><td><code>3E</code></td><td><code>&gt;</code></td><td>Greater-than sign</td><td>大于号</td></tr><tr data-dec="63" data-hex="3F" data-char="?" data-name="Question mark" data-meaning="问号"><td>63</td><td><code>3F</code></td><td><code>?</code></td><td>Question mark</td><td>问号</td></tr><tr data-dec="64" data-hex="40" data-char="@" data-name="Commercial at" data-meaning="艾特符号"><td>64</td><td><code>40</code></td><td><code>@</code></td><td>Commercial at</td><td>艾特符号</td></tr><tr data-dec="65" data-hex="41" data-char="A" data-name="Capital letter A" data-meaning="大写字母 A"><td>65</td><td><code>41</code></td><td><code>A</code></td><td>Capital letter A</td><td>大写字母 A</td></tr><tr data-dec="66" data-hex="42" data-char="B" data-name="Capital letter B" data-meaning="大写字母 B"><td>66</td><td><code>42</code></td><td><code>B</code></td><td>Capital letter B</td><td>大写字母 B</td></tr><tr data-dec="67" data-hex="43" data-char="C" data-name="Capital letter C" data-meaning="大写字母 C"><td>67</td><td><code>43</code></td><td><code>C</code></td><td>Capital letter C</td><td>大写字母 C</td></tr><tr data-dec="68" data-hex="44" data-char="D" data-name="Capital letter D" data-meaning="大写字母 D"><td>68</td><td><code>44</code></td><td><code>D</code></td><td>Capital letter D</td><td>大写字母 D</td></tr><tr data-dec="69" data-hex="45" data-char="E" data-name="Capital letter E" data-meaning="大写字母 E"><td>69</td><td><code>45</code></td><td><code>E</code></td><td>Capital letter E</td><td>大写字母 E</td></tr><tr data-dec="70" data-hex="46" data-char="F" data-name="Capital letter F" data-meaning="大写字母 F"><td>70</td><td><code>46</code></td><td><code>F</code></td><td>Capital letter F</td><td>大写字母 F</td></tr><tr data-dec="71" data-hex="47" data-char="G" data-name="Capital letter G" data-meaning="大写字母 G"><td>71</td><td><code>47</code></td><td><code>G</code></td><td>Capital letter G</td><td>大写字母 G</td></tr><tr data-dec="72" data-hex="48" data-char="H" data-name="Capital letter H" data-meaning="大写字母 H"><td>72</td><td><code>48</code></td><td><code>H</code></td><td>Capital letter H</td><td>大写字母 H</td></tr><tr data-dec="73" data-hex="49" data-char="I" data-name="Capital letter I" data-meaning="大写字母 I"><td>73</td><td><code>49</code></td><td><code>I</code></td><td>Capital letter I</td><td>大写字母 I</td></tr><tr data-dec="74" data-hex="4A" data-char="J" data-name="Capital letter J" data-meaning="大写字母 J"><td>74</td><td><code>4A</code></td><td><code>J</code></td><td>Capital letter J</td><td>大写字母 J</td></tr><tr data-dec="75" data-hex="4B" data-char="K" data-name="Capital letter K" data-meaning="大写字母 K"><td>75</td><td><code>4B</code></td><td><code>K</code></td><td>Capital letter K</td><td>大写字母 K</td></tr><tr data-dec="76" data-hex="4C" data-char="L" data-name="Capital letter L" data-meaning="大写字母 L"><td>76</td><td><code>4C</code></td><td><code>L</code></td><td>Capital letter L</td><td>大写字母 L</td></tr><tr data-dec="77" data-hex="4D" data-char="M" data-name="Capital letter M" data-meaning="大写字母 M"><td>77</td><td><code>4D</code></td><td><code>M</code></td><td>Capital letter M</td><td>大写字母 M</td></tr><tr data-dec="78" data-hex="4E" data-char="N" data-name="Capital letter N" data-meaning="大写字母 N"><td>78</td><td><code>4E</code></td><td><code>N</code></td><td>Capital letter N</td><td>大写字母 N</td></tr><tr data-dec="79" data-hex="4F" data-char="O" data-name="Capital letter O" data-meaning="大写字母 O"><td>79</td><td><code>4F</code></td><td><code>O</code></td><td>Capital letter O</td><td>大写字母 O</td></tr><tr data-dec="80" data-hex="50" data-char="P" data-name="Capital letter P" data-meaning="大写字母 P"><td>80</td><td><code>50</code></td><td><code>P</code></td><td>Capital letter P</td><td>大写字母 P</td></tr><tr data-dec="81" data-hex="51" data-char="Q" data-name="Capital letter Q" data-meaning="大写字母 Q"><td>81</td><td><code>51</code></td><td><code>Q</code></td><td>Capital letter Q</td><td>大写字母 Q</td></tr><tr data-dec="82" data-hex="52" data-char="R" data-name="Capital letter R" data-meaning="大写字母 R"><td>82</td><td><code>52</code></td><td><code>R</code></td><td>Capital letter R</td><td>大写字母 R</td></tr><tr data-dec="83" data-hex="53" data-char="S" data-name="Capital letter S" data-meaning="大写字母 S"><td>83</td><td><code>53</code></td><td><code>S</code></td><td>Capital letter S</td><td>大写字母 S</td></tr><tr data-dec="84" data-hex="54" data-char="T" data-name="Capital letter T" data-meaning="大写字母 T"><td>84</td><td><code>54</code></td><td><code>T</code></td><td>Capital letter T</td><td>大写字母 T</td></tr><tr data-dec="85" data-hex="55" data-char="U" data-name="Capital letter U" data-meaning="大写字母 U"><td>85</td><td><code>55</code></td><td><code>U</code></td><td>Capital letter U</td><td>大写字母 U</td></tr><tr data-dec="86" data-hex="56" data-char="V" data-name="Capital letter V" data-meaning="大写字母 V"><td>86</td><td><code>56</code></td><td><code>V</code></td><td>Capital letter V</td><td>大写字母 V</td></tr><tr data-dec="87" data-hex="57" data-char="W" data-name="Capital letter W" data-meaning="大写字母 W"><td>87</td><td><code>57</code></td><td><code>W</code></td><td>Capital letter W</td><td>大写字母 W</td></tr><tr data-dec="88" data-hex="58" data-char="X" data-name="Capital letter X" data-meaning="大写字母 X"><td>88</td><td><code>58</code></td><td><code>X</code></td><td>Capital letter X</td><td>大写字母 X</td></tr><tr data-dec="89" data-hex="59" data-char="Y" data-name="Capital letter Y" data-meaning="大写字母 Y"><td>89</td><td><code>59</code></td><td><code>Y</code></td><td>Capital letter Y</td><td>大写字母 Y</td></tr><tr data-dec="90" data-hex="5A" data-char="Z" data-name="Capital letter Z" data-meaning="大写字母 Z"><td>90</td><td><code>5A</code></td><td><code>Z</code></td><td>Capital letter Z</td><td>大写字母 Z</td></tr><tr data-dec="91" data-hex="5B" data-char="[" data-name="Left square bracket" data-meaning="左方括号"><td>91</td><td><code>5B</code></td><td><code>[</code></td><td>Left square bracket</td><td>左方括号</td></tr><tr data-dec="92" data-hex="5C" data-char="\" data-name="Reverse solidus" data-meaning="反斜杠"><td>92</td><td><code>5C</code></td><td><code>\</code></td><td>Reverse solidus</td><td>反斜杠</td></tr><tr data-dec="93" data-hex="5D" data-char="]" data-name="Right square bracket" data-meaning="右方括号"><td>93</td><td><code>5D</code></td><td><code>]</code></td><td>Right square bracket</td><td>右方括号</td></tr><tr data-dec="94" data-hex="5E" data-char="^" data-name="Circumflex accent" data-meaning="脱字符号"><td>94</td><td><code>5E</code></td><td><code>^</code></td><td>Circumflex accent</td><td>脱字符号</td></tr><tr data-dec="95" data-hex="5F" data-char="_" data-name="Low line" data-meaning="下划线"><td>95</td><td><code>5F</code></td><td><code>_</code></td><td>Low line</td><td>下划线</td></tr><tr data-dec="96" data-hex="60" data-char="`" data-name="Grave accent" data-meaning="反引号"><td>96</td><td><code>60</code></td><td><code>`</code></td><td>Grave accent</td><td>反引号</td></tr><tr data-dec="97" data-hex="61" data-char="a" data-name="Small letter a" data-meaning="小写字母 a"><td>97</td><td><code>61</code></td><td><code>a</code></td><td>Small letter a</td><td>小写字母 a</td></tr><tr data-dec="98" data-hex="62" data-char="b" data-name="Small letter b" data-meaning="小写字母 b"><td>98</td><td><code>62</code></td><td><code>b</code></td><td>Small letter b</td><td>小写字母 b</td></tr><tr data-dec="99" data-hex="63" data-char="c" data-name="Small letter c" data-meaning="小写字母 c"><td>99</td><td><code>63</code></td><td><code>c</code></td><td>Small letter c</td><td>小写字母 c</td></tr><tr data-dec="100" data-hex="64" data-char="d" data-name="Small letter d" data-meaning="小写字母 d"><td>100</td><td><code>64</code></td><td><code>d</code></td><td>Small letter d</td><td>小写字母 d</td></tr><tr data-dec="101" data-hex="65" data-char="e" data-name="Small letter e" data-meaning="小写字母 e"><td>101</td><td><code>65</code></td><td><code>e</code></td><td>Small letter e</td><td>小写字母 e</td></tr><tr data-dec="102" data-hex="66" data-char="f" data-name="Small letter f" data-meaning="小写字母 f"><td>102</td><td><code>66</code></td><td><code>f</code></td><td>Small letter f</td><td>小写字母 f</td></tr><tr data-dec="103" data-hex="67" data-char="g" data-name="Small letter g" data-meaning="小写字母 g"><td>103</td><td><code>67</code></td><td><code>g</code></td><td>Small letter g</td><td>小写字母 g</td></tr><tr data-dec="104" data-hex="68" data-char="h" data-name="Small letter h" data-meaning="小写字母 h"><td>104</td><td><code>68</code></td><td><code>h</code></td><td>Small letter h</td><td>小写字母 h</td></tr><tr data-dec="105" data-hex="69" data-char="i" data-name="Small letter i" data-meaning="小写字母 i"><td>105</td><td><code>69</code></td><td><code>i</code></td><td>Small letter i</td><td>小写字母 i</td></tr><tr data-dec="106" data-hex="6A" data-char="j" data-name="Small letter j" data-meaning="小写字母 j"><td>106</td><td><code>6A</code></td><td><code>j</code></td><td>Small letter j</td><td>小写字母 j</td></tr><tr data-dec="107" data-hex="6B" data-char="k" data-name="Small letter k" data-meaning="小写字母 k"><td>107</td><td><code>6B</code></td><td><code>k</code></td><td>Small letter k</td><td>小写字母 k</td></tr><tr data-dec="108" data-hex="6C" data-char="l" data-name="Small letter l" data-meaning="小写字母 l"><td>108</td><td><code>6C</code></td><td><code>l</code></td><td>Small letter l</td><td>小写字母 l</td></tr><tr data-dec="109" data-hex="6D" data-char="m" data-name="Small letter m" data-meaning="小写字母 m"><td>109</td><td><code>6D</code></td><td><code>m</code></td><td>Small letter m</td><td>小写字母 m</td></tr><tr data-dec="110" data-hex="6E" data-char="n" data-name="Small letter n" data-meaning="小写字母 n"><td>110</td><td><code>6E</code></td><td><code>n</code></td><td>Small letter n</td><td>小写字母 n</td></tr><tr data-dec="111" data-hex="6F" data-char="o" data-name="Small letter o" data-meaning="小写字母 o"><td>111</td><td><code>6F</code></td><td><code>o</code></td><td>Small letter o</td><td>小写字母 o</td></tr><tr data-dec="112" data-hex="70" data-char="p" data-name="Small letter p" data-meaning="小写字母 p"><td>112</td><td><code>70</code></td><td><code>p</code></td><td>Small letter p</td><td>小写字母 p</td></tr><tr data-dec="113" data-hex="71" data-char="q" data-name="Small letter q" data-meaning="小写字母 q"><td>113</td><td><code>71</code></td><td><code>q</code></td><td>Small letter q</td><td>小写字母 q</td></tr><tr data-dec="114" data-hex="72" data-char="r" data-name="Small letter r" data-meaning="小写字母 r"><td>114</td><td><code>72</code></td><td><code>r</code></td><td>Small letter r</td><td>小写字母 r</td></tr><tr data-dec="115" data-hex="73" data-char="s" data-name="Small letter s" data-meaning="小写字母 s"><td>115</td><td><code>73</code></td><td><code>s</code></td><td>Small letter s</td><td>小写字母 s</td></tr><tr data-dec="116" data-hex="74" data-char="t" data-name="Small letter t" data-meaning="小写字母 t"><td>116</td><td><code>74</code></td><td><code>t</code></td><td>Small letter t</td><td>小写字母 t</td></tr><tr data-dec="117" data-hex="75" data-char="u" data-name="Small letter u" data-meaning="小写字母 u"><td>117</td><td><code>75</code></td><td><code>u</code></td><td>Small letter u</td><td>小写字母 u</td></tr><tr data-dec="118" data-hex="76" data-char="v" data-name="Small letter v" data-meaning="小写字母 v"><td>118</td><td><code>76</code></td><td><code>v</code></td><td>Small letter v</td><td>小写字母 v</td></tr><tr data-dec="119" data-hex="77" data-char="w" data-name="Small letter w" data-meaning="小写字母 w"><td>119</td><td><code>77</code></td><td><code>w</code></td><td>Small letter w</td><td>小写字母 w</td></tr><tr data-dec="120" data-hex="78" data-char="x" data-name="Small letter x" data-meaning="小写字母 x"><td>120</td><td><code>78</code></td><td><code>x</code></td><td>Small letter x</td><td>小写字母 x</td></tr><tr data-dec="121" data-hex="79" data-char="y" data-name="Small letter y" data-meaning="小写字母 y"><td>121</td><td><code>79</code></td><td><code>y</code></td><td>Small letter y</td><td>小写字母 y</td></tr><tr data-dec="122" data-hex="7A" data-char="z" data-name="Small letter z" data-meaning="小写字母 z"><td>122</td><td><code>7A</code></td><td><code>z</code></td><td>Small letter z</td><td>小写字母 z</td></tr><tr data-dec="123" data-hex="7B" data-char="{" data-name="Left curly bracket" data-meaning="左花括号"><td>123</td><td><code>7B</code></td><td><code>{</code></td><td>Left curly bracket</td><td>左花括号</td></tr><tr data-dec="124" data-hex="7C" data-char="|" data-name="Vertical line" data-meaning="竖线"><td>124</td><td><code>7C</code></td><td><code>|</code></td><td>Vertical line</td><td>竖线</td></tr><tr data-dec="125" data-hex="7D" data-char="}" data-name="Right curly bracket" data-meaning="右花括号"><td>125</td><td><code>7D</code></td><td><code>}</code></td><td>Right curly bracket</td><td>右花括号</td></tr><tr data-dec="126" data-hex="7E" data-char="~" data-name="Tilde" data-meaning="波浪号"><td>126</td><td><code>7E</code></td><td><code>~</code></td><td>Tilde</td><td>波浪号</td></tr><tr data-dec="127" data-hex="7F" data-char="DEL" data-name="Delete" data-meaning="删除（控制字符）" style="background:#f3f7f4"><td>127</td><td><code>7F</code></td><td><code>DEL</code></td><td>Delete</td><td>删除（控制字符）</td></tr></tbody></table></div><p><strong>常查：空格 20、字符 0 为 30、大写 A 为 41、小写 a 为 61、LF 为 0A、CR 为 0D、ESC 为 1B、DEL 为 7F。</strong>上面这些数均为 HEX。128～255 不属于标准 ASCII，不同扩展编码的含义可能不同。</p></section></section>
+<section class="markdown-section"><h2 id="最后只记住三点">最后只记住三点<a class="anchor" href="https://yewei-notes.pages.dev/posts/hex-ascii-basics/#%E6%9C%80%E5%90%8E%E5%8F%AA%E8%AE%B0%E4%BD%8F%E4%B8%89%E7%82%B9"><span class="anchor-icon" data-pagefind-ignore>#</span></a></h2><ol>
+<li><strong>HEX 看字节数值，ASCII 看字符含义。</strong></li>
+<li><strong>ASCII 输入 0A 是两个字符；HEX 输入 0A 才是一个 LF。</strong></li>
+<li><strong>通信时先约定：发文字还是数字、用什么编码、怎样判断一条消息结束。</strong></li>
+</ol></section>]]></content>
+    <author><name>叶工</name></author>
+    <category term="学习随笔"/>
+  </entry>
+  <entry>
     <title>E6-A｜双 S7-1500 PLC 的 GET/PUT 通信仿真</title>
     <link href="https://yewei-notes.pages.dev/posts/e6-a-s7-get-put/" rel="alternate" type="text/html"/>
     <id>https://yewei-notes.pages.dev/posts/e6-a-s7-get-put/</id>
