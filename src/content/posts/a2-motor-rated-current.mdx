@@ -1,0 +1,148 @@
+---
+title: A2｜单台电机额定电流：从 7.5 kW 算到 15.79 A
+published: 2026-10-22
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, 电机, 额定电流, 效率, 功率因数, 负荷计算]
+description: 通过一次三相电机电流计算及两台电机对比，区分轴端输出、输入有功与视在功率，整理效率和功率因数的含义，以及计算中出现的概念与单位错误。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study">
+
+<div class="a2-lead">
+<p class="a2-kicker">电气设计基础 · 配电柜供电篇 / A2</p>
+<p class="a2-lead-title">额定电流不只取决于功率。</p>
+<p>一台 7.5 kW、380 V 的三相异步电机，给定效率 0.88、功率因数 0.82，计算得到额定线电流约 <strong>15.79 A</strong>。效率与功率因数同时出现在分母中，但含义不同。</p>
+<div class="a2-inputs"><span>轴端输出 <b>7.5 kW</b></span><span>线电压 <b>380 V</b></span><span>效率 <b>0.88</b></span><span>功率因数 <b>0.82</b></span></div>
+</div>
+
+本篇整理 2026 年 10 月 22 日的一次手算练习。计算经历了公式分解、概念辨析、对比题纠错与复算；没有进行实物测量。文中的网络配图用于说明铭牌和功率关系，不是此次练习的现场照片。
+
+## 从铭牌分清：输出的 kW，输入的 A
+
+电机铭牌的额定功率通常指**轴端机械输出功率**，本文记为 $P_2$。电源输入有功功率记为 $P_1$，二者通过效率联系：$\eta=P_2/P_1$。[ABB 的铭牌说明](https://new.abb.com/news/detail/132261/how-to-read-a-nema-motor-nameplate)也将效率定义为输入电功率转换为轴端输出功率的比例。
+
+<figure class="a2-photo">
+<img src="/images/posts/a2-motor-rated-current/01-motor-nameplate.jpg" alt="厂家公开的三相异步电机铭牌实拍，380V三角形接法一行列有7.5kW、15.0A、效率90.4%和功率因数0.84" width="1000" height="563" loading="lazy" decoding="async" />
+<figcaption>网络实拍示例：380 V / Δ 一行对应 7.5 kW、15.0 A、η＝90.4%、cosφ＝0.84。图片来源：<a href="https://www.hengdamotor.com/hangye/635.html" target="_blank" rel="noopener noreferrer">无锡市亨达电机有限公司</a>，原图未修改。</figcaption>
+</figure>
+
+这张铭牌与本题都是 7.5 kW，但效率、功率因数不同。代入照片中的参数，电流约为 15.01 A，与铭牌的 15.0 A 接近；本题则约为 15.79 A。不同型号、额定工作点的参数不能混用，额定电流应优先核对对应铭牌和厂家资料。
+
+| 符号 | 本文含义 | 单位 | 代入要求 |
+| --- | --- | --- | --- |
+| $P_2$ | 轴端机械输出功率 | W 或 kW | 本题为 7.5 kW |
+| $P_1$ | 电机输入有功功率 | W 或 kW | $P_1=P_2/\eta$ |
+| $U_L$ | 线电压 | V | 本题为 380 V，不是相电压 |
+| $I_L$ | 线电流 | A | 本题要求的量 |
+| $\eta$ | 效率 | 无量纲 | 88% 代为 0.88 |
+| $\cos\varphi$ | 功率因数 | 无量纲 | 本题代为 0.82 |
+| $S$ | 视在功率 | VA 或 kVA | 不写成 kW |
+
+以下计算采用三相平衡、正弦稳态供电模型。变频供电或谐波显著时，总功率因数与基波位移因数不能直接混同。
+
+## 三步计算，各自解决一个问题
+
+<div class="a2-calculations">
+<div class="a2-calc"><span class="a2-step">01 / 补上转换损耗</span><h3>机械输出 → 输入有功</h3><p class="a2-expression">P₁ = 7.5 ÷ 0.88</p><p class="a2-value">8.52 <small>kW</small></p><p>轴端要输出 7.5 kW，电源输入有功必须覆盖输出及电机损耗。</p></div>
+<div class="a2-calc"><span class="a2-step">02 / 计入功率因数</span><h3>输入有功 → 视在功率</h3><p class="a2-expression">S = P₁ ÷ 0.82</p><p class="a2-value">10.39 <small>kVA</small></p><p>有功与视在功率的比例为 0.82；电流对应的是视在功率。</p></div>
+<div class="a2-calc"><span class="a2-step">03 / 容量换为电流</span><h3>视在功率 → 线电流</h3><p class="a2-expression">I = S × 1000 ÷ (√3 × 380)</p><p class="a2-value">15.79 <small>A</small></p><p>计算使用未舍入的中间值；kVA 代入时先换为 VA。</p></div>
+</div>
+
+合并后为：
+
+$$
+I_L=\frac{P_2}{\sqrt{3}\,U_L\,\eta\,\cos\varphi}
+=\frac{7500}{\sqrt{3}\times380\times0.88\times0.82}
+\approx15.79\ \mathrm{A}
+$$
+
+若已经知道输入有功 $P_1$，则使用 $I_L=P_1/(\sqrt{3}U_L\cos\varphi)$，不能再重复除以效率。三相输入功率与额定输出、效率的这种对应关系，也可参见[美国能源部电机应用指南，第 3-3 页](https://www.energy.gov/sites/default/files/2014/04/f15/amo_motors_handbook_web.pdf)。
+
+### √3 与线量的关系
+
+三相总有功功率可写成 $3U_{ph}I_{ph}\cos\varphi$。平衡星形连接中 $U_L=\sqrt{3}U_{ph}$、$I_L=I_{ph}$；平衡三角形连接中 $U_L=U_{ph}$、$I_L=\sqrt{3}I_{ph}$。换成线电压、线电流后，两种连接都得到 $P_1=\sqrt{3}U_LI_L\cos\varphi$。
+
+因此，$S=\sqrt{3}U_LI_L$ 是视在功率关系；有功功率还需要乘功率因数。不能把 $P_1$ 与 $S$ 写成同一个量。
+
+## 效率与功率因数，不是两种“效率”
+
+效率描述输入有功经过电机后，有多少成为轴端机械输出。没有成为输出的部分，对应铜损、铁损、摩擦、风阻等损耗。
+
+功率因数描述输入有功与视在功率的比例。在上述正弦模型下，$\cos\varphi=P_1/S$。电机励磁需要无功交换；无功不等于电机中被消耗的有功能量，但相关电流会增加线路损耗和容量需求。
+
+<figure class="a2-triangle">
+<img src="/images/posts/a2-motor-rated-current/02-power-triangle.png" alt="公开教材中的功率三角形：横向为有功P，纵向为无功Q，斜边为视在功率S" width="384" height="222" loading="lazy" decoding="async" />
+<figcaption>功率三角形。图中的 P 在本文对应电源输入有功 P₁。来源：<a href="https://eng.libretexts.org/Workbench/Introduction_to_Circuit_Analysis/11%3A_AC_Power/11.03%3A_Power_Triangle" target="_blank" rel="noopener noreferrer">James M. Fiore / Engineering LibreTexts，Power Triangle</a>；页面标注 Public Domain，原图未修改。</figcaption>
+</figure>
+
+<div class="a2-correction">
+<strong>cosφ＝0.75，不等于“另外 25% 是无功”。</strong>
+<p>有功与无功按矢量关系组合：S²＝P₁²＋Q²，而不是 S＝P₁＋Q。cosφ＝0.75 表示 P₁/S＝0.75，此时 Q/S＝√(1−0.75²)≈0.661，不能用 1−0.75 求无功比例。</p>
+</div>
+
+| 对比项 | 效率 $\eta$ | 功率因数 $\cos\varphi$ |
+| --- | --- | --- |
+| 定义 | $P_2/P_1$ | $P_1/S$，限上述正弦模型 |
+| 主要描述 | 电机的能量转换与损耗 | 供电端有功与视在功率的关系 |
+| 其余条件相同时，数值降低 | 相同机械输出需要更多输入有功 | 相同输入有功需要更大的电流 |
+| 比较时不能遗漏 | 实际负载与对应效率 | 电压、供电波形与对应工作点 |
+
+负载减轻时，励磁所需的无功分量通常不像输出有功那样同步降低，因此异步电机轻载时功率因数往往变差。效率也随负载变化，不能给所有电机套用一组固定的空载、半载、满载数值。效率降低与绝对耗电增加也不是同一判断：负载变小后，输入有功仍可能下降。[加拿大自然资源部的电机参考指南](https://natural-resources.canada.ca/energy-efficiency/energy-star/electric-motors-energy-efficiency-reference-guide)讨论了负载对这两项指标的影响。
+
+## 对比题：电流更大的，输入有功反而更小
+
+两台电机均按机械输出 7.5 kW、线电压 380 V 比较，运行时长相同：
+
+| 项目 | 甲电机 | 乙电机 |
+| --- | --- | --- |
+| 效率 $\eta$ | 0.90 | 0.85 |
+| 功率因数 $\cos\varphi$ | 0.70 | 0.85 |
+| 输入有功 $P_1$ | 8.33 kW | 8.82 kW |
+| 视在功率 $S$ | 11.90 kVA | 10.38 kVA |
+| 线电流 $I_L$ | **18.09 A** | **15.77 A** |
+
+<div class="a2-verdicts"><div><span>比较电流与容量</span><strong>甲更大</strong><p>效率较高，但功率因数较低，需要更大的视在功率与线电流。</p></div><div><span>比较相同时长的输入有功电量</span><strong>乙更多</strong><p>完成相同机械输出时，效率较低，所需输入有功更大。</p></div></div>
+
+乙的输入有功比甲高约 0.490 kW，约高 5.88%。两者在给定工作点各运行 1 小时，乙多消耗约 0.490 kWh；不能写成“每秒多消耗 0.49 kW”。该比较未计入上游线路损耗。
+
+### 练习中的错误，具体发生在哪里
+
+| 过程 | 原判断或写法 | 纠正后的判断 |
+| --- | --- | --- |
+| 第一轮概念题 | 将效率 0.82 说成“功率因数 0.82” | 同等输出下，效率较低需要更多输入有功；η 与 cosφ 名称不能混用 |
+| 第一轮计算 | 三步算出约 15.79 A，但曾将 S 写为 P、将 kVA 写为 kW | 计算路径正确；区分 $P_1$、$S$ 及各自单位 |
+| 第二轮对比 | 甲的视在功率更大，所以甲更耗电 | 电流与容量的比较正确，耗电判断的对象错了；应比较 $P_1$ 与运行时长 |
+| 第三轮复算 | 甲 8.33 kW，乙 8.82 kW | 相同输出、相同时长下，乙的有功电量更多，复算判断正确 |
+
+原笔算记录中甲电流约为 18.08 A；本表保留全部中间精度重算后四舍五入为 18.09 A。0.01 A 的差别来自中间值舍入，不影响两台电机的比较结果。
+
+## 15.79 A 是计算结果，不是完整选型结论
+
+更大的电流会使导线载流量、压降、线路损耗和供电容量的校核更不利，但不能直接据此断定“甲一定用 4 mm² 导线”或“断路器必须大一档”。敷设方式、环境条件、启动过程与保护配合仍需分别核查；相近电流也可能落在同一选型档位。
+
+实际电费也不能只用“功率因数不影响电费”概括。输入有功电量与运行时间有关，工业用户还可能涉及需量、容量、功率因数等计费项目；适用方式和考核值应查本地电价规则与供用电合同。本篇不据此计算账单，也不把统一的 0.90 门槛当作所有用户的通则。
+
+<details class="a2-exercise">
+<summary>扩展练习（尚未完成）：η＝0.85、cosφ＝0.75 时，电流是多少？</summary>
+<p>仍取 P₂＝7.5 kW、U＝380 V，分三步计算再展开核对。</p>
+<details><summary>展开参考结果</summary><p>P₁≈8.82 kW，S≈11.76 kVA，I≈17.87 A。此项仅为参考答案，不计入本次已完成记录。</p></details>
+</details>
+
+<div class="a2-endnote"><strong>本次完成范围</strong><p>完成给定参数下的额定线电流计算，并通过复算区分了输入有功、视在功率与线电流。后续 A3 将扩展为多负载计算，A4 再处理需要系数与总计算负荷。</p></div>
+
+上一篇：[A1｜电机供电回路：看懂 QF、KM、FR 怎样分工](/posts/a1-motor-power-circuit/)。
+
+### 配图与资料来源
+
+两张配图均来自公开网页，用于铭牌识读和功率关系说明，不作为本次练习的实测结果。铭牌照片版权归原权利人；功率三角形沿用教材页面标注的 Public Domain。来源链接见各图图注。
+
+- [ABB：How to read a NEMA motor nameplate](https://new.abb.com/news/detail/132261/how-to-read-a-nema-motor-nameplate)
+- [美国能源部：Premium Efficiency Motor Selection and Application Guide](https://www.energy.gov/sites/default/files/2014/04/f15/amo_motors_handbook_web.pdf)
+- [加拿大自然资源部：Electric Motors — Energy Efficiency Reference Guide](https://natural-resources.canada.ca/energy-efficiency/energy-star/electric-motors-energy-efficiency-reference-guide)
+
+</div>
