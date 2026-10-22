@@ -1,5 +1,15 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getSortedPostsList } from "../../../utils/content-utils";
+
+const mobilePosts = (await getSortedPostsList())
+	.filter((post) => post.url)
+	.map((post) => ({
+		title: post.data.title,
+		url: post.url!,
+		category: post.data.category || "",
+		pinned: !!post.data.pinned,
+	}));
 
 import { navBarConfig, siteConfig } from "../../../config";
 import { LinkPresets } from "../../../constants/link-presets";
@@ -144,7 +154,7 @@ const iconWebpSrc = hasIconPngFallback
                 <Search client:only="svelte"></Search>
             </div>
             {/* 只在 sidebar 模式下显示移动端 TOC 按钮 */}
-			{siteConfig.toc.enable && siteConfig.toc.mobileTop && <MobileTOC client:only="svelte"></MobileTOC>}
+			{siteConfig.toc.enable && siteConfig.toc.mobileTop && <MobileTOC posts={mobilePosts} client:only="svelte"></MobileTOC>}
             <button aria-label="Display Settings" class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90" id="display-settings-switch">
                 <Icon name="material-symbols:palette-outline" class="text-[1.25rem]"></Icon>
             </button>

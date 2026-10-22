@@ -16,6 +16,8 @@ import {
 	type TOCItem,
 } from "./hooks/useMobileTOC";
 
+let { posts = [] }: { posts?: PostItem[] } = $props();
+
 let tocItems: TOCItem[] = $state([]);
 let postItems: PostItem[] = $state([]);
 let activeId = $state("");
@@ -167,7 +169,7 @@ const init = () => {
 
 	if (isHomePage) {
 		tocItems = [];
-		postItems = generatePostItems();
+		postItems = posts.length > 0 ? posts : generatePostItems();
 	} else {
 		const config = getTOCConfig();
 		tocItems = generateTOCItems(config);
