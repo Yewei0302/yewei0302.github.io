@@ -1,0 +1,1302 @@
+{
+	"/images/posts/b3-pid-autotuning/01-parameters-a.png": {
+		"src": "/images/posts/b3-pid-autotuning/01-parameters-a.png",
+		"width": 800,
+		"height": 622
+	},
+	"/images/posts/b3-pid-autotuning/02-fine-tuning.png": {
+		"src": "/images/posts/b3-pid-autotuning/02-fine-tuning.png",
+		"width": 800,
+		"height": 986
+	},
+	"/images/posts/b3-pid-autotuning/03-parameters-b.png": {
+		"src": "/images/posts/b3-pid-autotuning/03-parameters-b.png",
+		"width": 806,
+		"height": 502
+	},
+	"/images/posts/b3-pid-autotuning/05-setpoint-45.png": {
+		"src": "/assets/post-images/b68afc63fcb451ade9f2.webp",
+		"width": 1600,
+		"height": 938
+	},
+	"/images/posts/b3-pid-autotuning/04-pretuning-monitor.png": {
+		"src": "/assets/post-images/f58be1ac680f2c040b9e.webp",
+		"width": 1600,
+		"height": 945
+	},
+	"/images/posts/c1-traffic-light/01-graph-simulation.gif": {
+		"src": "/images/posts/c1-traffic-light/01-graph-simulation.gif",
+		"width": 1590,
+		"height": 1012
+	},
+	"/images/posts/c1-traffic-light/01-graph-simulation.png": {
+		"src": "/images/posts/c1-traffic-light/01-graph-simulation.png",
+		"width": 1590,
+		"height": 1012
+	},
+	"/images/posts/c1-traffic-light/02-lad-disabled.gif": {
+		"src": "/images/posts/c1-traffic-light/02-lad-disabled.gif",
+		"width": 905,
+		"height": 404
+	},
+	"/images/posts/c1-traffic-light/03-lad-green.gif": {
+		"src": "/images/posts/c1-traffic-light/03-lad-green.gif",
+		"width": 905,
+		"height": 402
+	},
+	"/images/posts/c1-traffic-light/02-lad-disabled.png": {
+		"src": "/images/posts/c1-traffic-light/02-lad-disabled.png",
+		"width": 905,
+		"height": 404
+	},
+	"/images/posts/c1-traffic-light/03-lad-green.png": {
+		"src": "/images/posts/c1-traffic-light/03-lad-green.png",
+		"width": 905,
+		"height": 402
+	},
+	"/images/posts/c1-traffic-light/04-lad-disabled.gif": {
+		"src": "/images/posts/c1-traffic-light/04-lad-disabled.gif",
+		"width": 905,
+		"height": 404
+	},
+	"/images/posts/c1-traffic-light/04-lad-disabled.png": {
+		"src": "/images/posts/c1-traffic-light/04-lad-disabled.png",
+		"width": 905,
+		"height": 404
+	},
+	"/images/posts/b2-room-temp-pid/1.webp": {
+		"src": "/images/posts/b2-room-temp-pid/1.webp",
+		"width": 537,
+		"height": 550
+	},
+	"/images/posts/b2-room-temp-pid/10.webp": {
+		"src": "/images/posts/b2-room-temp-pid/10.webp",
+		"width": 715,
+		"height": 313
+	},
+	"/images/posts/b2-room-temp-pid/11.webp": {
+		"src": "/images/posts/b2-room-temp-pid/11.webp",
+		"width": 750,
+		"height": 261
+	},
+	"/images/posts/b2-room-temp-pid/13.webp": {
+		"src": "/images/posts/b2-room-temp-pid/13.webp",
+		"width": 899,
+		"height": 115
+	},
+	"/images/posts/b2-room-temp-pid/12.webp": {
+		"src": "/images/posts/b2-room-temp-pid/12.webp",
+		"width": 728,
+		"height": 225
+	},
+	"/images/posts/b2-room-temp-pid/14.webp": {
+		"src": "/images/posts/b2-room-temp-pid/14.webp",
+		"width": 1044,
+		"height": 231
+	},
+	"/images/posts/b2-room-temp-pid/15.webp": {
+		"src": "/images/posts/b2-room-temp-pid/15.webp",
+		"width": 902,
+		"height": 110
+	},
+	"/images/posts/b2-room-temp-pid/17.webp": {
+		"src": "/images/posts/b2-room-temp-pid/17.webp",
+		"width": 610,
+		"height": 510
+	},
+	"/images/posts/b2-room-temp-pid/16.webp": {
+		"src": "/images/posts/b2-room-temp-pid/16.webp",
+		"width": 697,
+		"height": 765
+	},
+	"/images/posts/b2-room-temp-pid/18.webp": {
+		"src": "/images/posts/b2-room-temp-pid/18.webp",
+		"width": 893,
+		"height": 100
+	},
+	"/images/posts/b2-room-temp-pid/19.webp": {
+		"src": "/images/posts/b2-room-temp-pid/19.webp",
+		"width": 436,
+		"height": 366
+	},
+	"/images/posts/b2-room-temp-pid/2.webp": {
+		"src": "/images/posts/b2-room-temp-pid/2.webp",
+		"width": 701,
+		"height": 772
+	},
+	"/images/posts/b2-room-temp-pid/21.gif": {
+		"src": "/images/posts/b2-room-temp-pid/21.gif",
+		"width": 1230,
+		"height": 254
+	},
+	"/images/posts/b2-room-temp-pid/20.webp": {
+		"src": "/images/posts/b2-room-temp-pid/20.webp",
+		"width": 844,
+		"height": 240
+	},
+	"/images/posts/b2-room-temp-pid/22.webp": {
+		"src": "/images/posts/b2-room-temp-pid/22.webp",
+		"width": 669,
+		"height": 265
+	},
+	"/images/posts/b2-room-temp-pid/24.webp": {
+		"src": "/images/posts/b2-room-temp-pid/24.webp",
+		"width": 651,
+		"height": 195
+	},
+	"/images/posts/b2-room-temp-pid/23.webp": {
+		"src": "/images/posts/b2-room-temp-pid/23.webp",
+		"width": 736,
+		"height": 308
+	},
+	"/images/posts/b2-room-temp-pid/26.webp": {
+		"src": "/images/posts/b2-room-temp-pid/26.webp",
+		"width": 640,
+		"height": 301
+	},
+	"/images/posts/b2-room-temp-pid/25.webp": {
+		"src": "/images/posts/b2-room-temp-pid/25.webp",
+		"width": 638,
+		"height": 198
+	},
+	"/images/posts/b2-room-temp-pid/27.webp": {
+		"src": "/images/posts/b2-room-temp-pid/27.webp",
+		"width": 631,
+		"height": 193
+	},
+	"/images/posts/b2-room-temp-pid/28.webp": {
+		"src": "/images/posts/b2-room-temp-pid/28.webp",
+		"width": 598,
+		"height": 312
+	},
+	"/images/posts/b2-room-temp-pid/29.webp": {
+		"src": "/images/posts/b2-room-temp-pid/29.webp",
+		"width": 588,
+		"height": 498
+	},
+	"/images/posts/b2-room-temp-pid/3.webp": {
+		"src": "/images/posts/b2-room-temp-pid/3.webp",
+		"width": 1190,
+		"height": 207
+	},
+	"/images/posts/b2-room-temp-pid/30.gif": {
+		"src": "/images/posts/b2-room-temp-pid/30.gif",
+		"width": 1349,
+		"height": 274
+	},
+	"/images/posts/b2-room-temp-pid/32.gif": {
+		"src": "/images/posts/b2-room-temp-pid/32.gif",
+		"width": 1349,
+		"height": 298
+	},
+	"/images/posts/b2-room-temp-pid/34.webp": {
+		"src": "/images/posts/b2-room-temp-pid/34.webp",
+		"width": 597,
+		"height": 587
+	},
+	"/images/posts/b2-room-temp-pid/31.gif": {
+		"src": "/images/posts/b2-room-temp-pid/31.gif",
+		"width": 1349,
+		"height": 298
+	},
+	"/images/posts/b2-room-temp-pid/33.webp": {
+		"src": "/images/posts/b2-room-temp-pid/33.webp",
+		"width": 1167,
+		"height": 583
+	},
+	"/images/posts/b2-room-temp-pid/36.webp": {
+		"src": "/images/posts/b2-room-temp-pid/36.webp",
+		"width": 508,
+		"height": 204
+	},
+	"/images/posts/b2-room-temp-pid/37.webp": {
+		"src": "/images/posts/b2-room-temp-pid/37.webp",
+		"width": 644,
+		"height": 358
+	},
+	"/images/posts/b2-room-temp-pid/38.webp": {
+		"src": "/images/posts/b2-room-temp-pid/38.webp",
+		"width": 1528,
+		"height": 410
+	},
+	"/images/posts/b2-room-temp-pid/35.webp": {
+		"src": "/images/posts/b2-room-temp-pid/35.webp",
+		"width": 832,
+		"height": 188
+	},
+	"/images/posts/b2-room-temp-pid/39.webp": {
+		"src": "/images/posts/b2-room-temp-pid/39.webp",
+		"width": 719,
+		"height": 707
+	},
+	"/images/posts/b2-room-temp-pid/4.webp": {
+		"src": "/images/posts/b2-room-temp-pid/4.webp",
+		"width": 1163,
+		"height": 331
+	},
+	"/images/posts/b2-room-temp-pid/40.webp": {
+		"src": "/images/posts/b2-room-temp-pid/40.webp",
+		"width": 674,
+		"height": 414
+	},
+	"/images/posts/b2-room-temp-pid/41.webp": {
+		"src": "/images/posts/b2-room-temp-pid/41.webp",
+		"width": 515,
+		"height": 307
+	},
+	"/images/posts/b2-room-temp-pid/42.webp": {
+		"src": "/images/posts/b2-room-temp-pid/42.webp",
+		"width": 750,
+		"height": 599
+	},
+	"/images/posts/b2-room-temp-pid/43.webp": {
+		"src": "/images/posts/b2-room-temp-pid/43.webp",
+		"width": 874,
+		"height": 638
+	},
+	"/images/posts/b2-room-temp-pid/44.webp": {
+		"src": "/images/posts/b2-room-temp-pid/44.webp",
+		"width": 564,
+		"height": 334
+	},
+	"/images/posts/b2-room-temp-pid/45.webp": {
+		"src": "/images/posts/b2-room-temp-pid/45.webp",
+		"width": 1551,
+		"height": 429
+	},
+	"/images/posts/b2-room-temp-pid/46.webp": {
+		"src": "/images/posts/b2-room-temp-pid/46.webp",
+		"width": 349,
+		"height": 751
+	},
+	"/images/posts/b2-room-temp-pid/49.webp": {
+		"src": "/images/posts/b2-room-temp-pid/49.webp",
+		"width": 1260,
+		"height": 367
+	},
+	"/images/posts/b2-room-temp-pid/48.webp": {
+		"src": "/images/posts/b2-room-temp-pid/48.webp",
+		"width": 778,
+		"height": 570
+	},
+	"/images/posts/b2-room-temp-pid/5.webp": {
+		"src": "/images/posts/b2-room-temp-pid/5.webp",
+		"width": 719,
+		"height": 245
+	},
+	"/images/posts/b2-room-temp-pid/50.webp": {
+		"src": "/images/posts/b2-room-temp-pid/50.webp",
+		"width": 732,
+		"height": 480
+	},
+	"/images/posts/b2-room-temp-pid/52.webp": {
+		"src": "/images/posts/b2-room-temp-pid/52.webp",
+		"width": 1054,
+		"height": 784
+	},
+	"/images/posts/b2-room-temp-pid/53.webp": {
+		"src": "/images/posts/b2-room-temp-pid/53.webp",
+		"width": 342,
+		"height": 754
+	},
+	"/images/posts/b2-room-temp-pid/51.webp": {
+		"src": "/images/posts/b2-room-temp-pid/51.webp",
+		"width": 900,
+		"height": 387
+	},
+	"/images/posts/b2-room-temp-pid/47.webp": {
+		"src": "/images/posts/b2-room-temp-pid/47.webp",
+		"width": 1605,
+		"height": 731
+	},
+	"/images/posts/b2-room-temp-pid/54.webp": {
+		"src": "/images/posts/b2-room-temp-pid/54.webp",
+		"width": 928,
+		"height": 346
+	},
+	"/images/posts/b2-room-temp-pid/55.webp": {
+		"src": "/images/posts/b2-room-temp-pid/55.webp",
+		"width": 383,
+		"height": 682
+	},
+	"/images/posts/b2-room-temp-pid/56.webp": {
+		"src": "/images/posts/b2-room-temp-pid/56.webp",
+		"width": 1057,
+		"height": 433
+	},
+	"/images/posts/b2-room-temp-pid/58.webp": {
+		"src": "/images/posts/b2-room-temp-pid/58.webp",
+		"width": 981,
+		"height": 677
+	},
+	"/images/posts/b2-room-temp-pid/57.webp": {
+		"src": "/images/posts/b2-room-temp-pid/57.webp",
+		"width": 967,
+		"height": 683
+	},
+	"/images/posts/b2-room-temp-pid/6.webp": {
+		"src": "/images/posts/b2-room-temp-pid/6.webp",
+		"width": 746,
+		"height": 248
+	},
+	"/images/posts/b2-room-temp-pid/59.webp": {
+		"src": "/images/posts/b2-room-temp-pid/59.webp",
+		"width": 995,
+		"height": 431
+	},
+	"/images/posts/b2-room-temp-pid/60.webp": {
+		"src": "/images/posts/b2-room-temp-pid/60.webp",
+		"width": 669,
+		"height": 165
+	},
+	"/images/posts/b2-room-temp-pid/62.webp": {
+		"src": "/images/posts/b2-room-temp-pid/62.webp",
+		"width": 1025,
+		"height": 773
+	},
+	"/images/posts/b2-room-temp-pid/61.webp": {
+		"src": "/images/posts/b2-room-temp-pid/61.webp",
+		"width": 1018,
+		"height": 771
+	},
+	"/images/posts/b2-room-temp-pid/64.webp": {
+		"src": "/images/posts/b2-room-temp-pid/64.webp",
+		"width": 1008,
+		"height": 753
+	},
+	"/images/posts/b2-room-temp-pid/63.webp": {
+		"src": "/images/posts/b2-room-temp-pid/63.webp",
+		"width": 1102,
+		"height": 793
+	},
+	"/images/posts/b2-room-temp-pid/67.webp": {
+		"src": "/images/posts/b2-room-temp-pid/67.webp",
+		"width": 290,
+		"height": 97
+	},
+	"/images/posts/b2-room-temp-pid/68.webp": {
+		"src": "/images/posts/b2-room-temp-pid/68.webp",
+		"width": 631,
+		"height": 185
+	},
+	"/images/posts/b2-room-temp-pid/66.webp": {
+		"src": "/images/posts/b2-room-temp-pid/66.webp",
+		"width": 865,
+		"height": 449
+	},
+	"/images/posts/b2-room-temp-pid/65.webp": {
+		"src": "/images/posts/b2-room-temp-pid/65.webp",
+		"width": 1575,
+		"height": 174
+	},
+	"/images/posts/b2-room-temp-pid/69.webp": {
+		"src": "/images/posts/b2-room-temp-pid/69.webp",
+		"width": 1246,
+		"height": 107
+	},
+	"/images/posts/b2-room-temp-pid/70.webp": {
+		"src": "/images/posts/b2-room-temp-pid/70.webp",
+		"width": 843,
+		"height": 444
+	},
+	"/images/posts/b2-room-temp-pid/7.webp": {
+		"src": "/images/posts/b2-room-temp-pid/7.webp",
+		"width": 831,
+		"height": 271
+	},
+	"/images/posts/b2-room-temp-pid/72.webp": {
+		"src": "/images/posts/b2-room-temp-pid/72.webp",
+		"width": 1572,
+		"height": 426
+	},
+	"/images/posts/b2-room-temp-pid/71.webp": {
+		"src": "/images/posts/b2-room-temp-pid/71.webp",
+		"width": 1494,
+		"height": 439
+	},
+	"/images/posts/b2-room-temp-pid/73.webp": {
+		"src": "/images/posts/b2-room-temp-pid/73.webp",
+		"width": 327,
+		"height": 177
+	},
+	"/images/posts/b2-room-temp-pid/74.webp": {
+		"src": "/images/posts/b2-room-temp-pid/74.webp",
+		"width": 1410,
+		"height": 142
+	},
+	"/images/posts/b2-room-temp-pid/75.webp": {
+		"src": "/images/posts/b2-room-temp-pid/75.webp",
+		"width": 1022,
+		"height": 571
+	},
+	"/images/posts/b2-room-temp-pid/76.webp": {
+		"src": "/images/posts/b2-room-temp-pid/76.webp",
+		"width": 1019,
+		"height": 544
+	},
+	"/images/posts/b2-room-temp-pid/77.webp": {
+		"src": "/images/posts/b2-room-temp-pid/77.webp",
+		"width": 1028,
+		"height": 777
+	},
+	"/images/posts/b2-room-temp-pid/79.webp": {
+		"src": "/images/posts/b2-room-temp-pid/79.webp",
+		"width": 1021,
+		"height": 576
+	},
+	"/images/posts/b2-room-temp-pid/78.webp": {
+		"src": "/images/posts/b2-room-temp-pid/78.webp",
+		"width": 1030,
+		"height": 775
+	},
+	"/images/posts/b2-room-temp-pid/8.webp": {
+		"src": "/images/posts/b2-room-temp-pid/8.webp",
+		"width": 845,
+		"height": 297
+	},
+	"/images/posts/b2-room-temp-pid/9.webp": {
+		"src": "/images/posts/b2-room-temp-pid/9.webp",
+		"width": 715,
+		"height": 278
+	},
+	"/images/posts/b2-room-temp-pid/demo-start.gif": {
+		"src": "/images/posts/b2-room-temp-pid/demo-start.gif",
+		"width": 1080,
+		"height": 710
+	},
+	"/images/posts/b2-room-temp-pid/demo-stop.gif": {
+		"src": "/images/posts/b2-room-temp-pid/demo-stop.gif",
+		"width": 1017,
+		"height": 676
+	},
+	"/images/posts/d2-trend-archive/02-trend-source.png": {
+		"src": "/images/posts/d2-trend-archive/02-trend-source.png",
+		"width": 730,
+		"height": 217
+	},
+	"/images/posts/d2-trend-archive/01-archive-config.png": {
+		"src": "/images/posts/d2-trend-archive/01-archive-config.png",
+		"width": 1399,
+		"height": 356
+	},
+	"/images/posts/d2-trend-archive/03-trend-control.png": {
+		"src": "/images/posts/d2-trend-archive/03-trend-control.png",
+		"width": 411,
+		"height": 184
+	},
+	"/images/posts/d2-trend-archive/05-cooling-history.png": {
+		"src": "/images/posts/d2-trend-archive/05-cooling-history.png",
+		"width": 1016,
+		"height": 763
+	},
+	"/images/posts/d2-trend-archive/04-csv-records.png": {
+		"src": "/images/posts/d2-trend-archive/04-csv-records.png",
+		"width": 648,
+		"height": 863
+	},
+	"/images/posts/d2-trend-archive/06-trend-config.png": {
+		"src": "/images/posts/d2-trend-archive/06-trend-config.png",
+		"width": 945,
+		"height": 187
+	},
+	"/images/posts/d2-trend-archive/07-heating-runtime.png": {
+		"src": "/images/posts/d2-trend-archive/07-heating-runtime.png",
+		"width": 1017,
+		"height": 763
+	},
+	"/images/posts/d2-trend-archive/08-heating-history.png": {
+		"src": "/images/posts/d2-trend-archive/08-heating-history.png",
+		"width": 1034,
+		"height": 780
+	},
+	"/images/posts/d2-trend-archive/09-stopped-runtime.png": {
+		"src": "/images/posts/d2-trend-archive/09-stopped-runtime.png",
+		"width": 1021,
+		"height": 762
+	},
+	"/images/posts/d1-hmi-alarms/02-ready-state.png": {
+		"src": "/images/posts/d1-hmi-alarms/02-ready-state.png",
+		"width": 612,
+		"height": 203
+	},
+	"/images/posts/d1-hmi-alarms/01-latch-reset.png": {
+		"src": "/images/posts/d1-hmi-alarms/01-latch-reset.png",
+		"width": 626,
+		"height": 695
+	},
+	"/images/posts/d1-hmi-alarms/04-control-db.png": {
+		"src": "/assets/post-images/48835836f9ac1155b3e5.webp",
+		"width": 1187,
+		"height": 694
+	},
+	"/images/posts/d1-hmi-alarms/03-discrete-alarms.png": {
+		"src": "/images/posts/d1-hmi-alarms/03-discrete-alarms.png",
+		"width": 1284,
+		"height": 118
+	},
+	"/images/posts/d1-hmi-alarms/05-alarm-page.png": {
+		"src": "/images/posts/d1-hmi-alarms/05-alarm-page.png",
+		"width": 1028,
+		"height": 763
+	},
+	"/images/posts/d1-hmi-alarms/06-runtime-records.png": {
+		"src": "/images/posts/d1-hmi-alarms/06-runtime-records.png",
+		"width": 1021,
+		"height": 406
+	},
+	"/images/posts/c3-cleaning-line/02-hmi-runtime.png": {
+		"src": "/assets/post-images/e8190d02dbca5d2016af.webp",
+		"width": 1556,
+		"height": 1184
+	},
+	"/images/posts/c3-cleaning-line/01-scene.png": {
+		"src": "/assets/post-images/4d6e29801b3ad1d0b581.webp",
+		"width": 1600,
+		"height": 313
+	},
+	"/images/posts/c3-cleaning-line/04-graph-sequence.gif": {
+		"src": "/images/posts/c3-cleaning-line/04-graph-sequence.gif",
+		"width": 205,
+		"height": 802
+	},
+	"/images/posts/c3-cleaning-line/03-io-mapping.png": {
+		"src": "/assets/post-images/cda1c86043b760687528.webp",
+		"width": 456,
+		"height": 859
+	},
+	"/images/posts/c3-cleaning-line/05-brush-tonr.png": {
+		"src": "/images/posts/c3-cleaning-line/05-brush-tonr.png",
+		"width": 634,
+		"height": 758
+	},
+	"/images/posts/c3-cleaning-line/07-count-pulse.png": {
+		"src": "/images/posts/c3-cleaning-line/07-count-pulse.png",
+		"width": 605,
+		"height": 184
+	},
+	"/images/posts/c3-cleaning-line/08-count-ack.png": {
+		"src": "/images/posts/c3-cleaning-line/08-count-ack.png",
+		"width": 648,
+		"height": 643
+	},
+	"/images/posts/c3-cleaning-line/06-stop-resume.webp": {
+		"src": "/assets/post-images/9139248edf1d0f6ff3fa.webp",
+		"width": 1100,
+		"height": 862
+	},
+	"/images/posts/c3-cleaning-line/06-stop-resume-snapshot.png": {
+		"src": "/assets/post-images/f4bfc008cd1ab680b362.webp",
+		"width": 1554,
+		"height": 1218
+	},
+	"/images/posts/c3-cleaning-line/10-hmi-requests.png": {
+		"src": "/images/posts/c3-cleaning-line/10-hmi-requests.png",
+		"width": 617,
+		"height": 496
+	},
+	"/images/posts/c3-cleaning-line/09-exit-tracking.png": {
+		"src": "/images/posts/c3-cleaning-line/09-exit-tracking.png",
+		"width": 553,
+		"height": 844
+	},
+	"/images/posts/c3-cleaning-line/12-stop-estop-inputs.png": {
+		"src": "/images/posts/c3-cleaning-line/12-stop-estop-inputs.png",
+		"width": 643,
+		"height": 561
+	},
+	"/images/posts/c3-cleaning-line/13-resume-request.png": {
+		"src": "/images/posts/c3-cleaning-line/13-resume-request.png",
+		"width": 594,
+		"height": 236
+	},
+	"/images/posts/c3-cleaning-line/14-normal-cycle-snapshot.png": {
+		"src": "/assets/post-images/9d6ecad63126aef34518.webp",
+		"width": 1554,
+		"height": 1220
+	},
+	"/images/posts/c3-cleaning-line/11-system-control-call.png": {
+		"src": "/images/posts/c3-cleaning-line/11-system-control-call.png",
+		"width": 589,
+		"height": 400
+	},
+	"/images/posts/c3-cleaning-line/14-normal-cycle.webp": {
+		"src": "/assets/post-images/caeb3bd8c48bc8548ac4.webp",
+		"width": 1100,
+		"height": 864
+	},
+	"/images/posts/e2-e4-modbus-tcp/01.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/01.png",
+		"width": 792,
+		"height": 450
+	},
+	"/images/posts/e2-e4-modbus-tcp/02.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/02.png",
+		"width": 975,
+		"height": 409
+	},
+	"/images/posts/e2-e4-modbus-tcp/03.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/03.png",
+		"width": 711,
+		"height": 130
+	},
+	"/images/posts/e2-e4-modbus-tcp/04.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/04.png",
+		"width": 610,
+		"height": 191
+	},
+	"/images/posts/e2-e4-modbus-tcp/05.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/05.png",
+		"width": 584,
+		"height": 452
+	},
+	"/images/posts/e2-e4-modbus-tcp/06.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/06.png",
+		"width": 788,
+		"height": 178
+	},
+	"/images/posts/e2-e4-modbus-tcp/07.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/07.png",
+		"width": 569,
+		"height": 441
+	},
+	"/images/posts/e2-e4-modbus-tcp/08.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/08.png",
+		"width": 701,
+		"height": 162
+	},
+	"/images/posts/e2-e4-modbus-tcp/09.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/09.png",
+		"width": 222,
+		"height": 144
+	},
+	"/images/posts/e2-e4-modbus-tcp/10.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/10.png",
+		"width": 762,
+		"height": 391
+	},
+	"/images/posts/e2-e4-modbus-tcp/11.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/11.png",
+		"width": 614,
+		"height": 253
+	},
+	"/images/posts/e2-e4-modbus-tcp/12.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/12.png",
+		"width": 845,
+		"height": 221
+	},
+	"/images/posts/e2-e4-modbus-tcp/13.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/13.png",
+		"width": 742,
+		"height": 202
+	},
+	"/images/posts/e2-e4-modbus-tcp/17.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/17.png",
+		"width": 584,
+		"height": 243
+	},
+	"/images/posts/e2-e4-modbus-tcp/18.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/18.png",
+		"width": 584,
+		"height": 243
+	},
+	"/images/posts/e2-e4-modbus-tcp/16.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/16.png",
+		"width": 525,
+		"height": 348
+	},
+	"/images/posts/e2-e4-modbus-tcp/19.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/19.png",
+		"width": 461,
+		"height": 349
+	},
+	"/images/posts/e2-e4-modbus-tcp/15.png": {
+		"src": "/assets/post-images/bcfe1eb461186b764fbe.webp",
+		"width": 954,
+		"height": 670
+	},
+	"/images/posts/e2-e4-modbus-tcp/14.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/14.png",
+		"width": 645,
+		"height": 251
+	},
+	"/images/posts/e2-e4-modbus-tcp/20.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/20.png",
+		"width": 545,
+		"height": 218
+	},
+	"/images/posts/e2-e4-modbus-tcp/22.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/22.png",
+		"width": 742,
+		"height": 193
+	},
+	"/images/posts/e2-e4-modbus-tcp/21.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/21.png",
+		"width": 462,
+		"height": 186
+	},
+	"/images/posts/e2-e4-modbus-tcp/23.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/23.png",
+		"width": 536,
+		"height": 182
+	},
+	"/images/posts/e2-e4-modbus-tcp/24.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/24.png",
+		"width": 457,
+		"height": 349
+	},
+	"/images/posts/e2-e4-modbus-tcp/25.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/25.png",
+		"width": 847,
+		"height": 380
+	},
+	"/images/posts/e2-e4-modbus-tcp/28.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/28.png",
+		"width": 633,
+		"height": 353
+	},
+	"/images/posts/e2-e4-modbus-tcp/26.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/26.png",
+		"width": 745,
+		"height": 525
+	},
+	"/images/posts/e2-e4-modbus-tcp/27.png": {
+		"src": "/images/posts/e2-e4-modbus-tcp/27.png",
+		"width": 645,
+		"height": 185
+	},
+	"/images/posts/d3-hmi-recipe/01-recipe-demo.webp": {
+		"src": "/assets/post-images/eb634d2f2d5692fe65ab.webp",
+		"width": 1019,
+		"height": 756
+	},
+	"/images/posts/d3-hmi-recipe/02-recipe-elements.png": {
+		"src": "/images/posts/d3-hmi-recipe/02-recipe-elements.png",
+		"width": 1403,
+		"height": 414
+	},
+	"/images/posts/d3-hmi-recipe/03-recipe-records.png": {
+		"src": "/images/posts/d3-hmi-recipe/03-recipe-records.png",
+		"width": 1395,
+		"height": 389
+	},
+	"/images/posts/e6-a-s7-get-put/put-5678-watch.png": {
+		"src": "/images/posts/e6-a-s7-get-put/put-5678-watch.png",
+		"width": 774,
+		"height": 516
+	},
+	"/images/posts/e6-a-s7-get-put/connection-id.png": {
+		"src": "/images/posts/e6-a-s7-get-put/connection-id.png",
+		"width": 743,
+		"height": 262
+	},
+	"/images/posts/e6-a-s7-get-put/get-1234.png": {
+		"src": "/images/posts/e6-a-s7-get-put/get-1234.png",
+		"width": 774,
+		"height": 220
+	},
+	"/images/posts/e6-a-s7-get-put/get-2222.png": {
+		"src": "/images/posts/e6-a-s7-get-put/get-2222.png",
+		"width": 1255,
+		"height": 456
+	},
+	"/images/posts/e6-a-s7-get-put/put-db3-program.png": {
+		"src": "/images/posts/e6-a-s7-get-put/put-db3-program.png",
+		"width": 470,
+		"height": 299
+	},
+	"/images/posts/e6-a-s7-get-put/screenshot_plcsim_instances.png": {
+		"src": "/images/posts/e6-a-s7-get-put/screenshot_plcsim_instances.png",
+		"width": 420,
+		"height": 854
+	},
+	"/images/posts/e6-a-s7-get-put/screenshot_tia_download.png": {
+		"src": "/images/posts/e6-a-s7-get-put/screenshot_tia_download.png",
+		"width": 800,
+		"height": 687
+	},
+	"/images/posts/e5-modbus-rtu-gateway/03-write-program.png": {
+		"src": "/images/posts/e5-modbus-rtu-gateway/03-write-program.png",
+		"width": 593,
+		"height": 554
+	},
+	"/images/posts/e5-modbus-rtu-gateway/01-read-program.png": {
+		"src": "/images/posts/e5-modbus-rtu-gateway/01-read-program.png",
+		"width": 605,
+		"height": 536
+	},
+	"/images/posts/e5-modbus-rtu-gateway/02-read-demo.gif": {
+		"src": "/assets/post-images/095cb2239d847c737998.webp",
+		"width": 1600,
+		"height": 328
+	},
+	"/images/posts/e5-modbus-rtu-gateway/05-gateway-log.png": {
+		"src": "/images/posts/e5-modbus-rtu-gateway/05-gateway-log.png",
+		"width": 889,
+		"height": 408
+	},
+	"/images/posts/e5-modbus-rtu-gateway/04-write-demo.gif": {
+		"src": "/images/posts/e5-modbus-rtu-gateway/04-write-demo.gif",
+		"width": 2105,
+		"height": 432
+	},
+	"/images/posts/e6-dual-plc-communication/mb-before-trigger.png": {
+		"src": "/images/posts/e6-dual-plc-communication/mb-before-trigger.png",
+		"width": 786,
+		"height": 274
+	},
+	"/images/posts/e6-dual-plc-communication/connection-id.png": {
+		"src": "/images/posts/e6-dual-plc-communication/connection-id.png",
+		"width": 743,
+		"height": 262
+	},
+	"/images/posts/e6-dual-plc-communication/get-2222.png": {
+		"src": "/images/posts/e6-dual-plc-communication/get-2222.png",
+		"width": 1255,
+		"height": 456
+	},
+	"/images/posts/e6-dual-plc-communication/get-1234.png": {
+		"src": "/images/posts/e6-dual-plc-communication/get-1234.png",
+		"width": 774,
+		"height": 220
+	},
+	"/images/posts/e6-dual-plc-communication/mb-initial-block.png": {
+		"src": "/images/posts/e6-dual-plc-communication/mb-initial-block.png",
+		"width": 439,
+		"height": 234
+	},
+	"/images/posts/e6-dual-plc-communication/mb-connection.png": {
+		"src": "/images/posts/e6-dual-plc-communication/mb-connection.png",
+		"width": 439,
+		"height": 325
+	},
+	"/images/posts/e6-dual-plc-communication/mb-read-db.png": {
+		"src": "/images/posts/e6-dual-plc-communication/mb-read-db.png",
+		"width": 515,
+		"height": 236
+	},
+	"/images/posts/e6-dual-plc-communication/mb-read-success.png": {
+		"src": "/images/posts/e6-dual-plc-communication/mb-read-success.png",
+		"width": 773,
+		"height": 253
+	},
+	"/images/posts/e6-dual-plc-communication/put-db3-program.png": {
+		"src": "/images/posts/e6-dual-plc-communication/put-db3-program.png",
+		"width": 470,
+		"height": 299
+	},
+	"/images/posts/e6-dual-plc-communication/put-5678-watch.png": {
+		"src": "/images/posts/e6-dual-plc-communication/put-5678-watch.png",
+		"width": 774,
+		"height": 516
+	},
+	"/images/posts/e6-dual-plc-communication/mb-client-program.png": {
+		"src": "/images/posts/e6-dual-plc-communication/mb-client-program.png",
+		"width": 572,
+		"height": 322
+	},
+	"/images/posts/e6-dual-plc-communication/screenshot_plcsim_instances.png": {
+		"src": "/images/posts/e6-dual-plc-communication/screenshot_plcsim_instances.png",
+		"width": 420,
+		"height": 854
+	},
+	"/images/posts/e6-dual-plc-communication/screenshot_tia_download.png": {
+		"src": "/images/posts/e6-dual-plc-communication/screenshot_tia_download.png",
+		"width": 800,
+		"height": 687
+	},
+	"/images/posts/e6-dual-plc-simulation/screenshot_plcsim_instances.png": {
+		"src": "/images/posts/e6-dual-plc-simulation/screenshot_plcsim_instances.png",
+		"width": 420,
+		"height": 854
+	},
+	"/images/posts/e6-dual-plc-simulation/screenshot_tia_download.png": {
+		"src": "/images/posts/e6-dual-plc-simulation/screenshot_tia_download.png",
+		"width": 800,
+		"height": 687
+	},
+	"/images/posts/e-p4-tcp-scanner/01-two-frames-okok.png": {
+		"src": "/assets/post-images/e7a6048bcc44a982fc84.webp",
+		"width": 1254,
+		"height": 689
+	},
+	"/images/posts/e-p4-tcp-scanner/02-fragment-code.png": {
+		"src": "/assets/post-images/afeeef50bb453f464ef8.webp",
+		"width": 1246,
+		"height": 679
+	},
+	"/images/posts/e-p4-tcp-scanner/03-fragment-digits.png": {
+		"src": "/assets/post-images/866d6552d171cc94f623.webp",
+		"width": 1249,
+		"height": 682
+	},
+	"/images/posts/e-p4-tcp-scanner/04-lf-frame.png": {
+		"src": "/assets/post-images/e74fd2b77c0c4766087b.webp",
+		"width": 1255,
+		"height": 681
+	},
+	"/images/posts/e-p4-tcp-scanner/05-two-frames.png": {
+		"src": "/assets/post-images/c173b999d3f56e3034b3.webp",
+		"width": 1247,
+		"height": 682
+	},
+	"/images/posts/e-p4-tcp-scanner/06-half-frame.png": {
+		"src": "/assets/post-images/08f6d2297194b37c69b4.webp",
+		"width": 1249,
+		"height": 676
+	},
+	"/images/posts/e-p4-tcp-scanner/07-disconnect-clear.png": {
+		"src": "/assets/post-images/89903086aaca04b25871.webp",
+		"width": 1239,
+		"height": 691
+	},
+	"/images/posts/e-p4-tcp-scanner/08-reconnected.png": {
+		"src": "/assets/post-images/f290124bf07df80a01b4.webp",
+		"width": 1249,
+		"height": 686
+	},
+	"/images/posts/e-p4-tcp-scanner/09-after-reconnect.png": {
+		"src": "/assets/post-images/73f06d2ab3dd3bf8d65b.webp",
+		"width": 1248,
+		"height": 685
+	},
+	"/images/posts/e-p4-tcp-scanner/10-capacity-256.png": {
+		"src": "/assets/post-images/ff6d34b7cd9b497d3382.webp",
+		"width": 1254,
+		"height": 677
+	},
+	"/images/posts/e-p4-tcp-scanner/11-overflow.png": {
+		"src": "/assets/post-images/f23f144c7b8c933e0c5d.webp",
+		"width": 1248,
+		"height": 626
+	},
+	"/images/posts/e-p4-tcp-scanner/12-overflow-lf.png": {
+		"src": "/assets/post-images/5fcf8a438dfa8fae4c36.webp",
+		"width": 1250,
+		"height": 676
+	},
+	"/images/posts/e-p4-tcp-scanner/13-overflow-recovery.png": {
+		"src": "/assets/post-images/82646612402d3f66f6a7.webp",
+		"width": 1244,
+		"height": 678
+	},
+	"/images/posts/e-p4-tcp-scanner/14-send-fault.png": {
+		"src": "/assets/post-images/b50083c90809e66e51e1.webp",
+		"width": 1288,
+		"height": 712
+	},
+	"/images/posts/e-p4-tcp-scanner/15-before-reset.png": {
+		"src": "/assets/post-images/d146633dced045c92554.webp",
+		"width": 1255,
+		"height": 691
+	},
+	"/images/posts/e-p4-tcp-scanner/16-manual-retry.png": {
+		"src": "/assets/post-images/a20c3ef0d37902fc689e.webp",
+		"width": 1253,
+		"height": 676
+	},
+	"/images/posts/e-p4-tcp-scanner/17-ascii-mistake.png": {
+		"src": "/assets/post-images/4bc455fba9fbe0455388.webp",
+		"width": 1253,
+		"height": 682
+	},
+	"/images/posts/e-p4-tcp-scanner/18-trcv-program.png": {
+		"src": "/images/posts/e-p4-tcp-scanner/18-trcv-program.png",
+		"width": 612,
+		"height": 343
+	},
+	"/images/posts/e-p4-tcp-scanner/19-frame-save-program.png": {
+		"src": "/images/posts/e-p4-tcp-scanner/19-frame-save-program.png",
+		"width": 1280,
+		"height": 175
+	},
+	"/images/posts/e-p4-tcp-scanner/20-reset-program.png": {
+		"src": "/images/posts/e-p4-tcp-scanner/20-reset-program.png",
+		"width": 621,
+		"height": 166
+	},
+	"/images/posts/e-p4-tcp-scanner/21-fault-program.png": {
+		"src": "/images/posts/e-p4-tcp-scanner/21-fault-program.png",
+		"width": 619,
+		"height": 254
+	},
+	"/images/posts/e-p4-tcp-scanner/22-first-receive.png": {
+		"src": "/images/posts/e-p4-tcp-scanner/22-first-receive.png",
+		"width": 712,
+		"height": 373
+	},
+	"/images/posts/e-p1-profinet/01-network.png": {
+		"src": "/images/posts/e-p1-profinet/01-network.png",
+		"width": 459,
+		"height": 154
+	},
+	"/images/posts/e-p1-profinet/02-plc-ip.png": {
+		"src": "/images/posts/e-p1-profinet/02-plc-ip.png",
+		"width": 814,
+		"height": 486
+	},
+	"/images/posts/e-p1-profinet/03-et200sp-ip.png": {
+		"src": "/images/posts/e-p1-profinet/03-et200sp-ip.png",
+		"width": 740,
+		"height": 374
+	},
+	"/images/posts/e-p1-profinet/04-modules.png": {
+		"src": "/images/posts/e-p1-profinet/04-modules.png",
+		"width": 428,
+		"height": 330
+	},
+	"/images/posts/e-p1-profinet/05-di-mapping.png": {
+		"src": "/images/posts/e-p1-profinet/05-di-mapping.png",
+		"width": 571,
+		"height": 237
+	},
+	"/images/posts/e-p1-profinet/06-dq-mapping.png": {
+		"src": "/images/posts/e-p1-profinet/06-dq-mapping.png",
+		"width": 546,
+		"height": 237
+	},
+	"/images/posts/e-p1-profinet/07-lad.png": {
+		"src": "/images/posts/e-p1-profinet/07-lad.png",
+		"width": 645,
+		"height": 407
+	},
+	"/images/posts/e-p1-profinet/08-software-compile.png": {
+		"src": "/images/posts/e-p1-profinet/08-software-compile.png",
+		"width": 903,
+		"height": 209
+	},
+	"/images/posts/e-p1-profinet/09-profibus-connector.png": {
+		"src": "/assets/post-images/8b1b3df7174fde58d64a.webp",
+		"width": 1000,
+		"height": 665
+	},
+	"/images/posts/e-p1-profinet/10-profibus-bus.png": {
+		"src": "/images/posts/e-p1-profinet/10-profibus-bus.png",
+		"width": 1200,
+		"height": 585
+	},
+	"/images/posts/e-p1-profinet/11-profibus-address.png": {
+		"src": "/assets/post-images/143aa024be8c3ac5bdd5.webp",
+		"width": 1200,
+		"height": 733
+	},
+	"/images/posts/e-p2b-g120-profinet/01-compile.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/01-compile.png",
+		"width": 722,
+		"height": 97
+	},
+	"/images/posts/e-p2b-g120-profinet/02-run.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/02-run.png",
+		"width": 1164,
+		"height": 161
+	},
+	"/images/posts/e-p2b-g120-profinet/03-stop.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/03-stop.png",
+		"width": 1172,
+		"height": 188
+	},
+	"/images/posts/e-p2b-g120-profinet/04-status.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/04-status.png",
+		"width": 622,
+		"height": 449
+	},
+	"/images/posts/e-p2b-g120-profinet/05-reset.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/05-reset.png",
+		"width": 666,
+		"height": 470
+	},
+	"/images/posts/e-p2b-g120-profinet/06-tags.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/06-tags.png",
+		"width": 1287,
+		"height": 287
+	},
+	"/images/posts/e-p2b-g120-profinet/07-db.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/07-db.png",
+		"width": 1167,
+		"height": 127
+	},
+	"/images/posts/e-p2b-g120-profinet/08-conv.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/08-conv.png",
+		"width": 598,
+		"height": 213
+	},
+	"/images/posts/e-p2b-g120-profinet/09-calc.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/09-calc.png",
+		"width": 610,
+		"height": 452
+	},
+	"/images/posts/e-p2b-g120-profinet/10-network.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/10-network.png",
+		"width": 363,
+		"height": 138
+	},
+	"/images/posts/e-p2b-g120-profinet/11-drive-ip.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/11-drive-ip.png",
+		"width": 817,
+		"height": 539
+	},
+	"/images/posts/e-p2b-g120-profinet/12-telegram-overview.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/12-telegram-overview.png",
+		"width": 1379,
+		"height": 232
+	},
+	"/images/posts/e-p2b-g120-profinet/13-telegram-send.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/13-telegram-send.png",
+		"width": 1153,
+		"height": 410
+	},
+	"/images/posts/e-p2b-g120-profinet/14-telegram-receive.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/14-telegram-receive.png",
+		"width": 1171,
+		"height": 415
+	},
+	"/images/posts/e-p2b-g120-profinet/15-plc-model.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/15-plc-model.png",
+		"width": 738,
+		"height": 20
+	},
+	"/images/posts/e-p2b-g120-profinet/16-plc-ip.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/16-plc-ip.png",
+		"width": 1377,
+		"height": 653
+	},
+	"/images/posts/e-p2b-g120-profinet/17-application.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/17-application.png",
+		"width": 795,
+		"height": 715
+	},
+	"/images/posts/e-p2b-g120-profinet/18-setpoint-source.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/18-setpoint-source.png",
+		"width": 791,
+		"height": 713
+	},
+	"/images/posts/e-p2b-g120-profinet/19-fieldbus-defaults.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/19-fieldbus-defaults.png",
+		"width": 791,
+		"height": 709
+	},
+	"/images/posts/e-p2b-g120-profinet/20-supply.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/20-supply.png",
+		"width": 790,
+		"height": 709
+	},
+	"/images/posts/e-p2b-g120-profinet/21-options.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/21-options.png",
+		"width": 788,
+		"height": 707
+	},
+	"/images/posts/e-p2b-g120-profinet/22-motor.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/22-motor.png",
+		"width": 787,
+		"height": 708
+	},
+	"/images/posts/e-p2b-g120-profinet/23-brake.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/23-brake.png",
+		"width": 792,
+		"height": 712
+	},
+	"/images/posts/e-p2b-g120-profinet/24-reference-ramp.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/24-reference-ramp.png",
+		"width": 794,
+		"height": 709
+	},
+	"/images/posts/e-p2b-g120-profinet/25-identification.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/25-identification.png",
+		"width": 791,
+		"height": 713
+	},
+	"/images/posts/e-p2b-g120-profinet/26-drive-hardware.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/26-drive-hardware.png",
+		"width": 787,
+		"height": 153
+	},
+	"/images/posts/e-p2b-g120-profinet/27-tags-updated.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/27-tags-updated.png",
+		"width": 1033,
+		"height": 367
+	},
+	"/images/posts/e-p2b-g120-profinet/28-db-updated.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/28-db-updated.png",
+		"width": 1165,
+		"height": 127
+	},
+	"/images/posts/e-p2b-g120-profinet/29-command-lad.png": {
+		"src": "/images/posts/e-p2b-g120-profinet/29-command-lad.png",
+		"width": 782,
+		"height": 616
+	},
+	"/images/posts/e7-opcua-data-access/01-write-setpoint.png": {
+		"src": "/assets/post-images/258dcb3731ecfd0f0b66.webp",
+		"width": 1430,
+		"height": 486
+	},
+	"/images/posts/e7-opcua-data-access/02-subscription-temperature.png": {
+		"src": "/assets/post-images/76d4fa43c97f9f8b9543.webp",
+		"width": 1399,
+		"height": 683
+	},
+	"/images/posts/e7-opcua-data-access/03-subscription-running.png": {
+		"src": "/assets/post-images/7c5c9ed436ecd4992be9.webp",
+		"width": 1399,
+		"height": 687
+	},
+	"/images/posts/e7-opcua-data-access/04-write-denied.png": {
+		"src": "/assets/post-images/ae95a910124138f31bed.webp",
+		"width": 1412,
+		"height": 1183
+	},
+	"/images/posts/e7-opcua-data-access/05-reconnect-read.png": {
+		"src": "/assets/post-images/c8c5db82f73f8ba67bc2.webp",
+		"width": 1412,
+		"height": 1187
+	},
+	"/images/posts/e7-opcua-data-access/06-resubscribe.png": {
+		"src": "/assets/post-images/3e753a43d9cc4b77ee30.webp",
+		"width": 1411,
+		"height": 1188
+	},
+	"/images/posts/e7-opcua-data-access/07-tags.png": {
+		"src": "/images/posts/e7-opcua-data-access/07-tags.png",
+		"width": 1291,
+		"height": 211
+	},
+	"/images/posts/e7-opcua-data-access/08-compile.png": {
+		"src": "/images/posts/e7-opcua-data-access/08-compile.png",
+		"width": 713,
+		"height": 178
+	},
+	"/images/posts/e7-opcua-data-access/09-plc-ip.png": {
+		"src": "/images/posts/e7-opcua-data-access/09-plc-ip.png",
+		"width": 792,
+		"height": 736
+	},
+	"/images/posts/e7-opcua-data-access/10-plcsim.png": {
+		"src": "/images/posts/e7-opcua-data-access/10-plcsim.png",
+		"width": 417,
+		"height": 851
+	},
+	"/images/posts/e7-opcua-data-access/11-port-failed.png": {
+		"src": "/images/posts/e7-opcua-data-access/11-port-failed.png",
+		"width": 595,
+		"height": 233
+	},
+	"/images/posts/e7-opcua-data-access/12-endpoint.png": {
+		"src": "/assets/post-images/327b61a7de5cefaf0494.webp",
+		"width": 825,
+		"height": 696
+	},
+	"/images/posts/e7-opcua-data-access/13-node-tree.png": {
+		"src": "/assets/post-images/c958ff0720c03cf506bf.webp",
+		"width": 1179,
+		"height": 980
+	},
+	"/images/posts/e7-opcua-data-access/14-subscribe-menu.png": {
+		"src": "/images/posts/e7-opcua-data-access/14-subscribe-menu.png",
+		"width": 265,
+		"height": 200
+	},
+	"/images/posts/e7-opcua-data-access/15-initial-subscriptions.png": {
+		"src": "/assets/post-images/a1779e3fd0a67506a361.webp",
+		"width": 1405,
+		"height": 935
+	}
+}

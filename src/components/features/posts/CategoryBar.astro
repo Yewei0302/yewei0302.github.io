@@ -2,13 +2,16 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { Icon } from "astro-icon/components";
-
-import { getSortedPostsList } from "@/utils/content-utils";
 import { blogSections, matchesSection } from "@/config/blogSections";
+import { getSortedPostsList } from "@/utils/content-utils";
 import { url } from "@/utils/url-utils";
 
 const posts = await getSortedPostsList();
-const categories = blogSections.map(section => ({ name: section.name, slug: section.slug, count: posts.filter(post => matchesSection(post, section.slug)).length }));
+const categories = blogSections.map((section) => ({
+	name: section.name,
+	slug: section.slug,
+	count: posts.filter((post) => matchesSection(post, section.slug)).length,
+}));
 const totalPosts = posts.length;
 const homeUrl = url("/");
 const archiveUrl = url("/archive/");
@@ -46,7 +49,7 @@ const archiveUrl = url("/archive/");
 				{
 					categories.map((cat) => (
 						<a
-							href={archiveUrl + "?section=" + cat.slug}
+							href={cat.count ? archiveUrl + "?section=" + cat.slug : url("/topics/" + cat.slug + "/")}
 							class="category-pill text-sm px-3 py-1 rounded-lg whitespace-nowrap
 								   transition-colors duration-200 flex items-center justify-center"
 							data-category-name={cat.slug}

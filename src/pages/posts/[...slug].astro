@@ -190,6 +190,8 @@ const publicDescription = getPostPublicDescription(
 	entry.data.title,
 );
 
+const TitleTag = headings.some((heading) => heading.depth === 1) ? "div" : "h1";
+
 const jsonLd = {
 	"@context": "https://schema.org",
 	"@type": "BlogPosting",
@@ -266,7 +268,7 @@ const jsonLd = {
 
 			<!-- title -->
 			<div class="relative onload-animation">
-				<div
+				<TitleTag
 					data-pagefind-body
 					data-pagefind-weight="10"
 					data-pagefind-meta="title"
@@ -277,7 +279,7 @@ const jsonLd = {
                     before:absolute before:top-3 before:-left-4.5"
 				>
 					{entry.data.title}
-				</div>
+				</TitleTag>
 			</div>
 
 			<!-- metadata -->

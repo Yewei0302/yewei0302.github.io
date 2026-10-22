@@ -1,16 +1,16 @@
 ---
+import { blogSections, matchesSection } from "../../../config/blogSections";
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
 import { getSortedPostsList } from "../../../utils/content-utils";
-import { blogSections, matchesSection } from "../../../config/blogSections";
 import ButtonLink from "../../control/ButtonLink.astro";
 import WidgetLayout from "../common/WidgetLayout.astro";
 
 const posts = await getSortedPostsList();
 const categories = blogSections.map((section) => ({
-    name: section.name,
-    url: `/topics/${section.slug}/`,
-    count: posts.filter((post) => matchesSection(post, section.slug)).length,
+	name: section.name,
+	url: `/topics/${section.slug}/`,
+	count: posts.filter((post) => matchesSection(post, section.slug)).length,
 }));
 
 interface Props {
@@ -32,8 +32,8 @@ const style = Astro.props.style;
 		categories.map((c) => (
 			<ButtonLink
 				url={c.url}
-				badge={String(c.count)}
-				label={`查看${c.name}，${c.count}篇文章`}
+				badge={c.count ? String(c.count) : "路线"}
+				label={c.count ? `查看${c.name}，${c.count}篇文章` : `查看${c.name}学习路线`}
 			>
 				{c.name.trim()}
 			</ButtonLink>

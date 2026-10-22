@@ -1,8 +1,17 @@
 ---
-interface Props {items: {url:string;label:string;heading:string;detail:string;image:string;alt:string}[]}
-const {items}=Astro.props;
-import homePictures from '../../../config/homePictures.json';
-import templatePictures from '../../../config/templatePictures.json';
+interface Props {
+	items: {
+		url: string;
+		label: string;
+		heading: string;
+		detail: string;
+		image: string;
+		alt: string;
+	}[];
+}
+const { items } = Astro.props;
+
+import templatePictures from "../../../config/templatePictures.json";
 ---
 <div class="project-showcase card-base" data-project-showcase role="region" aria-label="项目成果轮播">
  {items.map((item,index)=><a class="project-window" href={item.url} data-project-slide hidden={index!==0} aria-label={item.heading+'，打开项目'}><div class="window-header"><span class="window-dots" aria-hidden="true">● ● ●</span><span>{item.label}</span><span>打开项目 ↗</span></div><div class="demo-screen"><img src={item.image} alt={item.alt} loading="lazy"/></div><div class="project-caption homepage-photo-card"><img class="home-card-background" src={templatePictures[2]?.src} alt="" loading="lazy"/><span class="small-label">PLC练习项目</span><h2>{item.heading}</h2><p>{item.detail}</p></div></a>)}

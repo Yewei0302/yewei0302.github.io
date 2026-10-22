@@ -205,7 +205,12 @@ export default defineConfig({
 		svelte({
 			preprocess: vitePreprocess(),
 		}),
-		sitemap(),
+		sitemap({ filter: (page) => {
+ const pathname = new URL(page).pathname;
+ const feature = { '/ai-tools/': 'aiTools', '/albums/': 'albums', '/anime/': 'anime', '/diary/': 'diary', '/devices/': 'devices', '/friends/': 'friends', '/projects/': 'projects', '/skills/': 'skills', '/timeline/': 'timeline' };
+ if (pathname === '/404/' || pathname.startsWith('/learning/')) return false;
+ return !Object.entries(feature).some(([prefix, key]) => pathname.startsWith(prefix) && siteConfig.featurePages?.[key] === false);
+} }),
 		mdx(),
 	],
 	markdown: {

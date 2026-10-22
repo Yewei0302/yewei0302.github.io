@@ -1,1 +1,108 @@
-[{"src":"/images/home-template/desktop-banner-1.webp","width":1920,"height":1080},{"src":"/images/home-template/desktop-banner-2.webp","width":1456,"height":816},{"src":"/images/home-template/desktop-banner-3.webp","width":1456,"height":816},{"src":"/images/home-template/desktop-banner-4.webp","width":1920,"height":1181},{"src":"/images/home-template/mobile-banner-1.webp","width":1000,"height":1414},{"src":"/images/home-template/mobile-banner-2.webp","width":1000,"height":1414},{"src":"/images/home-template/mobile-banner-3.webp","width":1000,"height":1410},{"src":"/images/home-template/mobile-banner-4.webp","width":800,"height":1122},{"src":"/images/albums/AcgExample/1.webp","width":1920,"height":1356},{"src":"/images/albums/AcgExample/1a7a9ff30d0b7cf03b9fdbd1dd4cf0ad90a344eb.webp","width":2655,"height":3700},{"src":"/images/albums/AcgExample/2.webp","width":1920,"height":1080},{"src":"/images/albums/AcgExample/3.webp","width":6400,"height":3396},{"src":"/images/albums/AcgExample/4.webp","width":2000,"height":1200},{"src":"/images/albums/AcgExample/464b547c424f36e7c6c38e0c2c151759a3bc68ec.webp","width":1000,"height":1414},{"src":"/images/albums/AcgExample/4986499bffa3b14c572c22c1ce441fc2cd94d63f.webp","width":1914,"height":1080},{"src":"/images/albums/AcgExample/5d662a33907ffe4edd7261ea4b374ff0a01e2dde.webp","width":1031,"height":1403},{"src":"/images/albums/AcgExample/6765bb292ea65ebcff37845ee718cc0e290750052.webp","width":1192,"height":2000},{"src":"/images/albums/AcgExample/711ce964e0a5c708aa174d8f6d7ee4e4bb60d356.webp","width":1447,"height":2047},{"src":"/images/albums/AcgExample/91ae6186d2cf1af536b57c78ad7134ca1c8cbfe0.webp","width":2160,"height":3054},{"src":"/images/albums/AcgExample/ca3c3f88c47fac7bdda5b8b29ca638dcee769704.webp","width":1976,"height":2874},{"src":"/images/albums/AcgExample/cover.webp","width":6400,"height":3396},{"src":"/images/albums/AcgExample/d1.webp","width":5856,"height":3904},{"src":"/images/albums/AcgExample/d3.webp","width":2560,"height":1440},{"src":"/images/albums/AcgExample/d4.webp","width":3840,"height":2160},{"src":"/images/albums/AcgExample/d5.webp","width":2048,"height":1152},{"src":"/images/albums/AcgExample/d6.webp","width":1920,"height":1080},{"src":"/images/albums/AcgExample/d7.webp","width":1920,"height":1080},{"src":"/images/albums/AcgExample/d8.webp","width":2880,"height":1620},{"src":"/images/albums/AcgExample/db67d185b865ebeb42be0ee1948952586147971e.webp","width":1307,"height":2059},{"src":"/images/albums/AcgExample/fd450b78411a7548183aa291bb4cbb99d0bc2bed.webp","width":2000,"height":2828}]
+[
+	{
+		"src": "/images/home-template/desktop-banner-1.webp",
+		"width": 1920,
+		"height": 1080
+	},
+	{
+		"src": "/images/home-template/desktop-banner-2.webp",
+		"width": 1456,
+		"height": 816
+	},
+	{
+		"src": "/images/home-template/desktop-banner-3.webp",
+		"width": 1456,
+		"height": 816
+	},
+	{
+		"src": "/images/home-template/desktop-banner-4.webp",
+		"width": 1920,
+		"height": 1181
+	},
+	{
+		"src": "/images/home-template/mobile-banner-1.webp",
+		"width": 1000,
+		"height": 1414
+	},
+	{
+		"src": "/images/home-template/mobile-banner-2.webp",
+		"width": 1000,
+		"height": 1414
+	},
+	{
+		"src": "/images/home-template/mobile-banner-3.webp",
+		"width": 1000,
+		"height": 1410
+	},
+	{
+		"src": "/images/home-template/mobile-banner-4.webp",
+		"width": 800,
+		"height": 1122
+	},
+	{ "src": "/images/albums/AcgExample/1.webp", "width": 1920, "height": 1356 },
+	{
+		"src": "/images/albums/AcgExample/1a7a9ff30d0b7cf03b9fdbd1dd4cf0ad90a344eb.webp",
+		"width": 2655,
+		"height": 3700
+	},
+	{ "src": "/images/albums/AcgExample/2.webp", "width": 1920, "height": 1080 },
+	{ "src": "/images/albums/AcgExample/3.webp", "width": 6400, "height": 3396 },
+	{ "src": "/images/albums/AcgExample/4.webp", "width": 2000, "height": 1200 },
+	{
+		"src": "/images/albums/AcgExample/464b547c424f36e7c6c38e0c2c151759a3bc68ec.webp",
+		"width": 1000,
+		"height": 1414
+	},
+	{
+		"src": "/images/albums/AcgExample/4986499bffa3b14c572c22c1ce441fc2cd94d63f.webp",
+		"width": 1914,
+		"height": 1080
+	},
+	{
+		"src": "/images/albums/AcgExample/5d662a33907ffe4edd7261ea4b374ff0a01e2dde.webp",
+		"width": 1031,
+		"height": 1403
+	},
+	{
+		"src": "/images/albums/AcgExample/6765bb292ea65ebcff37845ee718cc0e290750052.webp",
+		"width": 1192,
+		"height": 2000
+	},
+	{
+		"src": "/images/albums/AcgExample/711ce964e0a5c708aa174d8f6d7ee4e4bb60d356.webp",
+		"width": 1447,
+		"height": 2047
+	},
+	{
+		"src": "/images/albums/AcgExample/91ae6186d2cf1af536b57c78ad7134ca1c8cbfe0.webp",
+		"width": 2160,
+		"height": 3054
+	},
+	{
+		"src": "/images/albums/AcgExample/ca3c3f88c47fac7bdda5b8b29ca638dcee769704.webp",
+		"width": 1976,
+		"height": 2874
+	},
+	{
+		"src": "/images/albums/AcgExample/cover.webp",
+		"width": 6400,
+		"height": 3396
+	},
+	{ "src": "/images/albums/AcgExample/d1.webp", "width": 5856, "height": 3904 },
+	{ "src": "/images/albums/AcgExample/d3.webp", "width": 2560, "height": 1440 },
+	{ "src": "/images/albums/AcgExample/d4.webp", "width": 3840, "height": 2160 },
+	{ "src": "/images/albums/AcgExample/d5.webp", "width": 2048, "height": 1152 },
+	{ "src": "/images/albums/AcgExample/d6.webp", "width": 1920, "height": 1080 },
+	{ "src": "/images/albums/AcgExample/d7.webp", "width": 1920, "height": 1080 },
+	{ "src": "/images/albums/AcgExample/d8.webp", "width": 2880, "height": 1620 },
+	{
+		"src": "/images/albums/AcgExample/db67d185b865ebeb42be0ee1948952586147971e.webp",
+		"width": 1307,
+		"height": 2059
+	},
+	{
+		"src": "/images/albums/AcgExample/fd450b78411a7548183aa291bb4cbb99d0bc2bed.webp",
+		"width": 2000,
+		"height": 2828
+	}
+]

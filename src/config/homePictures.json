@@ -1,38 +1,38 @@
 [
-  {
-    "name": "2c9c021ada7bf654ac033029e0ecef38.jpg",
-    "src": "/images/home-picked/bc7e44c160f69f7d.jpg",
-    "width": 2160,
-    "height": 1440
-  },
-  {
-    "name": "313c49b23bf8e41d688afd9c16384bce.jpg",
-    "src": "/images/home-picked/1535a6cc5cd76e0d.jpg",
-    "width": 2160,
-    "height": 1440
-  },
-  {
-    "name": "5472b4c0e678912307cd7b1648a80ecd.jpg",
-    "src": "/images/home-picked/6f80d51ec937a094.jpg",
-    "width": 2160,
-    "height": 1440
-  },
-  {
-    "name": "563a1687b9a8b5cd5f88fac6098603e9.jpg",
-    "src": "/images/home-picked/634e90ff449b6993.jpg",
-    "width": 2160,
-    "height": 1440
-  },
-  {
-    "name": "8684e5cbbd3513a415c4741633b6abb9.jpg",
-    "src": "/images/home-picked/550c8e816e7701fd.jpg",
-    "width": 2160,
-    "height": 1440
-  },
-  {
-    "name": "95c122adae501d6e76db9a8716adc2b2.jpg",
-    "src": "/images/home-picked/866b093fc1455d2d.jpg",
-    "width": 2160,
-    "height": 1440
-  }
+	{
+		"name": "2c9c021ada7bf654ac033029e0ecef38.jpg",
+		"src": "/images/home-picked/bc7e44c160f69f7d.jpg",
+		"width": 2160,
+		"height": 1440
+	},
+	{
+		"name": "313c49b23bf8e41d688afd9c16384bce.jpg",
+		"src": "/images/home-picked/1535a6cc5cd76e0d.jpg",
+		"width": 2160,
+		"height": 1440
+	},
+	{
+		"name": "5472b4c0e678912307cd7b1648a80ecd.jpg",
+		"src": "/images/home-picked/6f80d51ec937a094.jpg",
+		"width": 2160,
+		"height": 1440
+	},
+	{
+		"name": "563a1687b9a8b5cd5f88fac6098603e9.jpg",
+		"src": "/images/home-picked/634e90ff449b6993.jpg",
+		"width": 2160,
+		"height": 1440
+	},
+	{
+		"name": "8684e5cbbd3513a415c4741633b6abb9.jpg",
+		"src": "/images/home-picked/550c8e816e7701fd.jpg",
+		"width": 2160,
+		"height": 1440
+	},
+	{
+		"name": "95c122adae501d6e76db9a8716adc2b2.jpg",
+		"src": "/images/home-picked/866b093fc1455d2d.jpg",
+		"width": 2160,
+		"height": 1440
+	}
 ]

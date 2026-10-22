@@ -24,6 +24,6 @@ export async function GET(context: APIContext) {
 		description: siteConfig.subtitle || "No description",
 		site: context.site,
 		items,
-		customData: `<language>${escapeXml(siteConfig.lang)}</language>`,
+		customData: `<language>${escapeXml(siteConfig.lang.replaceAll("_", "-"))}</language>`,
 	});
 }

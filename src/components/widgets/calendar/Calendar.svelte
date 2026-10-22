@@ -293,7 +293,7 @@ onMount(() => {
 </div>
 
 <div class="relative w-full overflow-hidden" style="min-height: 15.625rem;">
-	<div id="calendar-view" class="w-full opacity-100">
+	<div class="calendar-view w-full opacity-100">
 		<CalendarGrid
 			{weekDays}
 			{emptyCellsCount}

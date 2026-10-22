@@ -1,8 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
-import homePictures from '../../../config/homePictures.json';
-import templatePictures from '../../../config/templatePictures.json';
-import '../../../styles/widget-pictures.css';
+import templatePictures from "../../../config/templatePictures.json";
+import "../../../styles/widget-pictures.css";
 
 import I18nKey from "../../../i18n/i18nKey";
 import { i18n } from "../../../i18n/translation";
@@ -17,7 +16,7 @@ interface Props {
 }
 const { id, name, isCollapsed, collapsedHeight, style } = Astro.props;
 const className = Astro.props.class;
-const isHome=Astro.url.pathname==='/';
+const isHome = Astro.url.pathname === "/";
 ---
 
 <widget-layout
@@ -42,7 +41,7 @@ const isHome=Astro.url.pathname==='/';
 		)
 	}
 	<div
-		id={id}
+		data-widget-content={id}
 		class:list={[
 			"collapse-wrapper px-4 overflow-hidden",
 			{ collapsed: isCollapsed },
@@ -82,9 +81,9 @@ const isHome=Astro.url.pathname==='/';
 				return;
 			}
 
-			const id = this.dataset.id;
+
 			const btn = this.querySelector(".expand-btn");
-			const wrapper = this.querySelector(`#${id}`);
+			const wrapper = this.querySelector(".collapse-wrapper");
 			btn!.addEventListener("click", () => {
 				wrapper!.classList.remove("collapsed");
 				btn!.classList.add("hidden");

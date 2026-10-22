@@ -31,7 +31,10 @@ function formatTag(tagList: string[]) {
 
 onMount(async () => {
 	let filteredPosts: Post[] = sortedPosts;
-	if (section) filteredPosts = filteredPosts.filter(post => matchesSection(post, section));
+	if (section)
+		filteredPosts = filteredPosts.filter((post) =>
+			matchesSection(post, section),
+		);
 
 	if (tags.length > 0) {
 		filteredPosts = filteredPosts.filter(

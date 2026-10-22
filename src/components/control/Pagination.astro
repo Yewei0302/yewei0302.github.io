@@ -60,12 +60,10 @@ if (r < page.lastPage) {
 	pages.push(page.lastPage);
 }
 
-const getPageUrl = (p: number) => {
-	if (p === 1) {
-		return "/";
-	}
-	return `/${p}/`;
-};
+const pageBase = Astro.url.pathname
+	.replace(/\/\d+\/?$/, "/")
+	.replace(/\/?$/, "/");
+const getPageUrl = (p: number) => (p === 1 ? pageBase : `${pageBase}${p}/`);
 ---
 
 <div

@@ -1,3 +1,13 @@
+import { existsSync, readFileSync } from "node:fs";
+
+const manifestUrl = new URL(
+	"../config/postImageManifest.json",
+	import.meta.url,
+);
+const postImages = existsSync(manifestUrl)
+	? JSON.parse(readFileSync(manifestUrl, "utf8"))
+	: {};
+
 import { fromHtml } from "hast-util-from-html";
 import { matchesNoReferrerDomain } from "../utils/image-referrer.ts";
 
@@ -97,6 +107,12 @@ function enhanceImage(image, ancestors, options) {
 	const properties = image.properties;
 	properties.loading ??= "lazy";
 	properties.decoding ??= "async";
+	const optimized = postImages[properties.src];
+	if (optimized) {
+		properties.src = optimized.src;
+		properties.width ??= optimized.width;
+		properties.height ??= optimized.height;
+	}
 
 	if (
 		matchesNoReferrerDomain(

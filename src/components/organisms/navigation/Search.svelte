@@ -19,15 +19,70 @@ let windowJustFocused = false;
 let focusTimer: ReturnType<typeof setTimeout>;
 let blurTimer: ReturnType<typeof setTimeout>;
 
-interface SearchDocument {url:string;title:string;description:string;tags:string[];category:string;text:string}
+interface SearchDocument {
+	url: string;
+	title: string;
+	description: string;
+	tags: string[];
+	category: string;
+	text: string;
+}
 let documentRequest: Promise<SearchDocument[]> | undefined;
 let searchVersion = 0;
-function escapeExcerpt(text:string){return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
-async function searchDocuments(keyword:string):Promise<SearchResult[]>{
- if(!documentRequest)documentRequest=fetch(url('/api/search-posts.json')).then(response=>{if(!response.ok)throw new Error('Search data unavailable');return response.json();}).catch(error=>{documentRequest=undefined;throw error;});
- const documents=await documentRequest;
- const terms=keyword.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
- return documents.map(doc=>{const title=doc.title.toLocaleLowerCase();const summary=(doc.description+' '+doc.category+' '+doc.tags.join(' ')).toLocaleLowerCase();const body=doc.text.toLocaleLowerCase();return {doc,score:terms.every(term=>(title+' '+summary+' '+body).includes(term))?terms.reduce((score,term)=>score+(title.includes(term)?3:summary.includes(term)?2:1),0):0};}).filter(item=>item.score>0).sort((a,b)=>b.score-a.score).slice(0,20).map(({doc})=>({url:doc.url,meta:{title:doc.title},excerpt:escapeExcerpt(doc.description||doc.text.slice(0,140))}));
+function escapeExcerpt(text: string) {
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#39;");
+}
+async function searchDocuments(keyword: string): Promise<SearchResult[]> {
+	if (!documentRequest)
+		documentRequest = fetch(url("/api/search-posts.json"))
+			.then((response) => {
+				if (!response.ok) throw new Error("Search data unavailable");
+				return response.json();
+			})
+			.catch((error) => {
+				documentRequest = undefined;
+				throw error;
+			});
+	const documents = await documentRequest;
+	const terms = keyword.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
+	return documents
+		.map((doc) => {
+			const title = doc.title.toLocaleLowerCase();
+			const summary = (
+				doc.description +
+				" " +
+				doc.category +
+				" " +
+				doc.tags.join(" ")
+			).toLocaleLowerCase();
+			const body = doc.text.toLocaleLowerCase();
+			return {
+				doc,
+				score: terms.every((term) =>
+					(title + " " + summary + " " + body).includes(term),
+				)
+					? terms.reduce(
+							(score, term) =>
+								score +
+								(title.includes(term) ? 3 : summary.includes(term) ? 2 : 1),
+							0,
+						)
+					: 0,
+			};
+		})
+		.filter((item) => item.score > 0)
+		.sort((a, b) => b.score - a.score)
+		.slice(0, 20)
+		.map(({ doc }) => ({
+			url: doc.url,
+			meta: { title: doc.title },
+			excerpt: escapeExcerpt(doc.description || doc.text.slice(0, 140)),
+		}));
 }
 
 const togglePanel = () => {
@@ -35,7 +90,8 @@ const togglePanel = () => {
 	panel?.classList.toggle("float-panel-closed");
 	if (
 		!panel?.classList.contains("float-panel-closed") &&
-		import.meta.env.PROD && typeof window.loadPagefind === "function"
+		import.meta.env.PROD &&
+		typeof window.loadPagefind === "function"
 	) {
 		window.loadPagefind();
 	}
@@ -88,7 +144,7 @@ const setPanelVisibility = (show: boolean, isDesktop: boolean): void => {
 };
 
 const closeSearchPanel = (): void => {
-    searchVersion++;
+	searchVersion++;
 	const panel = document.getElementById("search-panel");
 	if (panel) {
 		panel.classList.add("float-panel-closed");
@@ -106,7 +162,7 @@ const handleResultClick = (event: Event, url: string): void => {
 };
 
 const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
-    const version = ++searchVersion;
+	const version = ++searchVersion;
 	if (!keyword) {
 		setPanelVisibility(false, isDesktop);
 		result = [];
@@ -123,15 +179,15 @@ const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
 				response.results.map((item) => item.data()),
 			);
 		} else {
-            searchResults = await searchDocuments(keyword);
-        }
-        if (!searchResults.length) searchResults = await searchDocuments(keyword);
-        if (version !== searchVersion) return;
+			searchResults = await searchDocuments(keyword);
+		}
+		if (!searchResults.length) searchResults = await searchDocuments(keyword);
+		if (version !== searchVersion) return;
 		result = searchResults;
 		setPanelVisibility(result.length > 0, isDesktop);
 	} catch (error) {
 		if (version !== searchVersion) return;
-        console.error("Search error:", error);
+		console.error("Search error:", error);
 		result = [];
 		setPanelVisibility(false, isDesktop);
 	}
@@ -148,9 +204,7 @@ onMount(() => {
 	};
 	const cleanupCallbacks: (() => void)[] = [];
 	if (import.meta.env.DEV) {
-		console.log(
-			"Development search uses real article content.",
-		);
+		console.log("Development search uses real article content.");
 		initializeSearch();
 	} else {
 		const handlePagefindReady = () => {

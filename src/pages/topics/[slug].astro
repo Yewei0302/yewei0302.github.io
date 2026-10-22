@@ -1,15 +1,35 @@
 ---
-import MainGridLayout from '@layouts/MainGridLayout.astro';
-import {getSortedPostsList} from '@utils/content-utils';
-import {blogSections,matchesSection} from '../../config/blogSections';
-import '../../styles/learning-home.css';
-export async function getStaticPaths(){const posts=await getSortedPostsList();return blogSections.map(section=>({params:{slug:section.slug},props:{section,posts:posts.filter(post=>matchesSection(post,section.slug))}}));}
-const {section,posts}=Astro.props;
+import postImages from "../../config/postImageManifest.json";
+
+const imageMeta = (src: string) =>
+	(
+		postImages as Record<string, { src: string; width: number; height: number }>
+	)[src];
+
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPostsList } from "@utils/content-utils";
+import {
+	blogSections,
+	getLearningRoadmap,
+	matchesSection,
+} from "../../config/blogSections";
+import "../../styles/learning-home.css";
+export async function getStaticPaths() {
+	const posts = await getSortedPostsList();
+	return blogSections.map((section) => ({
+		params: { slug: section.slug },
+		props: {
+			section,
+			posts: posts.filter((post) => matchesSection(post, section.slug)),
+		},
+	}));
+}
+const { section, posts } = Astro.props;
 ---
-<MainGridLayout title={section.name}>
+<MainGridLayout title={section.name} description={section.description}>
  <section class="directory-page card-base">
   <p><a href="/">← 主页</a></p><h1>{section.name}</h1><p>{section.description}</p>
-  {posts.length ? <div class="directory-list">{posts.map(post=><a class="record-card" href={post.url}><img class="record-cover" src={post.data.image} alt={post.data.title+"封面"} loading="lazy"/><div class="record-copy"><h2>{post.data.title}</h2><p>{post.data.description}</p><span class="record-entry">查看记录 →</span></div></a>)}</div> : <p class="topic-empty">这个方向的学习记录将陆续整理在这里。</p>}
+  {posts.length ? <div class="directory-list">{posts.map(post=><a class="record-card" href={post.url}><img class="record-cover" src={imageMeta(post.data.image)?.src || post.data.image} width={imageMeta(post.data.image)?.width} height={imageMeta(post.data.image)?.height} alt={post.data.title+"封面"} loading="lazy"/><div class="record-copy"><h2>{post.data.title}</h2><p>{post.data.description}</p><span class="record-entry">查看记录 →</span></div></a>)}</div> : <div class="topic-roadmap"><h2>学习路线</h2><p>先沿着这条路线逐步练习，后续把实际成果整理成文章。</p><ol>{getLearningRoadmap(section.slug).map(step=><li><h3>{step.title}</h3><p>{step.detail}</p></li>)}</ol></div>}
   {section.slug==='knowledge'&&<p class="topic-extra"><a href="/archive/">全部记录 →</a> · <a href="/credentials/">技能与证书 →</a></p>}
  </section>
 </MainGridLayout>

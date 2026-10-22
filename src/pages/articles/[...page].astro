@@ -25,7 +25,8 @@ const { page } = Astro.props;
 const len = page.data.length;
 ---
 
-<MainGridLayout>
+<MainGridLayout title={`全部文章 · 第 ${page.currentPage} 页`} description={`浏览叶工的全部自动化学习与项目记录，第 ${page.currentPage} 页，共 ${page.lastPage} 页。涵盖 PLC、HMI、工业通信和调试复盘。`}>
+ <h1 class="sr-only">全部文章 · 第 {page.currentPage} 页</h1>
 	{showCategoryBar && <CategoryBar />}
 	<PostPage page={page} />
 	<Pagination

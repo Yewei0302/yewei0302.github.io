@@ -10,7 +10,7 @@
     "update-anime": "node scripts/update-anime.mjs",
     "update-bangumi": "node scripts/update-bangumi.mjs",
     "update-bilibili": "node scripts/update-bilibili.mjs",
-    "build": "node scripts/sync-home-pictures.mjs && astro build && node scripts/check-global-style-loading.mjs && pagefind --site dist && node scripts/check-font-loading.mjs",
+    "build": "node scripts/prepare-post-images.mjs && node scripts/sync-home-pictures.mjs && astro build && node scripts/check-global-style-loading.mjs && pagefind --site dist && node scripts/check-font-loading.mjs",
     "submit": "node scripts/indexnow-submit.js",
     "preview": "astro preview",
     "astro": "astro",
@@ -22,7 +22,8 @@
     "new-post": "node scripts/new-post.js",
     "format": "biome format --write ./src",
     "lint": "biome check --write ./src",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "prepare-post-images": "node scripts/prepare-post-images.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",

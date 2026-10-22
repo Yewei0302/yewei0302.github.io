@@ -165,9 +165,9 @@ const bannerOffset =
 			@layer properties, theme, base, components, utilities;
 		</style>
 
-		{customFontsEnabled && <Font cssVariable="--font-body" preload />}
-		{customFontsEnabled && <Font cssVariable="--font-cjk" />}
-		{customFontsEnabled && <Font cssVariable="--font-jetbrains-mono" />}
+		{customFontsEnabled && <Font cssVariable={"--font-body" as import("astro:assets").CssVariable} />}
+		{customFontsEnabled && <Font cssVariable={"--font-cjk" as import("astro:assets").CssVariable} />}
+		{customFontsEnabled && <Font cssVariable={"--font-jetbrains-mono" as import("astro:assets").CssVariable} />}
 
 		<script is:inline>
 			(function() {
@@ -205,7 +205,7 @@ const bannerOffset =
 			configHue={configHue}
 		/>
 
-		<!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
+
 		<slot name="head" />
 
 		<!-- Global CSS variables for page width and hue -->

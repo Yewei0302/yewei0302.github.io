@@ -1,18 +1,23 @@
 ---
-import {getSortedPostsList} from '@utils/content-utils';
-import {blogSections,matchesSection} from '../../../config/blogSections';
-import '../../../styles/learning-home.css';
-import homePictures from '../../../config/homePictures.json';
-import templatePictures from '../../../config/templatePictures.json';
-const posts=await getSortedPostsList();
-const categories=blogSections;
+import { getSortedPostsList } from "@utils/content-utils";
+import {
+	blogSections,
+	getLearningRoadmap,
+	matchesSection,
+} from "../../../config/blogSections";
+import "../../../styles/learning-home.css";
+import homePictures from "../../../config/homePictures.json";
+import templatePictures from "../../../config/templatePictures.json";
+
+const posts = await getSortedPostsList();
+const categories = blogSections;
 ---
 <div class="learning-home" data-home-covers={JSON.stringify(homePictures.map(p=>p.src))} data-home-picture-meta={JSON.stringify(homePictures)} data-template-picture-meta={JSON.stringify(templatePictures)}>
  <section class="learning-intro card-base">
   <img class="intro-cover" src={homePictures[0]?.src} alt="" data-intro-cover />
   <div class="intro-copy"><p class="small-label">叶工的学习工作台</p><h1 data-intro-message>慢慢积累，也认真生活。</h1><p>记录走过的过程，留一点空间给新的想法。</p><div class="intro-actions"><a href="/archive/">探索全部记录 ↗</a><a href="/about/" class="soft-link">认识一下我 →</a></div></div>
  </section>
- <section aria-labelledby="explore-title"><div class="home-section-heading"><h2 id="explore-title">从这里开始探索</h2><span>选择一个方向</span></div><div class="learning-category-grid">{categories.map((s,index)=><a class:list={['learning-category',s.color]} href={'/topics/'+s.slug+'/'}><img class="category-cover" src={templatePictures[index % templatePictures.length]?.src} data-cover-index={index} alt="" loading="lazy"/><span class="category-symbol" aria-hidden="true">{s.symbol}</span><span class="category-count">{posts.filter(p=>matchesSection(p,s.slug)).length} 篇记录</span><h3>{s.name}</h3><p>{s.description}</p><span class="entry-arrow" aria-hidden="true">↗</span></a>)}</div></section>
+ <section aria-labelledby="explore-title"><div class="home-section-heading"><h2 id="explore-title">从这里开始探索</h2><span>选择一个方向</span></div><div class="learning-category-grid">{categories.map((s,index)=><a class:list={['learning-category',s.color]} href={'/topics/'+s.slug+'/'}><img class="category-cover" src={templatePictures[index % templatePictures.length]?.src} data-cover-index={index} alt="" loading="lazy"/><span class="category-symbol" aria-hidden="true">{s.symbol}</span><span class="category-count">{posts.some(p=>matchesSection(p,s.slug)) ? `${posts.filter(p=>matchesSection(p,s.slug)).length} 篇记录` : "学习路线"}</span><h3>{s.name}</h3><p>{posts.some(p=>matchesSection(p,s.slug)) ? s.description : getLearningRoadmap(s.slug).map(step=>step.title).join(" → ")}</p><span class="entry-arrow" aria-hidden="true">↗</span></a>)}</div></section>
  <div class="home-footnote"><span>记录真实实验，持续修正理解。</span><a href="/archive/">打开记录目录 →</a></div>
 </div>
 

@@ -1,10 +1,10 @@
-import { getRecordCover } from "./record-cover";
 import { type CollectionEntry, getCollection } from "astro:content";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { initPostIdMap } from "@utils/permalink-utils";
 import { comparePublishedDatesDescending } from "@utils/post-date-utils";
 import { getCategoryUrl, getPostUrl } from "@utils/url-utils";
+import { getRecordCover } from "./record-cover";
 
 // // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
@@ -73,11 +73,13 @@ export async function getSortedPostsList(): Promise<PostForList[]> {
 	initPostIdMap(sortedFullPosts);
 
 	// delete post.body，并预计算 URL
-	const sortedPostsList = await Promise.all(sortedFullPosts.map(async (post) => ({
-		id: post.id,
-		data: { ...post.data, image: await getRecordCover(post) },
-        url: getPostUrl(post),
-    })));
+	const sortedPostsList = await Promise.all(
+		sortedFullPosts.map(async (post) => ({
+			id: post.id,
+			data: { ...post.data, image: await getRecordCover(post) },
+			url: getPostUrl(post),
+		})),
+	);
 
 	return sortedPostsList;
 }

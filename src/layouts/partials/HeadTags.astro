@@ -38,6 +38,36 @@ const {
 	configHue,
 } = Astro.props;
 
+const canonical = new URL(Astro.url.pathname, Astro.site || siteConfig.siteURL)
+	.href;
+const pageName = title.replace(` - ${siteConfig.title}`, "");
+const pageNumber = Astro.url.pathname.match(/\/articles\/(\d+)\//)?.[1];
+const summary =
+	description?.trim() ||
+	(Astro.url.pathname === "/"
+		? "叶工的自动化学习记录，分享 PLC 编程、HMI、工业通信与电气项目实践，包含现场截图、成果动图、调试过程和学习复盘。"
+		: `${pageName}${pageNumber ? `（第 ${pageNumber} 页）` : ""}：浏览叶工整理的自动化学习成果、实践记录和相关资料，了解项目实现、调试过程与经验复盘。`);
+const structuredData = {
+	"@context": "https://schema.org",
+	"@type": setOGTypeArticle ? "BlogPosting" : "WebPage",
+	"@id": canonical,
+	url: canonical,
+	name: pageName,
+	description: summary,
+	inLanguage: siteConfig.lang.replaceAll("_", "-"),
+	...(setOGTypeArticle
+		? {
+				headline: pageName,
+				author: {
+					"@type": "Person",
+					name: profileConfig.name,
+					url: new URL("about/", siteConfig.siteURL).href,
+				},
+			}
+		: {}),
+	...(ogImageUrl ? { image: ogImageUrl } : {}),
+};
+
 // 关键词
 const keywords = siteConfig.keywords;
 
@@ -48,7 +78,10 @@ const favicons: Favicon[] =
 
 <!-- SEO Meta Tags -->
 <title>{title}</title>
-<meta name="description" content={description || title} />
+<link rel="canonical" href={canonical} />
+<meta name="theme-color" content={`hsl(${configHue} 35% 35%)`} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll("<", String.fromCharCode(92) + "u003c")} />
+<meta name="description" content={summary} />
 {
 	keywords && keywords.length > 0 && (
 		<meta name="keywords" content={keywords.join(", ")} />
@@ -58,12 +91,12 @@ const favicons: Favicon[] =
 
 <!-- Open Graph Tags -->
 <meta property="og:site_name" content={siteConfig.title} />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonical} />
 <meta property="og:title" content={title} />
-<meta property="og:description" content={description || title} />
+<meta property="og:description" content={summary} />
 {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
-{ogImageUrl && <meta property="og:image:width" content="1200" />}
-{ogImageUrl && <meta property="og:image:height" content="630" />}
+
+
 {
 	setOGTypeArticle ? (
 		<meta property="og:type" content="article" />
@@ -74,9 +107,9 @@ const favicons: Favicon[] =
 
 <!-- Twitter Card Tags -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonical} />
 <meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description || title} />
+<meta name="twitter:description" content={summary} />
 {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 <!-- Viewport and Generator -->
 <meta name="viewport" content="width=device-width" />
