@@ -59,7 +59,10 @@ export function matchesSection(
 			tags.some((tag) => /视觉|机器人/.test(tag))
 		);
 	if (slug === "knowledge")
-		return ["学习随笔", "文章与期刊研读", "技能与证书"].includes(category);
+		return (
+			["学习随笔", "文章与期刊研读", "技能与证书"].includes(category) ||
+			tags.includes("知识库")
+		);
 	return false;
 }
 
