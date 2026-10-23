@@ -1,0 +1,23 @@
+<section class="a4-lab" aria-label="单相负载分配与三相电流教学演示">
+  <p class="eyebrow">换一种接法，看看最大相电流</p>
+  <h3>总负荷相同，分配结果不同</h3>
+  <p>固定本篇计算负荷，只改变单相照明与插座的分配。均分模式是假设可以拆分支路的理想参考。</p>
+  <div class="choices" role="group" aria-label="选择相别分配">
+    <button type="button" data-mode="balanced" aria-pressed="false">理想均分</button>
+    <button type="button" data-mode="split" aria-pressed="true">照明 L1 · 插座 L2</button>
+    <button type="button" data-mode="same" aria-pressed="false">单相集中 L1</button>
+  </div>
+  <div class="phase-bars">
+    <div><span>L1</span><div class="track"><i data-bar="0" style="width:68.596%"></i></div><b data-value="0">34.30 A</b></div>
+    <div><span>L2</span><div class="track"><i data-bar="1" style="width:62.24%"></i></div><b data-value="1">31.12 A</b></div>
+    <div><span>L3</span><div class="track"><i data-bar="2" style="width:50.532%"></i></div><b data-value="2">25.27 A</b></div>
+  </div>
+  <div class="lab-result" aria-live="polite"><span>本场景最大相电流</span><strong data-maximum>34.30 A</strong><p data-explanation>照明与插座分接两相，仍不等于三相平衡。不能用30.19 A的平衡等效值代替最大相。</p></div>
+  <small>教学计算：U线＝380 V，U相＝380/√3；正弦、滞后负载，忽略谐波。不是实测，也不是开关定型工具。</small>
+</section>
+<style>
+.a4-lab{background:linear-gradient(135deg,#eff8f3,#f1f5ff);border:1px solid #d7e5dd;border-radius:20px;padding:26px;margin:28px 0;color:#294537}.a4-lab .eyebrow{font-size:12px;letter-spacing:.1em;color:#47735a;margin:0}.a4-lab h3{font-size:25px;margin:8px 0 10px}.a4-lab p{font-size:14px;line-height:1.8}.choices{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}.choices button{background:#fff;border:1px solid #b8cec2;border-radius:24px;padding:9px 14px;font-size:13px;cursor:pointer;color:#335440}.choices button[aria-pressed=true]{background:#3f7658;color:white;border-color:#3f7658}.phase-bars>div{display:grid;grid-template-columns:27px minmax(0,1fr) 76px;gap:10px;align-items:center;margin:18px 0}.phase-bars b{font-size:14px;text-align:right}.track{background:#dde6e3;height:22px;border-radius:8px;overflow:hidden}.track i{display:block;background:#e3a74e;height:100%;transition:width .35s}.phase-bars>div:nth-child(2) i{background:#559b7b}.phase-bars>div:nth-child(3) i{background:#6998ce}.lab-result{background:#fff;border-radius:14px;padding:18px 20px;margin:24px 0 15px}.lab-result span{font-size:12px;display:block}.lab-result strong{font-size:36px;color:#3f7658;display:block;margin:5px 0}.lab-result p{margin:5px 0}.a4-lab small{font-size:11px;line-height:1.7;display:block}:global(.dark) .a4-lab{background:linear-gradient(135deg,#263e31,#273547);color:#e1ece5;border-color:#496352}:global(.dark) .lab-result{background:#233329}:global(.dark) .lab-result strong{color:#a9d5ba}@media(max-width:600px){.a4-lab{padding:19px 15px}.a4-lab h3{font-size:21px}.choices button{font-size:12px;padding:8px 10px}}
+</style>
+<script>
+function initA4(){document.querySelectorAll<HTMLElement>('.a4-lab').forEach(root=>{if(root.dataset.ready)return;root.dataset.ready='true';const modes:Record<string,{v:number[],text:string}>={balanced:{v:[30.18842535,30.18842535,30.18842535],text:'只有在本模型的负荷理想均分时，三相电流才均为30.19 A。并非只要单相占比小就物理上完全平衡。'},split:{v:[34.29836556,31.11963429,25.26623304],text:'照明与插座分接两相，仍不等于三相平衡。不能用30.19 A的平衡等效值代替最大相。'},same:{v:[40.23201899,25.26623304,25.26623304],text:'单相负载集中到L1，最大相电流升至40.23 A。需要系数不能消除相别集中造成的承载差异。'}};root.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach(button=>button.addEventListener('click',()=>{const data=modes[button.dataset.mode||'split'];root.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));data.v.forEach((v,i)=>{const bar=root.querySelector<HTMLElement>(`[data-bar="${i}"]`);if(bar)bar.style.width=`${v/50*100}%`;const label=root.querySelector(`[data-value="${i}"]`);if(label)label.textContent=`${v.toFixed(2)} A`});const max=root.querySelector('[data-maximum]');if(max)max.textContent=`${Math.max(...data.v).toFixed(2)} A`;const text=root.querySelector('[data-explanation]');if(text)text.textContent=data.text}));})}initA4();document.addEventListener('astro:page-load',initA4);document.addEventListener('swup:page:view',initA4);
+</script>
