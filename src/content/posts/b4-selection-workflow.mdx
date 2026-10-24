@@ -1,0 +1,142 @@
+---
+title: B4｜完整选型表：把负载、保护和导线串成一套流程
+published: 2026-10-24
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, 选型表, 保护配合, 电机回路, 设计流程]
+description: 用交互核查卡和分支进线汇总表串联计算、保护与导线，区分教学候选、待验证条件和可采购规格。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+import B4SelectionBoard from '../../components/features/learning/B4SelectionBoard.astro';
+
+<div class="a2-study">
+<div class="a2-lead">
+<p class="a2-kicker">电气设计基础 · 配电柜供电篇 / B4</p>
+<p class="a2-lead-title">选型表的价值，是让每个数字都有依据。</p>
+<p>把前面的支路电流、进线负荷、开关、接触器、热继电器和导线放在同一张表里。型号先作为候选，数据、样本与配合验证补齐后，再形成采购和施工依据。</p>
+<div class="a2-inputs"><span>输入 <b>负载数据卡</b></span><span>过程 <b>配合校核</b></span><span>输出 <b>可追溯选型表</b></span></div>
+</div>
+
+先用下方核查卡比较两个算例。它展示的是“导线比哪一个电流”的逻辑，不替代实际产品选型。
+
+<B4SelectionBoard />
+
+## 一条流程，分支与进线分别走
+
+<div class="a2-calculations">
+<div class="a2-calc"><span class="a2-step">01 · 收集</span><h3>负载数据卡 → 输入功率与电流</h3><p>铭牌、输入/输出口径、电压、工作制、启动方式、线路长度、环境和敷设方式一起记录。</p></div>
+<div class="a2-calc"><span class="a2-step">02 · 分支</span><h3>QF / KM / FR / 导线 → 成组核对</h3><p>先明确短路、过载和操作职责，再选候选产品；调整开关后返回检查导线，调整导线后复查相关保护。</p></div>
+<div class="a2-calc"><span class="a2-step">03 · 进线</span><h3>需要系数＋单相分配 → 每相计算电流</h3><p>保留A4中的各相信息，不能把不平衡负荷强行缩成一个平均值。</p></div>
+<div class="a2-calc"><span class="a2-step">04 · 落表</span><h3>规格＋依据＋状态 → 图纸与BOM</h3><p>区分已知值、候选规格和待校核项。没有具体型号、数量与验证依据的表，仍是设计工作表。</p></div>
+</div>
+
+这套流程不是做完一步就不能回头。短路能力、动作曲线、导线修正和厂家组合表，可能使前面的候选发生变化。
+
+## 四种参数，不能用一个倍率口诀包办
+
+| 对象 | 参数实际表示什么 | 应核对什么 |
+| --- | --- | --- |
+| QF 断路器 | 规定条件下的额定值及保护特性 | 正常承载、启动曲线、短路分断、环境修正和上下级配合 |
+| KM 接触器 | 指定使用类别、电压等条件下的工作能力 | AC-3/AC-3e或更严酷操作、寿命、频次、线圈与辅助触点 |
+| FR 过载继电器 | 配合时间—电流特性的设定参数 | 电机额定数据、检测位置、脱扣级别、接线与复位 |
+| 导线 | 指定安装与散热条件下的允许载流量 | 基准表、正确修正、压降、短路热稳定、端接及PE配置 |
+
+**额定工作电流不是“一超就烧”的绝对极限，整定电流也不是“一超就跳”的固定门槛。** 不能用QF乘1.1、KM乘1.25、FR乘1.0～1.1，代替具体产品数据。
+
+1.13In与1.45In等数值涉及特定标准、装置及规定试验条件，并不证明任何开关都应先乘1.1。断路器的C/D选择也不能只按“是不是电机”决定。热继量程端点不是天然禁用区，不能要求所有设定都落在量程的1/3～2/3。
+
+### 保护方案不同，元件数量也不同
+
+<figure class="a2-photo">
+<img src="/images/posts/b4-selection-workflow/01-fuse-contactor-overload.webp" alt="施耐德原版起动组合图：隔离熔断器承担短路保护，接触器操作，过载继电器承担过载保护" width="574" height="708" loading="lazy" decoding="async" style="max-height:480px;width:auto;" />
+<figcaption>厂商原图：隔离熔断器＋接触器＋过载继电器的职责分工。上方器件是熔断器组合，不是本文QF型号示例。来源：<a href="https://www.electrical-installation.org/enwiki/Motor_starter_configurations" target="_blank" rel="noopener noreferrer">Schneider Electric《Motor starter configurations》</a>，DB422692_EN，仅转换格式并加白底，未重绘。</figcaption>
+</figure>
+
+<figure class="a2-photo">
+<img src="/images/posts/b4-selection-workflow/02-breaker-contactor.webp" alt="施耐德原版起动组合图：具备相应短路和过载功能的热磁断路器配合接触器" width="574" height="708" loading="lazy" decoding="async" style="max-height:480px;width:auto;" />
+<figcaption>另一种厂家配置：由适用的热磁式保护装置承担短路与过载功能，接触器承担操作。不能据此推断普通D曲线微断都能替代电机过载保护。来源同上，DB422693_EN，仅转换格式并加白底，未重绘。</figcaption>
+</figure>
+
+电机起动组合的短路协调应查经过验证的厂家表，而不是因为各器件电流都“大于电机电流”就认为组合合格。[施耐德对Type 1与Type 2协调的说明](https://www.se.com/us/en/faqs/FA105974/)区分故障后是否可继续使用等要求；具体组合仍需匹配工作电压、故障电流及相关维护条件。
+
+## 看两张学习截图：保留计算，补齐条件
+
+<details class="a2-exercise">
+<summary>展开原始六步计算与口诀截图</summary>
+<figure class="a2-photo"><img src="/images/posts/b4-selection-workflow/03-original-six-steps.webp" alt="用户提供的7.5kW电机六步选型学习截图" width="342" height="393" loading="lazy" decoding="async" /><figcaption>原始学习截图。计算口径与适用条件以下文复核为准，不作为可直接施工的完整方案。</figcaption></figure>
+<figure class="a2-photo"><img src="/images/posts/b4-selection-workflow/04-original-summary.webp" alt="用户提供的QF KM FR和导线倍率记忆口诀截图" width="813" height="117" loading="lazy" decoding="async" /><figcaption>原始口诀用于定位知识点；固定倍率与“极限/门槛”的概括不能替代厂家曲线和保护配合。</figcaption></figure>
+</details>
+
+截图按7.5 kW输出、380 V、η＝0.88、cosφ＝0.82得到15.79 A，与A2一致。QF选20 A、4 mm²题给基准27 A再乘0.87，得到23.49 A，只有在表格和修正条件适用、保护分工明确时，才能进行该项简化比较。
+
+截图的压降算术 $7.5\times20/(76\times4)\approx0.49\%$ 没有计入上述效率口径。若继续使用同一个C＝76速算模型，以输入有功 $7.5/0.88$ 代入，约为 **0.56%**。这仍是简化估算，正式校核应核对导体温度、电阻、电抗、运行及启动条件、上游压降与设备端要求。
+
+常见导体过载保护关系包括 $I_B\le I_n\le I_Z$ 和 $I_2\le1.45I_Z$。其中应使用承担相关过载保护的装置额定值或适用整定值。若断路器只承担短路、另由FR承担过载，应按整个保护方案判断，不能无条件套用短路器件铭牌值。更多条件见 [B3｜导线选型](/posts/b3-conductor-sizing/)。
+
+## 15 kW算例：把“部分通过”写在表里
+
+本题输入：15 kW轴端输出，380 V，η＝0.90，cosφ＝0.85，假设启动电流为额定的6倍。由三相电机公式计算：
+
+$$
+I_B=\frac{15000}{\sqrt3\times380\times0.90\times0.85}\approx29.79\ \text{A}
+$$
+
+教学启动电流约178.75 A。它不是该电机真实启动过程的测量值，仍缺启动时间、瞬态波形和具体厂家资料。
+
+| 项目 | 本题候选或计算 | 状态与依据 |
+| --- | --- | --- |
+| 负荷电流 | 29.79 A | 按题设计算；实物优先核对对应铭牌 |
+| QF | 假设比较40 A候选 | 不能仅凭29.79×1.1就排除32 A；需查完整产品曲线与修正 |
+| 6 mm²导线 | 题给35 A×0.87＝30.45 A | 在QF承担相应过载保护且按40 A比较的本题条件下，不满足这项关系 |
+| 10 mm²导线 | 题给48 A×0.87＝41.76 A | 同条件下，这项电流关系满足；不代表全部校核完成 |
+| KM | 按相应类别、电压查产品 | 32 A规格不因“没乘1.1”就自动错误；操作工况与配合仍需核对 |
+| FR | 选择覆盖实际电机整定要求的量程 | 按产品和接线设定；不能为落在量程中点就把约29.79 A一律改设32 A |
+| 压降 | 30 m、10 mm²，题给C＝76 | 按输入有功15/0.90计算约0.66%；仍非正式压降验证 |
+
+例如，[厂家LC1D32BD资料](https://www.clipsal.com/products/industrial/tesys/contactor-3p3-no-ac-3-ac-3e-0-to-440v-32a-24v-dc-coil-lc1d32bd?itemno=LC1D32BD)给出相应AC-3/AC-3e额定参数，可以作为查表候选，不能直接从教学倍率推出“必须40 A”。线圈DC24V能否由PLC直接驱动，还要查吸合、保持电流和输出接口条件。
+
+分断能力不能只按“终端一律6 kA”填表。需要安装点预期短路电流、相应电压下额定能力及厂家组合条件；启动校验也不能只看瞬时门槛下限，热动作曲线与故障切除同样要检查。
+
+## 插座与进线：不能照搬电机支路模板
+
+2.5 kW单相输入、220 V、PF＝1的题设，电流为11.36 A。16 A开关与2.5 mm²导线可以作为进一步核查的候选，但不能仅因“插座”就保证C曲线适用，也不能把PF＝1称为未知负载的最不利输入电流。
+
+原批改称13 A规格不存在，这一点不成立。[Hager MCN113官方产品页](https://hager.com/middle-east/catalogue/information/mcn113-mcb-1p-6ka-c-13a-1m)就有13 A产品。结论应是查所选系列的实际目录、曲线及温度修正，不是背一串档位作为所有产品的全集。
+
+对于需要附加电击保护的插座回路，应按适用要求选择额定剩余动作电流不大于30 mA的RCD，并核对类型、接线、过电流配合与测试。它是附加保护，不保证消除所有触电风险；动作时间需结合故障电流、产品类型与规定条件，不能统一宣称“几十毫秒就安全”。参阅[施耐德高灵敏度RCD说明](https://www.electrical-installation.org/enwiki/Additional_measure_of_protection_against_direct_contact)。
+
+3P、4P、1P+N的选择，需要结合接地系统、N线处理和隔离要求。不能仅按“三相四线所以3P”定案；PE不得当作可操作的中性线处理。
+
+### 五回路设计工作表
+
+| 回路 | 已确认的教学计算 | 候选/待补项目 |
+| --- | --- | --- |
+| M1：7.5 kW | 15.79 A | QF启动与短路、KM类别与频次、FR整定、导线和PE |
+| M2：5.5 kW | 11.58 A | 不以备件统一为理由跳过独立保护校核 |
+| M3：3.0 kW | 6.32 A | 核对实际铭牌及启动条件，再选范围与规格 |
+| QL：2 kW照明 | PF＝0.90时10.10 A | 实际驱动输入、冲击、谐波、分相及保护 |
+| QS：3 kW插座 | PF＝1时13.64 A | 使用负荷、RCD、相线/N/PE与端接 |
+| QF0进线 | A4分相示例最大相34.30 A | 不能沿用27.2 A／32 A已定案；还需实际工况与保护配合 |
+
+A4同一模型中，理想均分为30.19 A，照明与插座分接两相时最大相34.30 A，单相集中一相时为40.23 A。它们对应不同分配，进线选型要保留实际相别与运行条件，而不是挑最小的电流落表。
+
+## 从工作表到采购表，要补齐哪一列？
+
+<div class="a2-verdicts">
+<div><span>参数依据</span><strong>为什么选它</strong><p>铭牌、具体样本版本、参考敷设表、修正系数和对应保护方案，能够追溯到每项结论。</p></div>
+<div><span>验证状态</span><strong>完成到哪里</strong><p>区分待选、单项满足、成组验证完成与批准采购；不要把一个绿色不等式当成整套设计签字。</p></div>
+</div>
+
+可交采购与施工的表，还应写明具体型号及后缀、极数、工作电压、线圈与辅助触点、分断能力、整定和脱扣级别、电缆芯数与PE/N配置、长度数量、端接要求及备注。控制原理图、端子图和BOM中的编号要对应。
+
+<div class="a2-endnote">
+<strong>落表前的核查链</strong>
+<p>负载口径一致 → 保护职责明确 → 真实目录选候选 → 载流与压降核对 → 启动及故障保护验证 → 厂家组合与上下级协调 → 型号数量及图纸一致。当前资料形成教学工作表，不声称已完成可直接施工的配电箱设计。</p>
+</div>
+
+系列索引：[A2 电流计算](/posts/a2-motor-rated-current/) · [A3 多负载](/posts/a3-multiple-load-calculation/) · [A4 计算负荷](/posts/a4-demand-current/) · [B1 断路器](/posts/b1-circuit-breaker-selection/) · [B2 接触器与热继](/posts/b2-contactor-overload/) · [B3 导线](/posts/b3-conductor-sizing/)。后续将进入图纸表达与编号组织。
+
+</div>
