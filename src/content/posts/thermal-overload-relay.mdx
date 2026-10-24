@@ -1,0 +1,123 @@
+---
+title: 热继电器知识库｜整定电流、脱扣等级与启动时间
+published: 2026-10-24
+author: 叶工
+category: 知识库
+lang: zh-CN
+tags: [知识库, 热继电器, 脱扣等级, 电机保护, 过载保护]
+description: 单独讲清热继电器的整定范围、Ir、Class 10A与冷热态曲线，区分规定试验时间和真实启动校核。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+import OverloadTripClasses from '../../components/features/learning/OverloadTripClasses.astro';
+
+<div class="a2-study">
+<div class="a2-lead">
+<p class="a2-kicker">独立知识库 · 热继电器</p>
+<p class="a2-lead-title">“整定16 A”与“Class 10”，回答的是两个问题。</p>
+<p>Ir描述保护设置的电流基准，脱扣等级描述规定条件下的时间特性。Class 10不是10 A，也不是任何过载都等10秒才动作。</p>
+<div class="a2-inputs"><span>能调哪里 <b>整定范围</b></span><span>设到多少 <b>Ir</b></span><span>如何随时间动作 <b>Class＋曲线</b></span></div>
+</div>
+
+这是一篇独立知识库条目，不并入接触器选型或其他项目文章。阅读目标是把名称、试验条件和真实电机启动过程对应起来。下方交互只展示同一个试验点的时间范围，不模拟真实产品动作。
+
+<OverloadTripClasses />
+
+## 热继电器做什么，怎样让电机停下来？
+
+传统热继电器利用电流热效应及双金属片机构响应持续过载，电子式过载继电器则可以通过电流测量与热模型实现保护。原理结构不同，但都需要按具体产品的动作特性和电机条件使用。
+
+常见接线中，主回路电流流经过载检测元件，动作后控制触点改变状态，切断接触器线圈回路，接触器释放并断开电机电源。**热继电器通常通过控制回路触发停机，不靠自身承担主回路短路分断。**
+
+<figure class="a2-photo">
+<img src="/images/posts/thermal-overload-relay/01-abb-tf42.webp" alt="ABB TF42热过载继电器厂家产品图，可见RESET STOP TEST和95-96常闭97-98常开端子" width="800" height="1108" loading="lazy" decoding="async" style="max-height:510px;width:auto;" />
+<figcaption>不重复的厂家产品图：ABB TF42。可识读RESET、TEST、STOP及95–96 NC、97–98 NO标记；图片为系列外观，不用于读取本文示例整定电流。来源：<a href="https://new.abb.com/products/1SAZ721201R1013/tf42-0-31" target="_blank" rel="noopener noreferrer">ABB官方产品页</a>，仅缩放与转换格式。</figcaption>
+</figure>
+
+95–96常闭触点常用于停机控制，97–98常开触点常用于故障信号，实际仍须按目标型号端子图确认。不能仅安装主回路元件而遗漏控制触点接线，也不能把它当作完整的短路、漏电或所有电机故障保护。
+
+## 四个量，放到各自的位置
+
+| 参数 | 含义 | 不能混用的说法 |
+| --- | --- | --- |
+| 电机额定电流 IN | 对应铭牌规定条件的电流 | 不是当前实测电流，也不是开关额定值 |
+| 整定范围 | 产品允许调节的电流区间 | 不等于实际要设置的值 |
+| 整定电流 Ir | 按产品和保护方案设置的电流基准 | 不代表超过后立即跳闸 |
+| 脱扣等级 Class | 规定试验条件下的时间特性分类 | 不是量程，不是可以任意选择的延时旋钮 |
+
+以线电流检测、按铭牌电流设置的情形为例，电机15.8 A，应选择覆盖所需设置的量程，再依说明设定。产品刻度是否可准确设置15.8 A、是否允许取近似值，按实际装置判断，不能统一向上加10%。
+
+量程端点也不是天然禁用区。某产品允许在下限使用时，不能只因位置不在“1/3～2/3”就判不合格。星三角启动时继电器若安装在绕组支路中，检测电流又可能不同，更不能照搬线电流设置。
+
+## 脱扣等级：先把7.2倍Ir这个试验点说完整
+
+截图中提到的时间范围应与**冷态、三相平衡负载、7.2倍整定电流**等规定条件一起读。冷态是按规定试验初始热状态，不是简单指当天环境温度低；试验设置与参照条件按适用标准和具体产品资料核对。
+
+[施耐德中国关于LRD脱扣等级的说明](https://www.schneider-electric.cn/zh/faqs/FA149328/)给出以下常见分类。这里用开闭边界表达允许区间，实际型号的曲线和适用标准版本仍应核对。
+
+| 等级标记 | 规定条件下7.2×Ir的冷态脱扣时间t |
+| --- | --- |
+| Class 5 | 0.5 s < t ≤ 5 s |
+| Class 10A | 2 s < t ≤ 10 s |
+| Class 10 | 4 s < t ≤ 10 s |
+| Class 20 | 6 s < t ≤ 20 s |
+| Class 30 | 9 s < t ≤ 30 s |
+
+### 10A里的A，不是安培
+
+Class 10A是一个完整的等级名称，不能读成“额定10安”。它与Class 10在上述试验点具有相同的上边界，但下边界不同。时间区间仍有重叠，因此也不能说每一只10A都一定比每一只10更快。
+
+例如，Ir＝16 A时，7.2×Ir＝115.2 A。Class 10A描述该规定试验条件下的时间区间，不表示16 A是允许长期任意超出的电流，也不表示实际115.2 A启动过程必然在某一个确定秒数动作。
+
+### 看到5E、10E等后缀，要按另一张表读取
+
+一些电子式过载产品采用更窄的时间带或不同等级标注。[TeSys Giga电子过载保护说明](https://productinfo.se.com/tesysgigainstallationguide/tesys-giga-series-giga-contactors-and-giga-thermal-overload-relays-installation-guide/English/TeSys%E2%84%A2%20Giga%20Series%20Giga%20Contactors%20and%20Giga%20Thermal%20Overload%20Relays%20Installation%20Guide_0000447511.xml/%24/PanGu_ThermalOverloadProtection_0000494776)也按具体产品给出不同试验点与热状态的时间数据。不能删掉后缀、只保留数字，就把所有产品并到上表里。
+
+本篇不混用北美资料中可能采用的其他试验电流倍数。先看适用标准、等级完整名称及产品说明，再比较时间。
+
+## 启动时间，不等于等级数字
+
+电机启动不是一段永远固定为7.2×Ir的矩形电流。实际电流随启动方式、负载与转速变化，还会受到供电条件影响。要同时看完整的启动电流—时间过程和继电器动作带。
+
+<div class="a2-verdicts">
+<div><span>启动要通过</span><strong>不能只比秒数</strong><p>正常启动电流轨迹需与相应冷热态曲线核对，重复启动还涉及已有热积累。</p></div>
+<div><span>异常要保护</span><strong>也要保护电机</strong><p>允许长启动不意味着可以无限延长堵转或过载时间，要同时符合电机热承受条件和厂家协调要求。</p></div>
+</div>
+
+“启动8秒，所以Class 10肯定可用”并不成立。若实际电流恰为7.2×Ir且持续8秒，Class 10的动作带包含比8秒更早的时间，仅凭上表就不能保证不动作。反过来，启动时间超过10秒，也不能不看电流倍率就断言必须换Class 20。
+
+普通启动可从厂家推荐的10A或10级方案查起，长启动再核对20、30级等候选。它们是选型方向，不是按风机、破碎机等设备名称自动分级。不能把提高等级当作处理频繁跳闸的默认办法。
+
+## 冷态与热态：同一只继电器也有不同曲线
+
+设备持续运行、停机后尚未冷却、连续多次启动，都可能改变初始热状态。热态下留给后续过载或启动的热余量可能更小，因此不能只拿冷态曲线判断反复启停。
+
+<div class="a2-calculations">
+<div class="a2-calc"><span class="a2-step">冷态起动</span><h3>按规定冷态起点核对</h3><p>冷态试验表便于比较等级，但仍只描述指定倍率及条件。</p></div>
+<div class="a2-calc"><span class="a2-step">运行后重启</span><h3>按热态和重启条件核对</h3><p>需要查厂家热态曲线、复位冷却条件与电机允许启动频次，不能靠按一下RESET清除真实热量。</p></div>
+</div>
+
+机械双金属元件需要冷却，电子热模型也可能保留热记忆；具体复位行为依产品而定。动作后能复位，不等于故障已排除或电机已经充分冷却。自动复位还应和持续启动命令一起评估，防止意外重新吸合。
+
+## 选型与排查：一张独立核对清单
+
+<div class="a2-calculations">
+<div class="a2-calc"><span class="a2-step">① 明确对象</span><h3>哪台电机、检测哪段电流？</h3><p>核对铭牌电压接法、电流、工作制和继电器安装位置，不用配电柜进线最大相电流代替电机整定。</p></div>
+<div class="a2-calc"><span class="a2-step">② 定范围与设定</span><h3>量程覆盖，按说明设置Ir</h3><p>再检查刻度、环境与厂家修正，不用统一倍率和量程中点代替依据。</p></div>
+<div class="a2-calc"><span class="a2-step">③ 定时间特性</span><h3>启动轨迹＋冷热态＋电机热承受</h3><p>查完整曲线，核对等级和重复启动，不只比较Class数字与启动秒数。</p></div>
+<div class="a2-calc"><span class="a2-step">④ 核对停机链</span><h3>控制触点、接触器与短路保护成组检查</h3><p>包含复位、缺相敏感性及厂家协调资料。某功能是否具备、怎样动作，都按具体产品确认。</p></div>
+</div>
+
+频繁动作时，应先查三相电流和电压、负载卡滞、启动时间、接线、环境及设定，再判断保护是否适用。确实发生不平衡或缺相时，动作可能正是保护在起作用，不能先认定“误动”。
+
+<details class="a2-exercise">
+<summary>展开原始截图与两道自测</summary>
+<figure class="a2-photo"><img src="/images/posts/thermal-overload-relay/02-original-class-note.webp" alt="用户提供的脱扣等级与时间范围截图，包含Class5、10A、10、20、30" width="792" height="670" loading="lazy" decoding="async" /><figcaption>原始学习截图。表中时间需带着规定试验条件阅读；下方按启动时间选择等级的描述，只作入门方向，不能替代完整曲线校核。</figcaption></figure>
+<p><strong>Class 10A是额定10 A吗？</strong>不是，它是等级名称，电流设置另看Ir。</p>
+<p><strong>启动不通过，可以直接把Ir从16 A改成20 A吗？</strong>不能。应核对真实启动轨迹、热状态和保护方案，改变电流基准会影响电机过载保护。</p>
+</details>
+
+<div class="a2-endnote"><strong>读热继资料，按这条顺序</strong><p>先确认保护对象与安装位置，再看整定范围和Ir，接着读完整等级及冷热曲线，带着启动工况与电机热承受能力核对，最后确认控制触点、复位和短路协调。独立保存这张检查顺序，比只记“Class 10＝10秒”更可用。</p></div>
+
+</div>

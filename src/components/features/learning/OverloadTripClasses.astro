@@ -1,0 +1,23 @@
+---
+const bands = [
+	{ name: "5", low: 0.5, high: 5 },
+	{ name: "10A", low: 2, high: 10 },
+	{ name: "10", low: 4, high: 10 },
+	{ name: "20", low: 6, high: 20 },
+	{ name: "30", low: 9, high: 30 },
+];
+---
+<section class="overload-lab" aria-label="冷态7.2倍整定电流下的脱扣等级对照">
+<p class="kicker">只比较同一个规定试验点</p><h3>等级改变的是时间特性，不是电流刻度</h3>
+<div class="ir-input"><label>示例整定电流 Ir <input type="number" min="0.1" max="200" step="0.1" value="16" inputmode="decimal" /> A</label><span>7.2 × Ir ＝ <b data-current>115.20 A</b></span></div>
+<div class="band-list">{bands.map(b=><button type="button" data-grade={b.name} data-low={b.low} data-high={b.high} aria-pressed={b.name==='10A'?'true':'false'}><span>Class {b.name}</span><span class="axis"><i style={`left:${b.low/30*100}%;width:${(b.high-b.low)/30*100}%`}></i></span><b>{b.low}～{b.high} s</b></button>)}</div>
+<div class="axis-labels"><span>0 s</span><span>15 s</span><span>30 s</span></div>
+<div class="explain" aria-live="polite"><strong data-grade-title>Class 10A：2 s &lt; t ≤ 10 s</strong><p>冷态、三相平衡、7.2倍Ir的规定试验条件。区间不是唯一动作时间，也不是允许启动时长。</p></div>
+<small>本图是时间范围对照，不是连续动作曲线；改变Ir只改变该试验点的电流。不同倍率、热态或具体产品必须查完整厂家曲线，不能从本图推算。</small>
+</section>
+<style>
+.overload-lab{padding:25px;border-radius:20px;border:1px solid #cbded1;background:linear-gradient(135deg,#eff7ef,#eef3fd);color:#294937;margin:25px 0}.kicker{font-size:11px;color:#5a7d65;letter-spacing:.09em}.overload-lab h3{font-size:24px;margin:9px 0 20px}.ir-input{display:flex;flex-wrap:wrap;align-items:center;gap:16px;font-size:13px;margin:18px 0}.ir-input input{width:76px;padding:7px;border:1px solid #b6cbbb;border-radius:7px;background:white;color:#2d5038;margin:0 6px}.ir-input>span{background:white;border-radius:9px;padding:10px 12px}.band-list button{display:grid;grid-template-columns:85px minmax(0,1fr) 89px;align-items:center;gap:12px;width:100%;border:1px solid transparent;background:transparent;color:inherit;padding:13px 8px;text-align:left;border-radius:10px;cursor:pointer}.band-list button[aria-pressed=true]{background:#fff;border-color:#90b7a0}.band-list button>span:first-child{font-size:13px;font-weight:600}.band-list button>b{font-size:12px;text-align:right}.axis{height:21px;position:relative;background:#dfe8e3;border-radius:6px;overflow:hidden}.axis i{position:absolute;height:100%;border-radius:5px;background:#609e7a}.band-list button:nth-child(2) i{background:#69a2b5}.band-list button:nth-child(3) i{background:#6a83bc}.band-list button:nth-child(4) i{background:#c49452}.band-list button:nth-child(5) i{background:#b78093}.axis-labels{display:flex;justify-content:space-between;font-size:10px;color:#6a8173;margin:0 109px 0 105px}.explain{padding:19px;background:#fff;border-radius:13px;margin:20px 0 13px}.explain strong{font-size:23px;color:#3f7658}.explain p{font-size:13px;line-height:1.8;margin:9px 0 0}.overload-lab small{font-size:11px;line-height:1.8;display:block}:global(.dark) .overload-lab{background:linear-gradient(135deg,#293e31,#293447);color:#e0ece3;border-color:#4a6654}:global(.dark) .explain,:global(.dark) .band-list button[aria-pressed=true]{background:#263d30}:global(.dark) .explain strong{color:#acd9b9}:global(.dark) .ir-input>span{background:#263d30}@media(max-width:600px){.overload-lab{padding:18px 12px}.overload-lab h3{font-size:21px}.band-list button{grid-template-columns:67px minmax(0,1fr) 75px;gap:6px;padding:13px 4px}.band-list button>span:first-child{font-size:11px}.band-list button>b{font-size:11px}.axis-labels{margin-left:77px;margin-right:85px}.explain strong{font-size:20px}}
+</style>
+<script>
+function initOverload(){document.querySelectorAll<HTMLElement>('.overload-lab').forEach(root=>{if(root.dataset.ready)return;root.dataset.ready='true';const input=root.querySelector<HTMLInputElement>('input');const update=()=>{const n=Number(input?.value),out=root.querySelector('[data-current]');if(out)out.textContent=Number.isFinite(n)&&n>=.1&&n<=200?`${(n*7.2).toFixed(2)} A`:'请输入0.1～200 A的示例值'};input?.addEventListener('input',update);root.querySelectorAll<HTMLButtonElement>('[data-grade]').forEach(button=>button.addEventListener('click',()=>{root.querySelectorAll('[data-grade]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const title=root.querySelector('[data-grade-title]');if(title)title.textContent=`Class ${button.dataset.grade}：${button.dataset.low} s < t ≤ ${button.dataset.high} s`}));update()})}initOverload();document.addEventListener('astro:page-load',initOverload);document.addEventListener('swup:page:view',initOverload);
+</script>
