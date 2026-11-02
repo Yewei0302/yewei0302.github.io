@@ -1873,5 +1873,10 @@
 		"src": "/images/posts/f1-multi-speed-control/17-release-start.png",
 		"width": 1151,
 		"height": 237
+	},
+	"/images/posts/f2-servo-positioning/01-axis-positioning.gif": {
+		"src": "/images/posts/f2-servo-positioning/01-axis-positioning.gif",
+		"width": 1011,
+		"height": 739
 	}
 }
