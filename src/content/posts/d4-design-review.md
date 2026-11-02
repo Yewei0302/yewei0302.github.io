@@ -6,7 +6,7 @@ category: 电气设计
 lang: zh-CN
 tags: [电气设计, EPLAN, 设计自检, 保护配合]
 description: 复核7.5kW正反转电机回路，整理保护配合、电缆、PE与待验证条件，区分软件检查和工程验收。
-draft: true
+draft: false
 ---
 
 <style>
