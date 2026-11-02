@@ -1,0 +1,46 @@
+---
+title: 元件规格选择工具｜断路器、接触器与热继电器怎么填
+published: 2026-10-24
+author: 叶工
+category: 知识库
+lang: zh-CN
+tags: [知识库, EPLAN, 元件选型, 接触器, 热继电器, 断路器]
+description: 用独立交互表核对QF、KM、FR和电机的图纸参数，对照厂家系列电流档与整定范围，生成学习候选标注。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study">
+<div class="a2-lead">
+<p class="a2-kicker">独立知识库 · 元件规格与参数</p>
+<p class="a2-lead-title">计算需要多少安，再看产品有哪些档。</p>
+<p>画电机回路时，我需要把QF、KM、FR的图纸参数和实际产品对应起来。这份工具集中整理填写项、厂家系列规格和待核对条件，方便边画边查。</p>
+<div class="a2-inputs"><span>断路器 <b>额定值与保护特性</b></span><span>接触器 <b>AC-3与线圈</b></span><span>热继电器 <b>范围与设定</b></span></div>
+</div>
+
+如果接触器最低工作电流要求确实是19 A，在工具列举的LC1D系列里，18 A不能满足这项要求，25 A才进入候选。但如果19 A只是把电机电流随手乘一个倍率得到的，应该先重新确认选型依据。
+
+<p><a href="/tools/motor-component-selector.html" target="_blank" rel="noopener noreferrer">打开完整工具 ↗</a> · <a href="/tools/motor-component-selector.html" download="元件参数与规格选择.html">下载离线HTML</a></p>
+
+<iframe src="/tools/motor-component-selector.html" title="元件参数与规格选择交互工具" loading="lazy" style="display:block;width:100%;height:1200px;border:1px solid #dce6de;border-radius:12px;background:#f1f4f6;margin:20px 0;" ></iframe>
+
+<p class="muted">工具区域可单独滚动；手机或需要完整查看时，点击上方“打开完整工具”。可选基础型号还不是完整订货号，实际产品的工作电压、线圈后缀、安装兼容与保护配合要分别核对。</p>
+
+## 怎么使用
+
+1. 查看QF1、KM1、FR1、M1各自应填写的参数。
+2. 输入电机电流和接触器最低要求，筛选工具所列系列中的候选。
+3. 确认线圈电压、过载量程、保护特性与待定项，再生成文字草稿。
+
+部件没有确定时如实保留“待定”。手写型号文字不等于已经在EPLAN里关联了部件。
+
+## 数据依据
+
+- [施耐德/LK厂商目录](https://www1.lk.dk/tekdok/files/DIA1ED2040506EN_bd.pdf)：LC1D09～D38的AC-3基础电流档，历史资料用于识别系列，现行完整订货号另查。
+- [施耐德LRD官方参数表](https://www.se.com/ie/en/faqs/FA142123/)：热继型号与整定范围。
+- [施耐德LRD选型表](https://ckm-content.se.com/ckmContent/sfc/servlet.shepherd/document/download/0691H00000GeorNQAR)：对应接触器安装范围。
+- [EPLAN 2.9选择部件](https://eplan.help/zh-cn/Infoportal/Content/Plattform/2.9/Content/htm/partselectiongui_h_artikelauswahl.htm)：设备关联产品的操作方法。
+
+这是一份特定系列的学习候选工具，不是全行业通用型号表，也不直接生成最终采购结论。完整来源及未完成的检查条件保留在工具内。
+</div>

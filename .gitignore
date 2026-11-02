@@ -74,3 +74,15 @@ src/data/bilibili-data.json
 /private-local-backup/
 .env.*
 !.env.example
+
+# Local diagnostics, backups, caches and private credentials
+*.log
+*.tsbuildinfo
+/.cache/
+/coverage/
+/backups/
+/backup/
+*.bundle
+*.pem
+*.key
+/.devin/

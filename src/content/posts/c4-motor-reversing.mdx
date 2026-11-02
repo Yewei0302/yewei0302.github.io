@@ -1,0 +1,46 @@
+---
+title: C4｜电机正反转主回路与互锁控制
+published: 2026-10-25
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, EPLAN, 正反转, 电气互锁, 电机回路]
+description: 完成7.5kW电机正反转主回路和DC 24V控制回路绘制，用连接导航器核对进线侧换相，记录自锁、交叉互锁与项目检查结果。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study">
+<div class="a2-lead">
+<p class="a2-kicker">电气设计基础 · 配电柜供电篇 / C4</p>
+<p class="a2-lead-title">从启停自锁到电机正反转</p>
+<p>这次新建了 7.5 kW 电机正反转练习工程，完成三相主回路和 DC 24V 控制回路的绘制，练习换相、自锁和交叉电气互锁。</p>
+</div>
+
+<figure class="a2-photo">
+<a href="/images/posts/c4-motor-reversing/01-main-circuit.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/c4-motor-reversing/01-main-circuit.png" alt="C4正反转主回路：QF1、KM1和KM2、FR1、三相电机M1及PE接线" loading="eager" style="display:block;width:auto;max-width:100%;height:auto;max-height:none;object-fit:contain;margin:0 auto;" /></a>
+<figcaption>正反转主回路。保留回路局部，不带大图框；点击可查看原图。</figcaption>
+</figure>
+
+<figure class="a2-photo">
+<a href="/images/posts/c4-motor-reversing/02-control-circuit.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/c4-motor-reversing/02-control-circuit.png" alt="C4控制回路：公共停止和过载保护、正反转启动、自锁及交叉常闭互锁触点" loading="lazy" style="display:block;width:auto;max-width:100%;height:auto;max-height:none;object-fit:contain;margin:0 auto;" /></a>
+<figcaption>DC 24V 正反转控制回路，下方保留接触器触点映像。</figcaption>
+</figure>
+
+## 主回路：在 KM2 进线侧换相
+
+<p>我的画法是在 KM2 的进线侧交换第一、第三相，出线侧按顺序接到 FR1。通过连接导航器核对：KM2 的 1、3、5 分别连接 KM1 的 5、3、1；KM2 的 2、4、6 则依次连接 FR1 的 1、3、5。两组接触器因此向同一台电机提供不同相序。</p>
+
+## 控制回路：各自自锁，交叉互锁
+
+<p>SB2 用于正转启动，KM1 常开触点负责正转自锁；SB3 用于反转启动，KM2 常开触点负责反转自锁。KM2 的常闭触点串入 KM1 线圈支路，KM1 的常闭触点串入 KM2 线圈支路，实现交叉电气互锁。</p>
+<p>两路共用 SB1 停止按钮和 FR1 的 95—96 过载保护触点。换向前先停止，待电机停稳后再启动另一方向；目前未加入停稳检测或换向延时。</p>
+
+## 这次的阶段成果
+
+<p>我核对了设备关联与触点映像，并处理了连接检查中的问题。最后一次项目检查为 0 错误、0 警告，保留 5 条电源端部连接符号未连接的提示，供电接入后还需完善。</p>
+<p>图中已注明 KM1、KM2 要求配套机械互锁，机构型号待选。机械互锁目前只是配置要求，后续还要结合正泰产品核对接触器、互锁附件与订货号；本次完成的是图纸绘制阶段，尚未进行实际通电验证。</p>
+
+<p>前一篇：<a href="/posts/c3-motor-control/">C3｜电机启停与自锁控制回路</a></p>
+</div>

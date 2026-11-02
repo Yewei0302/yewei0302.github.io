@@ -50,3 +50,8 @@
 - [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)
 
 本站发布的PLC程序、项目笔记和图片主要用于个人学习、交流与复盘。
+
+
+## 本站维护
+
+唯一编辑源为 `E:\WebDate`。源码同步与网站发布规则见 [叶工博客编辑、源码同步与发布](docs/GITHUB_SYNC.md)。

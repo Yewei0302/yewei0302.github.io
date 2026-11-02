@@ -1,0 +1,49 @@
+---
+title: D2｜动力与24V控制电缆：芯线分配和自动图表
+published: 2026-10-27
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, EPLAN, 电缆, 芯线分配, 电缆图表]
+description: 在D1副本中完成W1电机动力电缆和W2直流控制电源电缆，核对PE、跨页连接与T节点接线顺序，自动生成两张电缆图表。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study">
+<div class="a2-lead"><p class="a2-kicker">电气设计学习阶梯 · 阶段 D / D2</p><p class="a2-lead-title">把图上的连接整理成两根电缆</p><p>我保留 D1 项目，在副本 D2_电缆设计_正反转控制中继续练习。除了电机动力电缆 W1，我又增加了 DC24V 控制电源电缆 W2，完成芯线归属、接线顺序、电位类型和自动电缆图表。</p></div>
+<h2>先看两张电缆图表</h2>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/01-w1-chart.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/01-w1-chart.png" alt="W1 最终电缆图表：YJV，4芯，每芯4 mm²，练习长度20 m，包含三相和PE。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>W1 最终电缆图表：YJV，4芯，每芯4 mm²，练习长度20 m，包含三相和PE。</figcaption></figure>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/02-w2-chart.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/02-w2-chart.png" alt="W2 最终电缆图表：RVV，2芯，每芯1.5 mm²，练习长度5 m，连接控制电源正极与0V回路。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>W2 最终电缆图表：RVV，2芯，每芯1.5 mm²，练习长度5 m，连接控制电源正极与0V回路。</figcaption></figure>
+<table><thead><tr><th>电缆</th><th>用途</th><th>本次教学候选</th><th>练习长度</th></tr></thead><tbody><tr><td>W1</td><td>XT2 至电机 M1</td><td>YJV，4×4 mm²，含 PE</td><td>20 m</td></tr><tr><td>W2</td><td>XT1 至控制回路</td><td>RVV，2×1.5 mm²</td><td>5 m</td></tr></tbody></table>
+<p>型号、截面积和长度是本次软件练习的候选条件。W1 沿用 B3 的4 mm²候选截面，W2 为新增教学候选；这两组数值尚未完成实际工程的负载、保护、敷设和压降校核。</p>
+<h2>W1：三根相线和PE归入同一根电缆</h2>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/03-w1-drawing.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/03-w1-drawing.png" alt="W1 分成两处绘制：上方定义线穿过三根相线，下方定义线穿过PE，两处使用同一电缆标识符。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>W1 分成两处绘制：上方定义线穿过三根相线，下方定义线穿过PE，两处使用同一电缆标识符。</figcaption></figure>
+<p>原图的三根相线在电机上方，PE 在电机下方。我没有为了画一条电缆线改动原理图，而是用两段同名 W1 定义线表达同一根电缆。三相处保留主功能，PE 处取消主功能；整根电缆的型号、芯数和长度在主定义中维护。</p>
+<p>导航器里出现两个“电缆定义”，并不代表两根电缆。确认它们的完整设备标识符相同，W1 下实际包含 BK、BN、GY、GNYE 四根芯线，才是这一步的核对依据。</p>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/04-w1-cores.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/04-w1-cores.png" alt="W1 四根芯线的连接和截面核对：三相为L，黄绿芯线为PE，四根截面均为4 mm²。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>W1 四根芯线的连接和截面核对：三相为L，黄绿芯线为PE，四根截面均为4 mm²。</figcaption></figure>
+<table><thead><tr><th>芯线</th><th>源</th><th>目标</th><th>电位类型</th></tr></thead><tbody><tr><td>BK 黑</td><td>XT2:1</td><td>M1:U1</td><td>L</td></tr><tr><td>BN 棕</td><td>XT2:2</td><td>M1:V1</td><td>L</td></tr><tr><td>GY 灰</td><td>XT2:3</td><td>M1:W1</td><td>L</td></tr><tr><td>GNYE 黄绿</td><td>XT2:4</td><td>M1:PE</td><td>PE</td></tr></tbody></table>
+<p>主定义填入4 mm²后，三根相线显示了截面，PE 行却仍为空。我通过属性补齐PE芯线截面，再回到电缆编辑器确认四行一致。整根电缆参数已经填写，并不等于每根芯线都已经获得了正确数值。</p>
+<h2>W2：两根芯线为什么曾经显示三条连接</h2>
+<p>我在第5页 XT1 下方、两个跨页中断点上方绘制 W2 定义线，同时穿过+24V与0V连接。跨页连接仍使用 24V_CTRL、0V_CTRL。</p>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/05-w2-branch-before.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/05-w2-branch-before.png" alt="调整前：W2 的0V分支分别连接到KM1:A2和KM2:A2，编辑器显示了三条电缆连接。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>调整前：W2 的0V分支分别连接到KM1:A2和KM2:A2，编辑器显示了三条电缆连接。</figcaption></figure>
+<p>第一次查看时，BK 接 SB1:11，GY 却分别从 XT1:2 接到 KM1:A2 和 KM2:A2。两行颜色相同，不代表它们自动成为同一根物理芯线。这会让计划中的两芯电缆与连接清单不一致。</p>
+<p>我把实际接线顺序明确为：XT1:2 经 W2 的一芯先到 KM1:A2，再用柜内短线连接 KM2:A2。电气上仍共用0V，改变的是导线连接顺序。</p>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/06-t-node.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/06-t-node.png" alt="调整位置：KM1:A2下方的向右T节点。此图保留调整前状态，随后改选第二个变量。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>调整位置：KM1:A2下方的向右T节点。此图保留调整前状态，随后改选第二个变量。</figcaption></figure>
+<p>在“T节点 向右”窗口中，我将第一项改为第二项。两项文字都写“1.目标下，2.目标右”，但小图的公共连接端不同。选择第二项后，上方KM1:A2成为公共接线端，分别接下方XT1:2和右侧KM2:A2。柜内跳线不再占用W2电缆芯线。</p>
+<h2>补电位类型，再核对芯线参数</h2>
+<p>设置 G1 输出连接点的电位类型并更新连接后，W2 中仍显示“未定义”。我随后在 XT1 的连接点逻辑中明确电位类型：1号端子两侧为“+”，2号端子两侧为“M”，保留贯通端子的电位传递关系。更新后，W2 的 BK 显示“+”，GY 显示“M”。</p>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/07-w2-cores.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/07-w2-cores.png" alt="W2 最终连接清单：两根芯线，电位类型为+和M，截面均为1.5 mm²。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>W2 最终连接清单：两根芯线，电位类型为+和M，截面均为1.5 mm²。</figcaption></figure>
+<table><thead><tr><th>芯线</th><th>源</th><th>目标</th><th>电位类型</th><th>截面</th></tr></thead><tbody><tr><td>BK</td><td>XT1:1</td><td>SB1:11</td><td>+</td><td>1.5 mm²</td></tr><tr><td>GY</td><td>XT1:2</td><td>KM1:A2</td><td>M</td><td>1.5 mm²</td></tr></tbody></table>
+<p>这些颜色是本次模型中的芯线标识。实际采购仍需核对具体产品的芯线颜色或编号、端接与标识要求，不能只凭“RVV”型号推定成品配色。</p>
+<h2>报表要跟着源数据更新</h2>
+<p>W1 首次报表长度显示40，检查主定义后发现源数据本身填了40 m，并非已经证实发生重复计长。最终改回20 m教学长度并更新报表。W2 填写5 m练习长度。两张报表都使用 F09_001，位于第6、7页。</p>
+<figure class="a2-photo"><a href="/images/posts/d2-cable-design/08-xt1-chart.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d2-cable-design/08-xt1-chart.png" alt="同步更新后的XT1端子图表：显示W2、RVV及BK／GY芯线，0V目标为KM1:A2。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>同步更新后的XT1端子图表：显示W2、RVV及BK／GY芯线，0V目标为KM1:A2。</figcaption></figure>
+<p>修改电缆归属和0V接线顺序后，我同步更新了端子图表，再次运行项目检查，最终消息列表为空。</p>
+<h2>本次完成与下一步</h2>
+<p>项目保留原五页，并增加W1、W2两页电缆图表，共七页。我完成了电缆定义、分开绘制、芯线分配、PE属性核对、T节点接线顺序调整、跨页目标核对和报表更新。</p>
+<p>目前成果用于D2绘图和数据建模练习。实际电缆选型仍需结合电机与线圈资料、供电及保护方案、敷设条件、启动和稳态压降等校核；G1的交流输入及保护、实物端接和通电验证也仍待后续完善。软件检查消息为空只代表通过了本次配置的检查项目。</p>
+<p>前一篇：<a href="/posts/d1-terminal-strips/">D1｜端子排、跨页连接与自动端子图表</a>。选型基础：<a href="/posts/b3-conductor-sizing/">B3｜导线选型</a>。下一阶段继续 D3：BOM、端子表与电缆表。</p>
+</div>
+

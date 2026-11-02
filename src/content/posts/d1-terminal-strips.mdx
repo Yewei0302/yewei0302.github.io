@@ -1,0 +1,44 @@
+---
+title: D1｜端子排、跨页连接与自动端子图表
+published: 2026-10-27
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, EPLAN, 端子排, 跨页连接, 端子图表]
+description: 复用C4正反转项目，完成XT1控制电源端子、XT2电机动力与PE端子、跨页连接及自动端子图表。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study">
+<div class="a2-lead"><p class="a2-kicker">电气设计学习阶梯 · 阶段 D / D1</p><p class="a2-lead-title">从原理图走到接线接口</p><p>我在 EPLAN 2.9.4 中保留 C4 原项目，建立 D1 副本，为正反转回路补上端子排、独立控制电源接口和跨页连接，最后自动生成端子图表。</p></div>
+<h2>先看最终成果</h2>
+<figure class="a2-photo"><a href="/images/posts/d1-terminal-strips/01-xt1-chart.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d1-terminal-strips/01-xt1-chart.png" alt="XT1 控制电源端子图表：G1 正负输出通过 1、2 号端子接入控制回路，端子位置已更新到第5页。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>XT1 控制电源端子图表：G1 正负输出通过 1、2 号端子接入控制回路，端子位置已更新到第5页。</figcaption></figure>
+<figure class="a2-photo"><a href="/images/posts/d1-terminal-strips/02-xt2-chart.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d1-terminal-strips/02-xt2-chart.png" alt="XT2 电机动力端子图表：1～3号对应 U1、V1、W1，4号是 PE 保护接地端子。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>XT2 电机动力端子图表：1～3号对应 U1、V1、W1，4号是 PE 保护接地端子。</figcaption></figure>
+<p>这次我完成了端子排编辑器、连续编号、内外目标调整、跨页中断点和自动报表更新。最终项目检查消息列表为空。</p>
+<h2>先确定柜内与现场的接口</h2>
+<p>SB1、SB2、SB3 三个按钮都安装在柜门上，沿用柜内配线；现场电机通过 XT2 接线。XT1 用于控制电源分配，第5页用黑盒 G1 表示 DC 24V 开关电源，设备连接点代号为 +、−。</p>
+<table><thead><tr><th>端子</th><th>电源或现场侧</th><th>控制回路或柜内侧</th></tr></thead><tbody><tr><td>XT1:1</td><td>G1:+</td><td>SB1:11</td></tr><tr><td>XT1:2</td><td>G1:−</td><td>KM1:A2、KM2:A2</td></tr><tr><td>XT2:1</td><td>M1:U1</td><td>FR1:2</td></tr><tr><td>XT2:2</td><td>M1:V1</td><td>FR1:4</td></tr><tr><td>XT2:3</td><td>M1:W1</td><td>FR1:6</td></tr><tr><td>XT2:4</td><td>M1:PE</td><td>PE:1</td></tr></tbody></table>
+<p>XT1 的内外侧用于统一本次图表的电源侧与控制回路侧，不表示电源一定装在柜外。XT2 外侧对应现场电机。4号端子设置为“PE端子，2个连接点”，不是只给普通端子改一个 PE 名称。</p>
+<h2>把控制电源独立成页</h2>
+<figure class="a2-photo"><a href="/images/posts/d1-terminal-strips/05-power.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d1-terminal-strips/05-power.png" alt="第5页控制电源接口：G1 的 +、− 输出经 XT1 连接跨页中断点。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>第5页控制电源接口：G1 的 +、− 输出经 XT1 连接跨页中断点。</figcaption></figure>
+<figure class="a2-photo"><a href="/images/posts/d1-terminal-strips/03-control.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d1-terminal-strips/03-control.png" alt="第1页控制回路：24V_CTRL、0V_CTRL 对应第5页，保留启停、自锁、互锁及 A2 公共回路。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>第1页控制回路：24V_CTRL、0V_CTRL 对应第5页，保留启停、自锁、互锁及 A2 公共回路。</figcaption></figure>
+<p>我把电源接口剪切到第5页，避免产生重复端子。两页分别放置同名中断点 24V_CTRL、0V_CTRL，配对后出现绿色交叉参考。更新端子图表后，能追踪到另一页的 SB1 和两只线圈 A2。</p>
+<h2>这次排错中学到的东西</h2>
+<h3>电位定义点和电位连接点的区别</h3>
+<p>原来 +24V、0V、L1～L3 端部存在 005051“连接符号包含未连接的连接点”提示。电位定义点给网络赋予电位属性，不能用作悬空线路的连接终点。我把三相进线换成电位连接点，控制电源后来改用 G1 的设备连接点，经 XT1 和中断点接入控制回路。</p>
+<h3>端子还需要端子排定义</h3>
+<p>插入端子后出现 001010“缺少端子排定义”。我分别为 XT1、XT2 生成定义，填写功能文本，再在端子排编辑器中检查编号和目标。PE 端子和控制电源端子通过“端子内／外替换”统一方向。</p>
+<h3>正反转换相与电位传递</h3>
+<figure class="a2-photo"><a href="/images/posts/d1-terminal-strips/04-main.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d1-terminal-strips/04-main.png" alt="沿用 C4 正反转主回路，加入 XT2 三相端子和 PE 端子；机械互锁型号仍待选。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>沿用 C4 正反转主回路，加入 XT2 三相端子和 PE 端子；机械互锁型号仍待选。</figcaption></figure>
+<p>三相进线改为电位连接点后出现 005028“一个电位上存在多个电位定义”。检查换相结构后，我在 KM2 主触点的连接点逻辑中清空六列“电位传递到”，保留主回路接线和目标跟踪。中途误改的信号类型也全部恢复为“未定义”。这项修改针对本项目的换相网络，不作为所有接触器的默认设置。</p>
+<figure class="a2-photo"><a href="/images/posts/d1-terminal-strips/07-logic.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d1-terminal-strips/07-logic.png" alt="KM2 最终连接点逻辑：电位传递到为空，信号类型为未定义，目标跟踪保留。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>KM2 最终连接点逻辑：电位传递到为空，信号类型为未定义，目标跟踪保留。</figcaption></figure>
+<h3>原理图修改后重新更新报表</h3>
+<p>端子移到第5页后，旧报表仍显示第1页位置和旧电源目标。我更新报表，确认电源侧变为 G1:+、G1:−，再统一 XT1 两个端子的方向。自动生成报表后仍要核对目标、端子号和页位置。</p>
+<h2>检查结果与后续边界</h2>
+<figure class="a2-photo"><a href="/images/posts/d1-terminal-strips/06-check.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d1-terminal-strips/06-check.png" alt="最终项目检查：消息管理列表为空。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>最终项目检查：消息管理列表为空。</figcaption></figure>
+<p>本次共有五页：控制回路、主回路、XT1端子图表、XT2端子图表、控制电源接口。XT1 编号 1～2，XT2 编号 1～4，编号连续，无重复；跨页连接成对，报表已同步更新。</p>
+<p>目前完成的是 D1 绘图与软件检查练习。G1 只表达直流输出，交流输入、输入保护、最终型号和实际供电尚未补齐；三相进线暂直接接 QF1，后续结合进线方案确定是否增加独立端子。机械互锁型号、端子实物规格、电缆和通电验证也仍待完善。消息为空说明通过了本次配置的检查项目。</p>
+<p>前一篇：<a href="/posts/c4-motor-reversing/">C4｜电机正反转主回路与互锁控制</a>。下一阶段按原阶梯继续 D2 电缆设计。</p>
+</div>

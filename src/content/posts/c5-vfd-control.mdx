@@ -1,0 +1,51 @@
+---
+title: C5｜正泰变频器启停、调速与故障指示
+published: 2026-10-26
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, EPLAN, 正泰, 变频器, 电机回路]
+description: 参照正泰NVF5资料，完成7.5kW电机变频主回路、两线制启停、电位器调速和故障指示的绘图练习。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study">
+<div class="a2-lead">
+<p class="a2-kicker">电气设计基础 · 配电柜供电篇 / C5</p>
+<p class="a2-lead-title">用变频器控制电机启停与调速</p>
+<p>这次我参照正泰 NVF5 样本和快速说明书，在 EPLAN 中完成了 7.5 kW 电机变频主回路与控制回路的绘制。</p>
+</div>
+
+<figure class="a2-photo">
+<a href="/images/posts/c5-vfd-control/01-main-circuit.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/c5-vfd-control/01-main-circuit.png" alt="C5绘制成果：三相电源经QF1进入U1变频器，再连接M1电机，分别连接公共PE" loading="eager" style="display:block;width:auto;max-width:100%;height:auto;max-height:none;margin:0 auto;" /></a>
+<figcaption>我绘制的变频器主回路。QF1 进线保护 → U1 变频器 → M1 电机，点击可查看原图。</figcaption>
+</figure>
+
+<figure class="a2-photo">
+<a href="/images/posts/c5-vfd-control/02-control-circuit.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/c5-vfd-control/02-control-circuit.png" alt="C5最终控制图：SA1两线制启停、RP1十千欧电位器调速、HL1故障指示及待设置参数" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a>
+<figcaption>我绘制的控制回路：SA1 管启停，RP1 管调速，HL1 用于故障指示。参数表记录的是待实机设置值。</figcaption>
+</figure>
+
+## 这张图完成了什么
+
+<p>主回路用黑盒 U1 表示变频器，输入端为 R、S、T，输出端 U、V、W 接到电机。候选型号为正泰 NVF5-7.5/TS4-B，样本标注额定输入电流 22.2 A、额定输出电流 17 A，最终还需结合电机铭牌和使用条件核对。</p>
+<p>控制回路采用两线制：保持型开关 SA1 接在 DI1 与 COM 之间，闭合给出运行指令，断开给出停止指令。RP1 采用 10 kΩ 电位器，两端接 +10V、GND，滑动端接 AI1。故障指示采用外部 DC 24V，经 R1B—R1C 常开干接点控制 HL1；模拟公共端 GND、数字公共端 COM 与外部指示灯回线没有混接。</p>
+
+## 我参考的正泰接线图
+
+<figure class="a2-photo">
+<a href="/images/posts/c5-vfd-control/03-chint-reference.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/c5-vfd-control/03-chint-reference.png" alt="正泰NVF5产品标准接线图，展示主回路、数字输入、模拟量与继电器输出端子" loading="lazy" style="display:block;width:auto;max-width:100%;height:auto;max-height:none;margin:0 auto;" /></a>
+<figcaption>正泰 NVF5 产品标准接线图参考。来源：2026版产品样本“产品标准接线图”（印刷页码824）；具体启停和调速设置另核对快速说明书图3-6。</figcaption>
+</figure>
+
+<p>这次练习先读厂家端子说明，再把需要的功能画进自己的工程。快速说明书中的两线制接法与此前接触器瞬时按钮自锁不同，不直接照搬上一项目。</p>
+
+## 参数与阶段结果
+
+<p>图中记录：F0.01＝1（端子控制）、F0.02＝1（AI1 给定）、F5.01＝1（DI1 正转运行）、F5.08＝0（两线制模式1）、F6.02＝16（故障输出）。AI1 拨码需要置电压侧，这些均为后续调试要求，尚未实机设置。</p>
+<p>最后一次项目检查为 0 错误、0 警告，保留 5 条电源端部连接符号未连接的提示。当前完成的是绘图阶段；供电接入、QF1 保护选型、最终部件与订货号以及通电验证仍待完善，普通运行开关不作为急停使用。</p>
+<p>资料入口：<a href="https://www.chint.net/products/103.html" target="_blank" rel="noopener noreferrer">正泰 NVF5 官方产品资料</a>。</p>
+<p>前一篇：<a href="/posts/c4-motor-reversing/">C4｜电机正反转主回路与互锁控制</a></p>
+</div>

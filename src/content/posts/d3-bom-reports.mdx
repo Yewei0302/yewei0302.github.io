@@ -1,0 +1,54 @@
+---
+title: D3｜部件关联、BOM汇总与功能模板排错
+published: 2026-10-29
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, EPLAN, BOM, 部件关联, 功能模板]
+description: 在EPLAN 2026完成八种器件的部件关联与BOM汇总，解决007001功能模板不匹配，更新端子电缆报表，最终项目检查消息为空。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study"><div class="a2-lead"><p class="a2-kicker">电气设计学习阶梯 · 阶段 D / D3</p><p class="a2-lead-title">让原理图、真实部件和BOM对应起来</p><p>我保留D2成果，在D3副本中继续给设备关联部件。本次过程中升级到EPLAN 2026，使用自己的部件库和Data Portal，生成第8页部件汇总表，并逐项处理功能模板不匹配。</p></div>
+<h2>先看最终成果：BOM已生成，检查消息为空</h2>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/01-bom-final.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/01-bom-final.png" alt="D3最终部件汇总表：八种已选部件、数量与关联设备对应，空白零数量项已清除。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>D3最终部件汇总表：八种已选部件、数量与关联设备对应，空白零数量项已清除。</figcaption></figure>
+<div class="a2-correction"><strong>本次检查通过：最终消息管理列表为空。</strong><p>完成部件关联、功能匹配及全部报表更新后，我重新运行项目检查，当前检查配置下没有列出错误、警告或提示。这是本轮软件检查结果，不等于完整工程选型或实物投运验收。</p></div>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/02-check-clear.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/02-check-clear.png" alt="D3最终检查结果：消息管理表格无消息行，未出错提示以此次检查结果为依据。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>D3最终检查结果：消息管理表格无消息行，未出错提示以此次检查结果为依据。</figcaption></figure>
+<h2>本次选入的部件与数量</h2>
+<table><thead><tr><th>设备</th><th>型号／订货号</th><th>数量</th><th>用途</th></tr></thead><tbody><tr><td>QF1</td><td>A9F75320</td><td>1</td><td>施耐德iC60N，3P、20A、D曲线候选</td></tr><tr><td>KM1、KM2</td><td>LC1D18BD</td><td>2</td><td>18A接触器，DC24V线圈，内置1NO＋1NC</td></tr><tr><td>FR1</td><td>LRD21</td><td>1</td><td>12～18A、Class 10A热继电器</td></tr><tr><td>G1</td><td>HDR-60-24</td><td>1</td><td>明纬导轨电源，DC24V、2.5A、60W候选</td></tr><tr><td>SB1</td><td>XB5AA42</td><td>1</td><td>红色瞬时复位、1NC完整停止按钮</td></tr><tr><td>SB2、SB3</td><td>XB5AA31</td><td>2</td><td>绿色瞬时复位、1NO完整按钮</td></tr><tr><td>XT1:1～2、XT2:1～3</td><td>UT 4／3044102</td><td>5</td><td>普通贯通端子</td></tr><tr><td>XT2:4</td><td>UT 4-PE／3044128</td><td>1</td><td>保护接地端子</td></tr></tbody></table>
+<p>同一接触器的部件只关联到线圈主功能，主触点和内置辅助触点不再重复计料。QF1采用分极表达时，也只在一个主功能上保留1只部件。端子则按每个实体端子各关联1只，不在端子排定义上重复增加。</p>
+<p>表中的单价、总价显示0.00，是未录入价格，并不表示器件免费。当前是已选部件的教学BOM，不是完整采购清单。</p>
+<h2>Data Portal导入：只取本次需要的数据</h2>
+<p>本地库没有匹配的DC24V接触器时，我通过Data Portal查找部件，核对工作电流、线圈电压和辅助触点。下载完整按钮时发现库里多出触点模块、标牌等条目，于是检查导入选项，取消“附件／相关部件”，保留制造商数据，减少后续选型列表中的杂项。</p>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/10-import-options.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/10-import-options.png" alt="导入设置排查时的窗口：附件／相关部件原本勾选。后续按需取消该项，减少附带部件。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>导入设置排查时的窗口：附件／相关部件原本勾选。后续按需取消该项，减少附带部件。</figcaption></figure>
+<p>库里存在组件不代表它已进入BOM，也不能仅凭名称认定可删除。完整按钮按完整订货号关联，避免再把其内部触点重复作为独立采购件添加。</p>
+<h2>第一版BOM为什么漏掉端子</h2>
+<p>XT2:1已经关联UT 4且数量为1，第一次部件汇总表却没有端子。检查“设置：部件”后发现，“端子排部件”与“端子部件”是不同选项，实际端子部件没有启用。</p>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/04-parts-output.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/04-parts-output.png" alt="排查时的输出设置：端子部件未勾选，无部件编号的设备仍勾选。随后分别启用端子输出并取消无编号设备输出。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>排查时的输出设置：端子部件未勾选，无部件编号的设备仍勾选。随后分别启用端子输出并取消无编号设备输出。</figcaption></figure>
+<p>勾选“端子部件”后，UT 4汇总为5只、UT 4-PE为1只。取消“无部件编号的设备”并更新报表后，零数量的空项消失。M1尚未选型的问题仍记为待完善，不能因为隐藏了无编号对象就当作已完成。</p>
+<p>QF1先前的部件数据名称为空，我在自己的部件管理中补充简体中文名称“小型断路器，3P，20A，D曲线”及描述，保持订货号与厂家功能模板不变，再同步项目数据和报表。部件中的繁体中文来自数据内容，不是界面语言设置错误。</p>
+<h2>007001：有部件编号，还要让功能匹配</h2>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/05-function-errors.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/05-function-errors.png" alt="排错阶段出现007001：设备使用的功能多于部件提供的功能；这张保留为排错过程，最终已清空。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>排错阶段出现007001：设备使用的功能多于部件提供的功能；这张保留为排错过程，最终已清空。</figcaption></figure>
+<p>关联部件后，项目检查对KM1、KM2、QF1、FR1和G1报出功能不匹配。我没有靠关闭检查或随意增加厂家模板来消除消息，而是逐项比较功能定义、连接点代号和表达方式。</p>
+<h3>接触器：三极组合符号与三个独立主触点</h3>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/06-contactor-template.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/06-contactor-template.png" alt="LC1D18BD功能模板：线圈、三组独立主触点，以及13–14常开和21–22常闭辅助触点。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>LC1D18BD功能模板：线圈、三组独立主触点，以及13–14常开和21–22常闭辅助触点。</figcaption></figure>
+<p>原图SL3把三极主触点作为一个6连接点功能，厂家模板却是三个独立的2连接点主触点。我将KM1、KM2分别改用三个SL主触点，保留设备标识符与换相线路，按厂家模板填写1/L1–2/T1、3/L2–4/T2、5/L3–6/T3。各主触点不重复勾选主功能或关联接触器部件。</p>
+<p>替换符号后，正反转网络再次出现005028电位定义冲突。我检查KM2三个主触点的连接点逻辑，清空“电位传递到”，把误设为传感器的信号类型恢复未定义，保留目标跟踪设置，随后电位冲突消失。这是针对本换相回路的建模处理。</p>
+<h3>QF1：同一只三极断路器采用分极表达</h3>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/07-breaker-template.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/07-breaker-template.png" alt="A9F75320功能模板：三行断路器功能，对应1–2、3–4、5–6。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>A9F75320功能模板：三行断路器功能，对应1–2、3–4、5–6。</figcaption></figure>
+<p>原图FA3也是单个三极组合功能，与下载部件的分极模板不一致。我改用三个FA符号，共同归属QF1，保持三组编号，仅第一极为主功能并关联A9F75320数量1。BOM仍是一只三极断路器，不是三只单极器件。</p>
+<h3>FR1：功能一致，但连接点名称不一致</h3>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/08-overload-template.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/08-overload-template.png" alt="LRD21模板：三极热释放、95–96常闭辅助触点和97–98常开辅助触点。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>LRD21模板：三极热释放、95–96常闭辅助触点和97–98常开辅助触点。</figcaption></figure>
+<p>FT3的“三极过热释放”功能与厂家模板一致，无需换符号。原连接点1～6改为厂家完整代号1/L1、2/T1、3/L2、4/T2、5/L3、6/T3后，FR1匹配通过。未使用的97–98触点没有为了消除报错而额外绘制。</p>
+<h3>G1：代号是数字，正负极写在描述里</h3>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/09-power-template.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/09-power-template.png" alt="HDR-60-24模板：黑盒加六个设备连接点，1、2为−V，3、4为+V，5为L，6为N。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>HDR-60-24模板：黑盒加六个设备连接点，1、2为−V，3、4为+V，5为L，6为N。</figcaption></figure>
+<p>原图把“+、−”作为连接点代号，而部件采用数字代号。我把当前正极输出改为3，描述+V；负极输出改为1，描述−V，保留+与M电位类型。部件仍只关联在G1黑盒主功能上，输出点不重复计料。</p>
+<h2>更新端子、电缆与BOM，核对最终目标</h2>
+<figure class="a2-photo"><a href="/images/posts/d3-bom-reports/03-xt1-final.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/d3-bom-reports/03-xt1-final.png" alt="最终XT1端子图表：SB1:21经1号端子连接G1:3，KM1:A2经2号端子连接G1:1。" loading="lazy" style="display:block;width:100%;height:auto;max-height:none;margin:0 auto;" /></a><figcaption>最终XT1端子图表：SB1:21经1号端子连接G1:3，KM1:A2经2号端子连接G1:1。</figcaption></figure>
+<p>SB1采用XB5AA42后，按实物触点将11–12改为21–22；更新报表后，供电目标对应SB1:21。G1的输出编号也已同步为3和1。最后核对断路器数量1、接触器数量2，重新检查得到空消息列表。</p>
+<h2>本次完成与仍待完善的内容</h2>
+<p>本轮完成EPLAN 2026中的部件关联、八种部件的数量汇总、端子与电缆报表同步，以及功能模板相关排错。项目共八页，原有七页保留，第8页为F02_001部件汇总表。</p>
+<p>这份清单尚未包含电机M1、电缆实物部件及端板、固定件等安装附件。G1目前只完成直流输出，交流输入及其保护仍待补齐，电源容量和保护配合也需继续校核。本练习按当前选择未配置机械互锁，只保留电气互锁，不作为实物柜投运方案。后续D4将继续设计检查。</p>
+<p>前一篇：<a href="/posts/d2-cable-design/">D2｜动力与24V控制电缆</a>。基础成果：<a href="/posts/d1-terminal-strips/">D1｜端子排与跨页连接</a>。</p></div>

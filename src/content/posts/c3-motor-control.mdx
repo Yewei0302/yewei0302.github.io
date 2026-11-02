@@ -1,0 +1,38 @@
+---
+title: C3｜电机启停与自锁控制回路
+published: 2026-10-25
+author: 叶工
+category: 电气设计
+lang: zh-CN
+tags: [电气设计, EPLAN, 启停控制, 自锁, 电机回路]
+description: 在C2单线图基础上，完成DC 24V电机启停、自锁与过载保护控制回路的绘制，验证设备关联并记录项目检查结果。
+draft: false
+---
+
+import '../../styles/a2-motor-study.css';
+
+<div class="a2-study">
+<div class="a2-lead">
+<p class="a2-kicker">电气设计基础 · 配电柜供电篇 / C3</p>
+<p class="a2-lead-title">电机启停与自锁控制回路</p>
+<p>接着 C2 的电机单线图，我用多线原理图画出了 DC 24V 启停与自锁控制回路，并加入热继电器的过载保护触点。</p>
+</div>
+
+<figure class="a2-photo">
+<a href="/images/posts/c3-motor-control/01-control-circuit.png" target="_blank" rel="noopener noreferrer"><img src="/images/posts/c3-motor-control/01-control-circuit.png" alt="C3电机启停自锁控制图：SB1停止、FR1过载保护、SB2启动和KM1自锁触点及线圈" width="481" height="450" loading="eager" style="display:block;width:100%;max-width:760px;height:auto;max-height:none;object-fit:contain;margin:0 auto;" /></a>
+<figcaption>我的 C3 回路绘制成果。保留回路局部，便于看清接线与说明，点击可查看原图。</figcaption>
+</figure>
+
+## 这张图怎么动作
+
+<p>按下启动按钮 SB2，KM1 线圈得电，KM1 的 13—14 常开辅助触点闭合；松开 SB2 后，通过这条并联支路保持线圈得电，实现自锁。</p>
+<p>按下停止按钮 SB1，或者 FR1 过载动作使 95—96 常闭触点断开，KM1 都会失电释放，自锁随之解除。这是本次绘制的控制逻辑，尚未进行实际通电验证。</p>
+
+## 这次完成的检查
+
+<p>我补齐了设备编号、连接点代号和功能文本，并通过“转到匹配物”确认 KM1 的主触点、自锁辅助触点与线圈，以及 FR1 的设备关联。</p>
+<p>检查时遇到 FR1 主回路连接点类型不匹配的问题，将 FR1 的 1、3、5 连接点改为“芯线／导线”后，相关警告消除。</p>
+<p>本次项目检查已无错误、无警告，仍有两条电源端部连接符号未连接的提示。外部 DC 24V 电源接入及支路保护待设计，后续再完善实际型号、订货号和部件关联。</p>
+
+<p>前一篇：<a href="/posts/c2-motor-single-line/">C2｜第一张电机单线图</a></p>
+</div>
