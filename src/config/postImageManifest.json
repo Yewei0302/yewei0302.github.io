@@ -1878,5 +1878,35 @@
 		"src": "/images/posts/f2-servo-positioning/01-axis-positioning.gif",
 		"width": 1011,
 		"height": 739
+	},
+	"/images/posts/g1-height-sorting/classification.png": {
+		"src": "/images/posts/g1-height-sorting/classification.png",
+		"width": 939,
+		"height": 647
+	},
+	"/images/posts/g1-height-sorting/mapping.png": {
+		"src": "/assets/post-images/bed578dc88c1f07d05b4.webp",
+		"width": 1600,
+		"height": 794
+	},
+	"/images/posts/g1-height-sorting/push.png": {
+		"src": "/images/posts/g1-height-sorting/push.png",
+		"width": 1120,
+		"height": 848
+	},
+	"/images/posts/g1-height-sorting/scene.png": {
+		"src": "/assets/post-images/d4df15576a727efdd06f.webp",
+		"width": 895,
+		"height": 264
+	},
+	"/images/posts/g1-height-sorting/watch.png": {
+		"src": "/images/posts/g1-height-sorting/watch.png",
+		"width": 1266,
+		"height": 331
+	},
+	"/images/posts/g1-height-sorting/g1-running.webp": {
+		"src": "/assets/post-images/cc7798343b0192a7d23f.webp",
+		"width": 1522,
+		"height": 460
 	}
 }
