@@ -1908,5 +1908,20 @@
 		"src": "/assets/post-images/cc7798343b0192a7d23f.webp",
 		"width": 1522,
 		"height": 460
+	},
+	"/images/posts/g2-hmi-sorting/hmi-running.gif": {
+		"src": "/assets/post-images/7e58395d5bd293fe62cb.webp",
+		"width": 1017,
+		"height": 564
+	},
+	"/images/posts/g2-hmi-sorting/hmi-final.gif": {
+		"src": "/images/posts/g2-hmi-sorting/hmi-final.gif",
+		"width": 986,
+		"height": 564
+	},
+	"/images/posts/g2-hmi-sorting/hmi-final.png": {
+		"src": "/images/posts/g2-hmi-sorting/hmi-final.png",
+		"width": 986,
+		"height": 564
 	}
 }
