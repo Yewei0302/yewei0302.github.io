@@ -11,7 +11,7 @@ draft: false
 
 我在 D3 做过部件关联和 BOM 报表。这一课我回到一个更基础的问题：图纸上画出一只接触器的线圈以后，EPLAN 还需要哪些数据，才能把它变成一条可核对的采购记录？
 
-<a href="/images/posts/d5-eplan-parts-basics/lesson-01.html" data-no-swup target="_blank" rel="noopener">在新标签页打开第一课 HTML 教材</a>
+<div><a href="/images/posts/d5-eplan-parts-basics/lesson-01.html" data-no-swup target="_blank" rel="noopener"><strong>打开第一课 HTML 教材 ↗</strong></a></div>
 
 ## 顺着 -K1 走一遍
 
