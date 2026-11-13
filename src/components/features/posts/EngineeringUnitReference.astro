@@ -1,0 +1,680 @@
+<engineering-unit-reference>
+<p>查阅电气、机械、流体和热工的常用单位关系，或直接使用换算器、计算器与速查表。</p>
+
+<nav class="toc" aria-label="单位关系章节">
+  <ul>
+    <li><a href="#units-core">① 力学基本量</a></li>
+    <li><a href="#units-rot">② 直线与旋转</a></li>
+    <li><a href="#units-elec">③ 电学</a></li>
+    <li><a href="#units-fluid">④ 流体</a></li>
+    <li><a href="#units-therm">⑤ 热与能量</a></li>
+    <li><a href="#units-speed">⑥ 转速与频率</a></li>
+    <li><a href="#units-conv">⑦ 换算器</a></li>
+    <li><a href="#units-calc">⑧ 计算器</a></li>
+    <li><a href="#units-glossary">⑨ 速查表</a></li>
+    <li><a href="#units-traps">⑩ 陷阱</a></li>
+    <li><a href="#units-dim">⑪ 量纲自检</a></li>
+    <li><a href="#units-select">⑫ 从负载到电机</a></li>
+  </ul>
+</nav>
+
+<div>
+
+<!-- ========== 1 ========== -->
+<section id="units-core">
+  <h2><span class="num">1</span>从三个力学基本量推导常用单位</h2>
+  <p class="lead">长度、质量和时间足以表示本节力学量的量纲。SI 还规定电流、热力学温度、物质的量和发光强度四个基本量。</p>
+
+  <div class="chain">
+    <div class="cstep">
+      <span class="tag">基本</span>
+      <div class="u">m · kg · s</div>
+      <div class="d">长度 / 质量 / 时间</div>
+    </div>
+    <div class="carrow">→</div>
+    <div class="cstep l1">
+      <span class="tag">力</span>
+      <div class="u">N = kg·m/s²</div>
+      <div class="d">F = m·a</div>
+    </div>
+    <div class="carrow">→</div>
+    <div class="cstep l2">
+      <span class="tag">压力</span>
+      <div class="u">Pa = N/m²</div>
+      <div class="d">p = F/A</div>
+    </div>
+  </div>
+
+  <div class="chain">
+    <div class="cstep l1">
+      <span class="tag">力</span>
+      <div class="u">N</div>
+      <div class="d">树干的第二个节点</div>
+    </div>
+    <div class="carrow">→</div>
+    <div class="cstep l2">
+      <span class="tag">功 / 能</span>
+      <div class="u">J = N·m</div>
+      <div class="d">W = F·x</div>
+    </div>
+    <div class="carrow">→</div>
+    <div class="cstep l3">
+      <span class="tag">功率</span>
+      <div class="u">W = J/s</div>
+      <div class="d">P = W/t</div>
+    </div>
+    <div class="carrow">→</div>
+    <div class="cstep">
+      <span class="tag">电能</span>
+      <div class="u">kW·h = 3.6 MJ</div>
+      <div class="d">E = P·t</div>
+    </div>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>量</th><th>定义式</th><th>单位</th><th>用基本量表示</th><th>一句话</th></tr></thead>
+      <tbody>
+        <tr><td>力</td><td class="mono">F = m·a</td><td class="mono">N 牛顿</td><td class="mono">kg·m/s²</td><td>让 1 kg 产生 1 m/s² 加速度的力</td></tr>
+        <tr><td>压力</td><td class="mono">p = F/A</td><td class="mono">Pa 帕</td><td class="mono">kg/(m·s²)</td><td>1 N 压在 1 m² 上</td></tr>
+        <tr><td>功 / 能</td><td class="mono">W = F·x</td><td class="mono">J 焦</td><td class="mono">kg·m²/s²</td><td>1 N 推着走 1 m</td></tr>
+        <tr><td>功率</td><td class="mono">P = W/t</td><td class="mono">W 瓦</td><td class="mono">kg·m²/s³</td><td>每秒做 1 J 的功</td></tr>
+        <tr><td>转矩</td><td class="mono">T = F·r</td><td class="mono">N·m 牛米</td><td class="mono">kg·m²/s²</td><td>1 N 作用在 1 m 力臂上（<b>注意与 J 同单位不同物</b>）</td></tr>
+        <tr><td>角速度</td><td class="mono">ω = θ/t</td><td class="mono">rad/s</td><td class="mono">1/s</td><td>每秒转多少弧度</td></tr>
+        <tr><td>频率</td><td class="mono">f = 1/T</td><td class="mono">Hz 赫</td><td class="mono">1/s</td><td>每秒多少个周期</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>用法：</b>算完一个公式，把单位代进去看能不能消成目标单位。量纲一致是必要条件。还需核对公式系数和适用条件。
+  </div>
+</section>
+
+<!-- ========== 2 ========== -->
+<section id="units-rot">
+  <h2><span class="num">2</span>直线与旋转，一一对应</h2>
+  <p class="lead">这是理解「力矩」和「功率」关系的钥匙。电机拖动里所有公式，都是把左列搬到了右列。</p>
+
+  <div class="duo">
+    <div class="pane">
+      <div class="ph">直线运动</div>
+      <div class="pb">
+        <table>
+          <tr><th>量</th><th>符号</th><th>单位</th></tr>
+          <tr><td>作用量</td><td>力 F</td><td class="mono">N</td></tr>
+          <tr><td>运动量</td><td>速度 v</td><td class="mono">m/s</td></tr>
+          <tr><td>功率</td><td>P = F·v</td><td class="mono">W</td></tr>
+          <tr><td>做功</td><td>W = F·x</td><td class="mono">J</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="pane rot">
+      <div class="ph">旋转运动</div>
+      <div class="pb">
+        <table>
+          <tr><th>量</th><th>符号</th><th>单位</th></tr>
+          <tr><td>作用量</td><td>转矩 T</td><td class="mono">N·m</td></tr>
+          <tr><td>运动量</td><td>角速度 ω</td><td class="mono">rad/s</td></tr>
+          <tr><td>功率</td><td>P = T·ω</td><td class="mono">W</td></tr>
+          <tr><td>做功</td><td>W = T·θ</td><td class="mono">J</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <h3>为什么 N·m 既是力矩又是能量，却不是一回事</h3>
+  <p>因为旋转运动里的「位移」是<b>角度 θ</b>，而角度的单位是弧度，<b>弧度是无量纲的</b>：</p>
+  <div class="fml">1 rad = 弧长 / 半径 = m / m = 无量纲
+W = T · θ  →  N·m × 无量纲 = N·m = J</div>
+  <p>所以正确的理解是：</p>
+  <div class="note">
+    <b>力</b> = 每走 1 米做多少焦耳　　<span class="mono">F = dW/dx　[J/m = N]</span><br>
+    <b>力矩</b> = 每转 1 弧度做多少焦耳　<span class="mono">T = dW/dθ　[J/rad = N·m]</span>
+  </div>
+  <p>换算成好记的说法：<b>1 N·m 的转矩，转一整圈（2π ≈ 6.28 弧度）才做 6.28 J 的功。</b>电机堵着不转时，转矩还在，功率是零——这就是「力矩不是能量」。</p>
+
+  <div class="warn">
+    <b>现场意义：</b>电机铭牌写的是功率（kW），但决定「带不带得动」的是转矩（N·m）。功率相同、转速不同，转矩可以差很多倍。选型时两个都要看：<b>功率决定长期能力，转矩决定能不能启动、能不能扛冲击。</b>
+  </div>
+</section>
+
+<!-- ========== 3 ========== -->
+<section id="units-elec">
+  <h2><span class="num">3</span>电学单位：三个功率别混</h2>
+  <p class="lead">三相公式适用于平衡、正弦交流。U、I 分别为线电压和线电流的有效值。</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>量</th><th>单位</th><th>公式</th><th>含义</th><th>谁收费</th></tr></thead>
+      <tbody>
+        <tr><td>有功功率</td><td class="mono">W / kW</td><td class="mono">P = √3·U·I·cosφ</td><td>真正变成热、光、机械功的部分</td><td><b>电表按它收费</b></td></tr>
+        <tr><td>无功功率</td><td class="mono">var / kvar</td><td class="mono">Q = √3·U·I·sinφ</td><td>建立磁场来回交换，不消耗但占容量</td><td>大用户会被考核</td></tr>
+        <tr><td>视在功率</td><td class="mono">VA / kVA</td><td class="mono">S = √3·U·I</td><td>变压器、发电机、UPS 的容量口径</td><td>按它选设备</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fml">S² = P² + Q²          <span class="c">// 功率三角形</span>
+cosφ = P / S           <span class="c">// 功率因数，0~1</span>
+
+三相：P = √3 · U线 · I线 · cosφ
+单相：P = U · I · cosφ
+
+电机：P输入 = √3·U·I·cosφ        <span class="c">// 从电网取的</span>
+      P输出 = P输入 · η          <span class="c">// 铭牌标的这个</span></div>
+
+  <div class="danger">
+    <b>最容易错的一条：</b>电机铭牌上的 11 kW 是<b>轴输出功率</b>，不是它从电网拿的功率。电网侧要除以效率：<span class="mono">11 / 0.90 = 12.2 kW</span>。算电流时用哪个，结论差 11%。
+  </div>
+
+  <h3>电流从哪来</h3>
+  <div class="fml">I = P输出 / (√3 · U · η · cosφ)      <span class="c">// 三相电机额定电流</span>
+I = P / (√3 · U · cosφ)             <span class="c">// 已知输入功率时</span>
+
+例：11 kW / 380 V / η=0.90 / cosφ=0.85
+I = 11000 / (1.732 × 380 × 0.90 × 0.85) = 21.8 A</div>
+
+  <h3>能量与电量</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>单位</th><th>等于</th><th>用在哪</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1 kW·h</td><td class="mono">3.6 MJ ≈ 860 kcal</td><td>电费、能耗统计</td></tr>
+        <tr><td class="mono">1 Ah</td><td>需要乘电压才是能量：<span class="mono">Wh = Ah × V</span></td><td>电池、直流屏</td></tr>
+        <tr><td class="mono">1 kVA</td><td>容量，不等于能带多少 kW（要乘 cosφ）</td><td>变压器、UPS 选型</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note"><b>Ah 不是能量。</b>12 V 100 Ah 的电池是 1200 Wh = 1.2 kW·h；同样 100 Ah 的 2 V 电池只有 200 Wh。差了 6 倍，只因为电压不同。</div>
+</section>
+
+<!-- ========== 4 ========== -->
+<section id="units-fluid">
+  <h2><span class="num">4</span>流体：压力、流量、扬程</h2>
+  <p class="lead">压差水头 Hₚ = Δp/(ρg)。泵总扬程 H 还包括进出口的高程差和速度水头差。</p>
+
+  <div class="fml">Δp = ρ · g · Hₚ
+H = Hₚ + (z₂ − z₁) + (v₂² − v₁²)/(2g)
+P水力 = ρ · g · Q · H
+进出口高程与速度水头相同时，P水力 = Δp · Q</div>
+
+  <p><b>为什么 p·Q 就是功率？</b>把两个定义式代进去，面积正好约掉：</p>
+  <div class="fml">Q = A · v          <span class="c">// 流量 = 截面积 × 流速</span>
+p = F / A          <span class="c">// 压力 = 力 / 面积</span>
+
+p · Q = (F/A) · (A·v) = F · v = P   <span class="c">// 又回到 F·v</span>
+
+量纲：Pa × m³/s = (N/m²)(m³/s) = N·m/s = W ✓</div>
+
+  <h3>为什么扬程是「米」</h3>
+  <div class="fml">H = 能量 / 重量 = J / N = (N·m)/N = m
+
+1 m 水柱 = 1000 × 9.81 × 1 = 9810 Pa ≈ 9.81 kPa
+1 MPa   = 1,000,000 / 9810 ≈ 102 m 水柱</div>
+  <p>同一压差水头下，压差与密度成正比。实际泵扬程取决于工况，介质黏度也可能改变泵的性能。</p>
+
+  <h3>压力单位换算表</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>单位</th><th>Pa</th><th>bar</th><th>MPa</th><th>m 水柱</th><th>用在哪</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1 Pa</td><td class="num">1</td><td class="num">1×10⁻⁵</td><td class="num">1×10⁻⁶</td><td class="num">0.000102</td><td>理论、微压</td></tr>
+        <tr><td class="mono">1 kPa</td><td class="num">1000</td><td class="num">0.01</td><td class="num">0.001</td><td class="num">0.102</td><td>风压、微差压</td></tr>
+        <tr><td class="mono">1 bar</td><td class="num">100 000</td><td class="num">1</td><td class="num">0.1</td><td class="num">10.2</td><td>气动、进口仪表</td></tr>
+        <tr><td class="mono">1 MPa</td><td class="num">1 000 000</td><td class="num">10</td><td class="num">1</td><td class="num">102</td><td>水压、液压（国内最常用）</td></tr>
+        <tr><td class="mono">1 kgf/cm²</td><td class="num">98 067</td><td class="num">0.981</td><td class="num">0.098</td><td class="num">10.0</td><td>老图纸、老压力表</td></tr>
+        <tr><td class="mono">1 atm</td><td class="num">101 325</td><td class="num">1.013</td><td class="num">0.101</td><td class="num">10.33</td><td>物理标准大气压</td></tr>
+        <tr><td class="mono">1 psi</td><td class="num">6895</td><td class="num">0.069</td><td class="num">0.0069</td><td class="num">0.703</td><td>美标设备</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13px;color:#8a9aa0">注：m 水柱按 4 ℃、标准重力 9.80665 计算。工程近似取 9.81 时，1 MPa ≈ 101.9 m，差 0.03%，可忽略。</p>
+
+  <h3>流量换算</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>单位</th><th>m³/s</th><th>m³/h</th><th>L/s</th><th>L/min</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1 m³/h</td><td class="num">2.778×10⁻⁴</td><td class="num">1</td><td class="num">0.2778</td><td class="num">16.67</td></tr>
+        <tr><td class="mono">1 L/s</td><td class="num">0.001</td><td class="num">3.6</td><td class="num">1</td><td class="num">60</td></tr>
+        <tr><td class="mono">1 m³/s</td><td class="num">1</td><td class="num">3600</td><td class="num">1000</td><td class="num">60 000</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="danger"><b>流量单位是最大的坑。</b>公式里用 m³/s，样本上写 m³/h，中间差 <b>3600 倍</b>。算功率时忘了除 3600，结果会大 3600 倍——不是“差一点”，是差三个数量级。</div>
+</section>
+
+<!-- ========== 5 ========== -->
+<section id="units-therm">
+  <h2><span class="num">5</span>热与能量：焦耳、卡、千瓦时</h2>
+  <p class="lead">热工和水泵一样，本质是能量搬运。三个单位都是能量，只是历史来源不同。</p>
+
+  <div class="fml">Q = m · c · ΔT                <span class="c">// 加热需要的能量</span>
+
+水：c = 4.18 kJ/(kg·K)         <span class="c">// 1 kg 水升 1 ℃ 要 4.18 kJ</span>
+空气：c ≈ 1.005 kJ/(kg·K)
+
+1 kcal = 4.1868 kJ
+1 kW·h = 3.6 MJ ≈ 860 kcal
+1 kW ≈ 860 kcal/h</div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>单位</th><th>换算</th><th>典型场景</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">J / kJ</td><td>SI 标准能量</td><td>计算、教案</td></tr>
+        <tr><td class="mono">kW·h</td><td>3.6 MJ</td><td>电费、电能表</td></tr>
+        <tr><td class="mono">kcal</td><td>4.1868 kJ</td><td>暖通、锅炉、老样本</td></tr>
+        <tr><td class="mono">BTU</td><td>1.055 kJ</td><td>美标暖通</td></tr>
+        <tr><td class="mono">冷吨 RT</td><td>3.517 kW（制冷量）</td><td>空调选型</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn"><b>温度的两个坑：</b><br>
+  ① 温差可以直接换（ΔT 1 ℃ = ΔT 1 K = ΔT 1.8 ℉），但绝对温度不行（0 ℃ = 273.15 K = 32 ℉）。<br>
+  ② 计算热量 Q=mcΔT 时用<b>温差</b>，不是绝对温度。</div>
+</section>
+
+<!-- ========== 6 ========== -->
+<section id="units-speed">
+  <h2><span class="num">6</span>转速与频率</h2>
+  <p class="lead">电机、变频器、泵的转速单位经常在 r/min、rad/s、Hz 之间跳，三个不是一回事。</p>
+
+  <div class="fml">n = 60·f / p              <span class="c">// r/min，p = 极对数</span>
+ω = 2π·n / 60             <span class="c">// rad/s</span>
+n = 9.5493 × ω            <span class="c">// rad/s → r/min</span>
+
+50 Hz：2极 3000、4极 1500、6极 1000 r/min（同步转速）
+50 Hz / 4极电机，额定约 1450 r/min（转差约 3%）</div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>单位</th><th>含义</th><th>换算</th><th>用在哪</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">r/min（rpm）</td><td>每分钟转数</td><td class="num">1 r/min = 0.10472 rad/s</td><td>铭牌、样本、转速表</td></tr>
+        <tr><td class="mono">rad/s</td><td>每秒弧度</td><td class="num">1 rad/s = 9.5493 r/min</td><td>所有力学公式</td></tr>
+        <tr><td class="mono">Hz</td><td>每秒周期数</td><td>电源频率，不是转速</td><td>变频器给定</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>9550 是怎么来的：</b>把 <span class="mono">P = T·ω</span> 里的 ω 换成 r/min、P 换成 kW，就跳出这个系数：<br>
+  <span class="mono">T = 1000·P / (2π·n/60) = 60 000·P / (2π·n) = 9549.3·P/n</span>，工程取 9550。<br>
+  换成 r/s 和 W 就没有系数了：<span class="mono">T = P/(2π·n)</span>。</div>
+</section>
+
+<!-- ========== 7 ========== -->
+<section id="units-conv">
+  <h2><span class="num">7</span>实时换算器</h2>
+  <p class="lead">选单位、输数值，其余单位自动算。共 11 组，覆盖日常和工程。</p>
+  <div class="convgrid" id="units-convgrid"></div>
+</section>
+
+<!-- ========== 8 ========== -->
+<section id="units-calc">
+  <h2><span class="num">8</span>关系计算器</h2>
+  <p class="lead">不是单位换算，是物理关系反解：知道两个，求第三个。三个都带单位提示。</p>
+
+  <div class="calc">
+    <h4>① 转矩 · 功率 · 转速</h4>
+    <div class="sub">P ≈ T·n / 9550　　（P: kW　T: N·m　n: r/min）</div>
+    <div class="calc-row">
+      <div><label for="units-ptnP">功率 P（kW）</label><input id="units-ptnP" inputmode="decimal" type="number" step="any" value="8.89"></div>
+      <div><label for="units-ptnT">转矩 T（N·m）</label><input id="units-ptnT" inputmode="decimal" type="number" step="any" value="58.5"></div>
+      <div><label for="units-ptnN">转速 n（r/min）</label><input id="units-ptnN" inputmode="decimal" type="number" step="any" value="1450"></div>
+    </div>
+    <button class="btn primary" type="button" data-calc="calcPTn" data-value="P">求功率 P</button>
+    <button class="btn" type="button" data-calc="calcPTn" data-value="T">求转矩 T</button>
+    <button class="btn" type="button" data-calc="calcPTn" data-value="n">求转速 n</button>
+    <div class="calc-res" id="units-ptnRes" role="status">填两个已知量，点按钮求第三个。</div>
+  </div>
+
+  <div class="calc">
+    <h4>② 压差 · 压差水头</h4>
+    <div class="sub">Δp（MPa）= ρ·g·Hₚ / 10⁶。忽略高程差和速度水头差时，Hₚ 等于泵总扬程。</div>
+    <div class="calc-row">
+      <div><label for="units-phP">压差 Δp（MPa）</label><input id="units-phP" inputmode="decimal" type="number" step="any" value="0.49"></div>
+      <div><label for="units-phH">压差水头 Hₚ（m）</label><input id="units-phH" inputmode="decimal" type="number" step="any" value="50"></div>
+      <div><label for="units-phRho">密度 ρ（kg/m³）</label><input id="units-phRho" inputmode="decimal" type="number" step="any" value="1000"></div>
+      <div><label for="units-phG">重力加速度 g（m/s²）</label><input id="units-phG" inputmode="decimal" type="number" step="any" value="9.81"></div>
+    </div>
+    <button class="btn primary" type="button" data-calc="calcPH" data-value="H">由压差求水头</button>
+    <button class="btn" type="button" data-calc="calcPH" data-value="p">由水头求压差</button>
+    <div class="calc-res" id="units-phRes" role="status">换介质时改密度即可（柴油 840、海水 1025）。</div>
+  </div>
+
+  <div class="calc">
+    <h4>③ 三相电机电流估算</h4>
+    <div class="sub">I = 1000·P / (√3·U·η·cosφ)，P 为轴输出功率（kW），适用于平衡、正弦三相交流。</div>
+    <div class="calc-row">
+      <div><label for="units-ciP">轴功率 P（kW）</label><input id="units-ciP" inputmode="decimal" type="number" step="any" value="11"></div>
+      <div><label for="units-ciU">线电压 U（V）</label><input id="units-ciU" inputmode="decimal" type="number" step="any" value="380"></div>
+      <div><label for="units-ciPf">功率因数 cosφ</label><input id="units-ciPf" inputmode="decimal" type="number" step="0.01" value="0.85"></div>
+      <div><label for="units-ciEf">效率 η</label><input id="units-ciEf" inputmode="decimal" type="number" step="0.01" value="0.90"></div>
+    </div>
+    <button class="btn primary" type="button" data-calc="calcI" data-value="">计算电流</button>
+    <div class="calc-res" id="units-ciRes" role="status">11 kW 电机在 380 V 下大约 22 A。</div>
+  </div>
+</section>
+
+<!-- ========== 9 ========== -->
+<section id="units-glossary">
+  <h2><span class="num">9</span>单位速查表</h2>
+  <p class="lead">按名称、符号或用途搜索。</p>
+  <div class="searchbox">
+    <input id="units-q" type="search" aria-label="搜索单位速查表" placeholder="输入：转矩 / N·m / 压力 / 流量 …">
+    <span class="cnt" id="units-cnt" role="status"></span>
+  </div>
+  <div class="tw">
+    <table id="units-gtable">
+      <thead><tr><th>量</th><th>单位</th><th>符号</th><th>换算 / 备注</th></tr></thead>
+      <tbody>
+        <tr><td>力</td><td>牛顿</td><td class="mono">N</td><td>1 kgf = 9.80665 N</td></tr>
+        <tr><td>力</td><td>千克力</td><td class="mono">kgf</td><td>老图纸常用，乘 9.81 得 N</td></tr>
+        <tr><td>力矩</td><td>牛米</td><td class="mono">N·m</td><td>1 kgf·m = 9.80665 N·m</td></tr>
+        <tr><td>力矩</td><td>千克力米</td><td class="mono">kgf·m</td><td>除 9.81 得 N·m</td></tr>
+        <tr><td>力矩</td><td>磅力英尺</td><td class="mono">lbf·ft</td><td>1 lbf·ft = 1.3558 N·m</td></tr>
+        <tr><td>功 / 能</td><td>焦耳</td><td class="mono">J</td><td>1 J = 1 N·m = 1 W·s</td></tr>
+        <tr><td>功 / 能</td><td>千瓦时</td><td class="mono">kW·h</td><td>1 kW·h = 3.6 MJ ≈ 860 kcal</td></tr>
+        <tr><td>功 / 能</td><td>千卡</td><td class="mono">kcal</td><td>1 kcal = 4.1868 kJ</td></tr>
+        <tr><td>功率</td><td>瓦</td><td class="mono">W</td><td>1 W = 1 J/s</td></tr>
+        <tr><td>功率</td><td>马力（公制）</td><td class="mono">PS</td><td>1 PS ≈ 735.5 W</td></tr>
+        <tr><td>功率</td><td>马力（英制）</td><td class="mono">hp</td><td>1 hp ≈ 745.7 W</td></tr>
+        <tr><td>压力</td><td>帕</td><td class="mono">Pa</td><td>1 Pa = 1 N/m²</td></tr>
+        <tr><td>压力</td><td>巴</td><td class="mono">bar</td><td>1 bar = 100 kPa = 0.1 MPa</td></tr>
+        <tr><td>压力</td><td>兆帕</td><td class="mono">MPa</td><td>1 MPa = 10 bar ≈ 102 m 水柱</td></tr>
+        <tr><td>压力</td><td>米水柱</td><td class="mono">mH₂O</td><td>1 mH₂O = 9806.65 Pa</td></tr>
+        <tr><td>压力</td><td>毫米水柱</td><td class="mono">mmH₂O</td><td>1 mmH₂O = 9.807 Pa，风压常用</td></tr>
+        <tr><td>压力</td><td>千克力每平方厘米</td><td class="mono">kgf/cm²</td><td>1 kgf/cm² = 98.07 kPa</td></tr>
+        <tr><td>压力</td><td>磅每平方英寸</td><td class="mono">psi</td><td>1 psi = 6.895 kPa</td></tr>
+        <tr><td>压力</td><td>标准大气压</td><td class="mono">atm</td><td>1 atm = 101.325 kPa</td></tr>
+        <tr><td>流量</td><td>立方米每小时</td><td class="mono">m³/h</td><td>1 m³/h = 0.2778 L/s</td></tr>
+        <tr><td>流量</td><td>升每秒</td><td class="mono">L/s</td><td>1 L/s = 3.6 m³/h</td></tr>
+        <tr><td>流量</td><td>立方米每秒</td><td class="mono">m³/s</td><td>公式里的标准单位</td></tr>
+        <tr><td>流量</td><td>加仑每分钟</td><td class="mono">GPM</td><td>1 GPM(US) = 0.2271 m³/h</td></tr>
+        <tr><td>扬程</td><td>米</td><td class="mono">m</td><td>单位重量流体的能量变化</td></tr>
+        <tr><td>转速</td><td>转每分钟</td><td class="mono">r/min</td><td>铭牌、样本用</td></tr>
+        <tr><td>转速</td><td>弧度每秒</td><td class="mono">rad/s</td><td>力学公式用，1 rad/s = 9.549 r/min</td></tr>
+        <tr><td>频率</td><td>赫兹</td><td class="mono">Hz</td><td>电源频率，与转速差一个极对数</td></tr>
+        <tr><td>电压</td><td>伏</td><td class="mono">V</td><td>线电压 / 相电压差 √3</td></tr>
+        <tr><td>电流</td><td>安</td><td class="mono">A</td><td>线电流 / 相电流，星角接法有别</td></tr>
+        <tr><td>有功功率</td><td>瓦</td><td class="mono">W</td><td>P = √3UIcosφ</td></tr>
+        <tr><td>无功功率</td><td>乏</td><td class="mono">var</td><td>Q = √3UIsinφ</td></tr>
+        <tr><td>视在功率</td><td>伏安</td><td class="mono">VA</td><td>S = √3UI，设备容量口径</td></tr>
+        <tr><td>功率因数</td><td>—</td><td class="mono">cosφ</td><td>P/S，0~1，无量纲</td></tr>
+        <tr><td>电量</td><td>安时</td><td class="mono">Ah</td><td>Wh = Ah × V，不是能量单位</td></tr>
+        <tr><td>电阻</td><td>欧</td><td class="mono">Ω</td><td>1 Ω = 1 V/A</td></tr>
+        <tr><td>温度</td><td>摄氏度</td><td class="mono">℃</td><td>0 ℃ = 273.15 K = 32 ℉</td></tr>
+        <tr><td>温差</td><td>开尔文</td><td class="mono">K</td><td>ΔT 1 K = ΔT 1 ℃</td></tr>
+        <tr><td>比热</td><td>—</td><td class="mono">kJ/(kg·K)</td><td>水 4.18，空气 1.005</td></tr>
+        <tr><td>长度</td><td>毫米 / 米</td><td class="mono">mm / m</td><td>图纸 mm，公式 m，差 1000 倍</td></tr>
+        <tr><td>面积</td><td>平方米</td><td class="mono">m²</td><td>1 m² = 10 000 cm²</td></tr>
+        <tr><td>体积</td><td>立方米 / 升</td><td class="mono">m³ / L</td><td>1 m³ = 1000 L</td></tr>
+        <tr><td>质量</td><td>千克 / 吨</td><td class="mono">kg / t</td><td>1 t = 1000 kg</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== 10 ========== -->
+<section id="units-traps">
+  <h2><span class="num">10</span>十二个陷阱</h2>
+  <p class="lead">按现场出现频率排序。前五个几乎人人踩过。</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:26px">#</th><th>陷阱</th><th>正确做法</th><th>错了会怎样</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><b>流量单位</b>：公式要 m³/s，样本给 m³/h</td><td>÷3600</td><td>功率大 3600 倍</td></tr>
+        <tr><td>2</td><td><b>直径单位</b>：图纸 mm，公式 m</td><td>÷1000；平方项放大 10⁶</td><td>扬程差一百万倍</td></tr>
+        <tr><td>3</td><td><b>转速单位</b>：r/min 代进 rad/s 公式</td><td>÷60，或直接用 9550</td><td>转矩差 60 倍</td></tr>
+        <tr><td>4</td><td><b>bar 与 MPa</b></td><td>1 MPa = 10 bar</td><td>差 10 倍</td></tr>
+        <tr><td>5</td><td><b>电机功率是输出不是输入</b></td><td>电网侧 ÷η</td><td>电流算小 10%</td></tr>
+        <tr><td>6</td><td><b>N·m 当能量用</b></td><td>乘弧度才是功</td><td>凭空多出 6.28 倍</td></tr>
+        <tr><td>7</td><td><b>VA 当 W</b></td><td>乘 cosφ</td><td>选型偏小，变压器过载</td></tr>
+        <tr><td>8</td><td><b>Ah 当能量</b></td><td>乘电压得 Wh</td><td>电池容量差几倍</td></tr>
+        <tr><td>9</td><td><b>表压与绝压</b></td><td>绝压 = 表压 + 101.3 kPa</td><td>真空、汽蚀算错</td></tr>
+        <tr><td>10</td><td><b>温度当温差</b></td><td>ΔT 才可加减 273</td><td>热量算错一个常数项</td></tr>
+        <tr><td>11</td><td><b>kgf 当 N</b></td><td>×9.81</td><td>差约 10 倍</td></tr>
+        <tr><td>12</td><td><b>kW 与 kW·h</b></td><td>功率 × 时间 = 电量</td><td>把设备容量当耗电量</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== 11 ========== -->
+<section id="units-dim">
+  <h2><span class="num">11</span>量纲自检：一分钟验公式</h2>
+  <p class="lead">拿到任何公式，先把单位代进去。这是最便宜的查错手段。</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>公式</th><th>量纲推演</th><th>结果</th><th>判断</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">H = u²/g</td><td class="mono">(m/s)² ÷ (m/s²)</td><td class="mono">m</td><td>✅</td></tr>
+        <tr><td class="mono">p = ρgH</td><td class="mono">(kg/m³)(m/s²)(m)</td><td class="mono">Pa</td><td>✅</td></tr>
+        <tr><td class="mono">P = ρgQH</td><td class="mono">(kg/m³)(m/s²)(m³/s)(m)</td><td class="mono">W</td><td>✅</td></tr>
+        <tr><td class="mono">P = T·ω</td><td class="mono">(N·m)(rad/s)</td><td class="mono">W</td><td>✅</td></tr>
+        <tr><td class="mono">P = √3UIcosφ</td><td class="mono">V·A = W</td><td class="mono">W</td><td>✅</td></tr>
+        <tr><td class="mono">I = P/(√3Ucosφ)</td><td class="mono">W ÷ V</td><td class="mono">A</td><td>✅</td></tr>
+        <tr><td class="mono">Q = mcΔT</td><td class="mono">kg·(J/kg·K)·K</td><td class="mono">J</td><td>✅</td></tr>
+        <tr><td class="mono">n = 60f/p</td><td class="mono">Hz ÷ 无量纲 × 60</td><td class="mono">1/min</td><td>✅</td></tr>
+        <tr><td class="mono">P = ρgH</td><td class="mono">漏了 Q</td><td class="mono">Pa</td><td>❌ 是压力不是功率</td></tr>
+        <tr><td class="mono">T = 9550P/n</td><td class="mono">系数已含单位</td><td class="mono">N·m</td><td>⚠ 只对 kW、r/min 成立</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>口诀：</b>单位对了，公式不一定对；<b>单位不对，公式一定错</b>。先查单位，再查系数，最后才看每个量的物理意义。</div>
+</section>
+
+<!-- ========== 12 ========== -->
+<section id="units-select">
+  <h2><span class="num">12</span>从负载到电机：单位怎么串起来</h2>
+  <p class="lead">这就是电机拖动原理的顺序——<b>先算负载，再选电机，最后反推电流选保护</b>。每一步都有明确的单位。</p>
+
+  <ol class="steps">
+    <li><b>定负载特性</b>　先画出负载的 T–n 曲线。是恒转矩、平方转矩还是恒功率？这一步决定了后面所有选型逻辑。</li>
+    <li><b>算负载功率</b>　<span class="mono">P_L = T_L · ω_L</span>（W = N·m × rad/s）。注意 ω 要用 rad/s，不是 r/min。</li>
+    <li><b>折算到电机轴</b>　有减速机时：<span class="mono">T_m = T_L / (i·η)</span>，<span class="mono">n_m = i·n_L</span>。i 是减速比，η 是传动效率。</li>
+    <li><b>预选电机功率</b>　<span class="mono">P_N ≥ P_L / η_传动 × 裕量</span>。裕量按负载、工作制与制造商建议确定。</li>
+    <li><b>校核三件事</b>　校核启动和加速过程中的净加速转矩、峰值负载与电机允许转矩，以及工作制下的热负荷。<b>功率够不代表带得动</b>，堵转和启动看的是转矩。</li>
+    <li><b>反推电流，选保护</b>　<span class="mono">I = P_N/(√3·U·η·cosφ)</span>（A）→ 此结果用于初估。保护与导线选型还应核对铭牌、启动条件、短路保护配合和敷设条件。</li>
+  </ol>
+
+  <h3>四类负载，四种选型逻辑</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>负载类型</th><th>T–n 关系</th><th>P–n 关系</th><th>典型设备</th><th>选型要点</th></tr></thead>
+      <tbody>
+        <tr><td><b>恒转矩</b></td><td class="mono">T = 常数</td><td class="mono">P ∝ n</td><td>输送带、挤出机、容积泵、压缩机</td><td>低频也要满转矩，校核低速转矩与冷却</td></tr>
+        <tr><td><b>平方转矩</b></td><td class="mono">T ∝ n²</td><td class="mono">P ∝ n³</td><td>风机、离心泵、螺旋桨</td><td>变频节能最明显，80% 转速只要 51% 功率</td></tr>
+        <tr><td><b>恒功率</b></td><td class="mono">T ∝ 1/n</td><td class="mono">P = 常数</td><td>卷绕机、机床主轴</td><td>高速进入弱磁区，注意最高转速与 T_max 衰减</td></tr>
+        <tr><td><b>位能负载</b></td><td class="mono">T = 常数（单向）</td><td class="mono">P ∝ n</td><td>起重机、提升机、电梯</td><td>按工况校核机械制动及再生能量处理</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn"><b>一句话：</b>负载决定转矩，转矩和转速决定功率，功率和效率决定电流，电流是电气元件选型的一项输入。<b>单位在这条链上每一步都要合上，断一环，后面全错。</b></div>
+</section>
+
+</div>
+
+
+<aside class="note" aria-label="技术勘误">
+<h3>技术勘误与换算口径</h3>
+<ul>
+<li>第 1、11 章明确力学三个基本量的适用范围，并说明量纲一致是公式成立的必要条件。<br><a href="https://www.bipm.org/en/measurement-units/si-base-units">BIPM · SI 基本单位</a></li>
+<li>第 4、8、9 章明确压差水头和泵总扬程的关系，压差计算器要求正密度和正重力加速度。<br><a href="https://api.grundfos.com/literature/Grundfosliterature-3069014.pdf">Grundfos · 泵总扬程</a></li>
+<li>第 7、9 章区分公制马力 PS 与英制机械马力 hp。热量换算沿用国际蒸汽表口径。<br><a href="https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9">NIST · 单位换算系数</a></li>
+<li>第 3、8 章补充三相公式的前提、轴功率单位及输入范围。第 12 章补充启动、热负荷和保护选型的校核条件。</li>
+</ul>
+<p>水柱换算使用约定密度 1000 kg/m³ 和标准重力 9.80665 m/s²。压差计算器默认采用工程近似值 9.81 m/s²。</p>
+</aside>
+</engineering-unit-reference>
+
+<style is:global>
+@scope (engineering-unit-reference) {
+:scope{
+  --bg:#f1f4f6; --ink:#263c4a; --muted:#617581; --line:#dce5e8;
+  --brand:#163f38; --brand2:#1d5b4c;
+  --blue:#1f5fb0; --amber:#a9741f; --teal:#0f6f66; --red:#b42318; --purple:#6b46c1;
+}
+*{box-sizing:border-box}
+
+:scope{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 'Microsoft YaHei',system-ui,-apple-system,sans-serif}
+
+
+/* ---------- 导航 ---------- */
+nav.toc{background:rgba(241,244,246,.94);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.toc ul{list-style:none;display:flex;gap:4px;margin:0 auto;padding:9px 16px;
+  max-width:1180px;flex-wrap:wrap}
+nav.toc a{display:block;white-space:nowrap;padding:5px 11px;border-radius:7px;
+  color:#3d5866;text-decoration:none;font-size:14px}
+nav.toc a:hover{background:#e2ebe7;color:var(--brand)}
+
+/* ---------- 卡片 ---------- */
+section{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:26px 28px;margin:22px 0;box-shadow:0 1px 2px rgba(22,63,56,.04)}
+h2{font-size:22px;margin:0 0 6px;color:var(--brand);display:flex;align-items:center;gap:10px}
+h2 .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;
+  background:#e6f0ea;color:var(--brand2);font-size:14px;flex:none}
+h3{font-size:17px;margin:26px 0 8px;color:#1c4a41}
+.lead{color:var(--muted);font-size:14.5px;margin:0 0 18px}
+p{margin:10px 0}
+
+.note{background:#edf5f0;border-left:3px solid #26775f;border-radius:6px;
+  padding:14px 16px;margin:16px 0}
+.warn{background:#fff6e8;border-left:3px solid #c08a33;border-radius:6px;
+  padding:14px 16px;margin:16px 0}
+.danger{background:#fdf0ee;border-left:3px solid #c0392b;border-radius:6px;
+  padding:14px 16px;margin:16px 0}
+.note b,.warn b,.danger b{color:#12483c}
+.warn b{color:#8a5a12}
+.danger b{color:#9c2a1f}
+
+/* ---------- 公式 ---------- */
+.fml{background:#f4f8f6;border:1px solid #e0eae5;border-left:3px solid #26775f;
+  border-radius:7px;padding:14px 18px;margin:14px 0;
+  font:14.5px/2 Consolas,'Cascadia Mono','Microsoft YaHei',monospace;overflow-x:auto;white-space:pre-wrap}
+.fml .k{color:#8a5a12}
+.fml .c{color:#617581}
+
+/* ---------- 表格 ---------- */
+.tw{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;border-bottom:1px solid #e4ebee;padding:10px 12px;vertical-align:top}
+th{background:#eef4f1;color:#1c4a41;font-weight:600;white-space:nowrap}
+tbody tr:hover{background:#fafcfb}
+td.mono{font-family:Consolas,'Cascadia Mono',monospace;font-size:13.5px;white-space:nowrap}
+td.num{font-family:Consolas,monospace;font-size:13.5px;white-space:nowrap;color:#1c4a41}
+
+/* ---------- 量纲链 ---------- */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:18px 0}
+.cstep{flex:1 1 150px;border:1px solid #d5e3dd;background:#f7fbf9;border-radius:10px;
+  padding:12px 14px;min-width:140px}
+.cstep .tag{display:inline-block;font-size:11.5px;letter-spacing:.05em;color:#fff;
+  background:#4b7f6f;border-radius:5px;padding:1px 7px;margin-bottom:6px}
+.cstep .u{font:600 15px Consolas,monospace;color:#123f35}
+.cstep .d{font-size:12.5px;color:var(--muted);margin-top:4px}
+.cstep.l1 .tag{background:#3c6b91}
+.cstep.l2 .tag{background:#8a5a12}
+.cstep.l3 .tag{background:#6b46c1}
+.carrow{align-self:center;color:#9fb3ab;font-size:20px;flex:0 0 auto}
+
+/* ---------- 对照双列 ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.pane{border:1px solid #dde8e3;border-radius:10px;overflow:hidden}
+.pane .ph{padding:9px 14px;font-size:14px;font-weight:600;color:#fff;background:#3c6b91}
+.pane.rot .ph{background:#8a5a12}
+.pane .pb{padding:4px 14px 12px}
+.pane table{font-size:14px}
+.pane th{background:transparent;font-size:12.5px;color:var(--muted);padding:8px 6px}
+.pane td{border-bottom:1px dashed #e4ebee;padding:8px 6px}
+
+/* ---------- 换算器 ---------- */
+.convgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:16px;margin:18px 0}
+.conv{border:1px solid #dde8e3;border-radius:12px;padding:16px 16px 12px;background:#fbfdfc}
+.conv h4{margin:0 0 10px;font-size:15px;color:#1c4a41;display:flex;justify-content:space-between;align-items:baseline}
+.conv h4 small{font-weight:400;color:var(--muted);font-size:12px}
+.conv-in{display:flex;gap:8px}
+.conv-in input{flex:1 1 55%;min-width:0}
+.conv-in select{flex:0 0 40%}
+input,select{font:inherit;font-size:14.5px;border:1px solid #bdcdd3;border-radius:7px;
+  padding:8px 10px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus{outline:2px solid #b7d6c9;outline-offset:1px;border-color:#7fae9d}
+.conv-out{margin-top:10px;font-size:13.5px}
+.conv-out div{display:flex;justify-content:space-between;gap:10px;padding:3px 0;
+  border-bottom:1px dotted #e2ebe6}
+.conv-out div:last-child{border:0}
+.conv-out .lab{color:#4d6a63}
+.conv-out .val{font-family:Consolas,monospace;color:#12483c;white-space:nowrap}
+.conv-out .val.hi{color:#a9741f;font-weight:600}
+.conv .tip{font-size:12px;color:#8a9aa0;margin-top:8px;line-height:1.6}
+
+/* ---------- 计算器 ---------- */
+.calc{border:1px solid #d5e3dd;border-radius:12px;padding:18px;background:#f7fbf9;margin:16px 0}
+.calc h4{margin:0 0 4px;font-size:16px;color:#123f35}
+.calc .sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.calc-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px;margin-bottom:12px}
+.calc-row label{display:block;font-size:13px;color:#4d6a63;margin-bottom:4px}
+.btn{border:1px solid #9db9af;background:#fff;color:#176c58;border-radius:7px;
+  padding:8px 14px;cursor:pointer;font-size:14px;margin:0 6px 6px 0}
+.btn:hover{background:#eaf4ee}
+.btn.primary{background:#1d5b4c;color:#fff;border-color:#1d5b4c}
+.btn.primary:hover{background:#246b59}
+.calc-res{margin-top:12px;background:#eef6f1;border-radius:8px;padding:12px 14px;
+  font-size:14.5px;min-height:24px}
+.calc-res b{color:#0f5a4a;font-family:Consolas,monospace}
+
+/* ---------- 徽章 ---------- */
+.badge{display:inline-block;font-size:12px;border-radius:5px;padding:1px 8px;
+  border:1px solid;margin-right:6px;white-space:nowrap}
+.b-e{color:#1f5fb0;border-color:#b9cfe8;background:#f0f6fd}
+.b-m{color:#a9741f;border-color:#e6d3ac;background:#fdf7ec}
+.b-f{color:#0f6f66;border-color:#b2dad4;background:#eff9f7}
+.b-t{color:#b42318;border-color:#ecc4bf;background:#fdf2f0}
+.b-k{color:#6b46c1;border-color:#d3c8ec;background:#f6f3fd}
+
+/* ---------- 搜索 ---------- */
+.searchbox{display:flex;gap:10px;align-items:center;margin:16px 0}
+.searchbox input{max-width:420px}
+.searchbox .cnt{font-size:13px;color:var(--muted);white-space:nowrap}
+
+/* ---------- 步骤 ---------- */
+.steps{counter-reset:s;list-style:none;padding:0;margin:16px 0}
+.steps li{position:relative;padding:12px 0 12px 46px;border-bottom:1px dashed #e0eae5}
+.steps li:last-child{border:0}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:12px;
+  width:30px;height:30px;border-radius:50%;background:#1d5b4c;color:#fff;
+  display:grid;place-items:center;font-size:14px;font-weight:600}
+.steps b{color:#123f35}
+
+
+
+@media(max-width:760px){
+  .duo{grid-template-columns:1fr}
+  section{padding:20px 17px}
+
+  .convgrid{grid-template-columns:1fr}
+}
+@media print{
+  nav.toc,.btn{display:none}
+  :scope{background:#fff}
+  section{break-inside:avoid;box-shadow:none}
+}
+:scope{display:block;padding:clamp(8px,2vw,18px);border-radius:12px;overflow-wrap:anywhere}
+section{scroll-margin-top:7rem;min-width:0}
+.conv,.calc-row > div,.pane,.conv-in select{min-width:0}
+.conv h4,.searchbox{flex-wrap:wrap}
+.conv-out .val{white-space:normal;text-align:right}
+.pane .pb{overflow-x:auto}
+.tw table{min-width:30rem}
+
+}
+</style>
+
+<script src="./engineering-unit-reference.js"></script>
